@@ -21,4 +21,5 @@
 
 ## 可用版本
 处理不了数据缺失的情况，这也是safa项目后面要突破的地方。
+
 ![markdown](https://images.cnblogs.com/cnblogs_com/watalo/1685133/o_2003301711373ecd4737c26249da5da94f2a690d8c75.jpg)
