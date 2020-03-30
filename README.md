@@ -20,6 +20,6 @@
 	- [x] 架服务器接受邮件（原始版本已实现）
 
 ## 可用版本
-处理不了数据缺失的情况，这也是safa项目后面要突破的地方。
+处理不了数据缺失的情况，这也是safa项目后面要突破的地方。着急使用可以关注下面的公众号
 
-![markdown](https://images.cnblogs.com/cnblogs_com/watalo/1685133/o_2003301711373ecd4737c26249da5da94f2a690d8c75.jpg)
+<img width="150" height="150" src="https://images.cnblogs.com/cnblogs_com/watalo/1685133/o_2003301711373ecd4737c26249da5da94f2a690d8c75.jpg"/>
