@@ -6,11 +6,14 @@
 # @File    : _config.py
 # @Software: PyCharm
 
+import os
 
 class Path:
     '路径类的配置文件'
-    root = 'D:\PYTHON\projects\safa'
-    current = ''
+    root = os.path.dirname(os.getcwd())
+    db = root+ r'\db'
+    input = root+ r'\input'
+    output = root+ r'\output'
 
 
 
