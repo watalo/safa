@@ -12,6 +12,9 @@ from tinydb import TinyDB ,Query
 import text
 import _config
 
+
+# TODO: 更新analysis系列函数的内容
+
 '''
 1 判断数据结构的年份构成
     normal
@@ -35,8 +38,7 @@ class dict_:
         self.db_file_path = '\\'.join([self.db_path, os.listdir(self.db_path)[0]])
         # print(db_file_path)
         self.db = TinyDB(self.db_file_path)
-        self.db_path = _config.Path.db.listdir()[0]
-        self.table = TinyDB(self.db_path).table('without_nodata')
+        self.table = self.db.table('without_nodata')
         self.Q = Query()
         self.s2d1 = {'总资产3': ['资产总计','year3'], '总资产2': ['资产总计','year2'],
                      '总资产1': ['资产总计','year1'], '总资产m': ['资产总计','month'],
@@ -65,7 +67,8 @@ class dict_:
                      '营业成本1': ['营业成本','year1'],
                      '毛利率3': ['毛利率','year3'], '毛利率2':['毛利率','year2'], '毛利率1':['毛利率','year1'],
                      '期间费用3': ['期间费用','year3'], '期间费用2': ['期间费用','year2'], '期间费用1': ['期间费用','year1'],
-                     '费用收入比3': ['费用收入比','year3'], '费用收入比2': ['费用收入比','year2'], '费用收入比1': ['费用收入比','year1'],
+                     '费用收入比3': ['费用收入比','year3'], '费用收入比2': ['费用收入比','year2'],
+                     '费用收入比1': ['费用收入比','year1'],
                      '净利润3': ['净利润','year3'], '净利润2': ['净利润','year2'], '净利润1': ['净利润','year1'],
                      '净利润率3': ['净利润率','year3'], '净利润率2': ['净利润率','year2'], '净利润率1': ['净利润率','year1'],
                      '营业收入m':['营业收入','month'], '营业成本m':['营业成本','month'], '毛利率m':['毛利率','month'],
@@ -98,7 +101,7 @@ class dict_:
                       }
 
     @property
-    def _type(self):
+    def data_type(self):
         '''
         判断数据类型
         :return: 数据结构的类型[normal,no_3year,no_2year,no_1year,all_years]
@@ -107,35 +110,25 @@ class dict_:
         table = self.db.table('without_nodata')
         dict_years = table.search(Q.items == '项目')
         type_list = list(dict_years[0].keys())
-        if ('year3' in type_list and
-                'year2' in type_list and
-                'year1' in type_list and
-                'month' in type_list):
+        if ('year3' in type_list and 'year2' in type_list and
+                'year1' in type_list and  'month' in type_list):
             return 'normal'
-        elif ('year3' not in type_list and
-                'year2' in type_list and
-                'year1' in type_list and
-                'month' in type_list):
+        elif ('year3' not in type_list and 'year2' in type_list and
+                'year1' in type_list and 'month' in type_list):
             return 'no_3year'
-        elif ('year3' not in type_list and
-                'year2' not in type_list and
-                'year1' in type_list and
-                'month' in type_list):
+        elif ('year3' not in type_list and 'year2' not in type_list and
+                'year1' in type_list and 'month' in type_list):
             return 'no_2year'
-        elif ('year3' not in type_list and
-                'year2' not in type_list and
-                'year1' not in type_list and
-                'month' in type_list):
+        elif ('year3' not in type_list and 'year2' not in type_list and
+                'year1' not in type_list and 'month' in type_list):
             return 'no_1year'
-        elif ('year3' in type_list and
-                'year2' in type_list and
-                'year1' in type_list and
-                'month' not in type_list):
+        elif ('year3' in type_list and 'year2' in type_list and
+                'year1' in type_list and 'month' not in type_list):
             return 'all_years'
         else:
             return '无法识别'
 
-    def data(self,para_dict,text_key,item,key):
+    def data(self,para_dict,text_key,item,key): # 在set函数中用来读取数据
         try:
             para_dict[text_key] = self.table.get(self.Q.items == item)[key]
         except Exception as error:
@@ -143,43 +136,169 @@ class dict_:
 
     def set(self):
         '''
-        给变量赋值
+        给变量赋值,不考虑智能分析文件的问题。
         :return: 变量赋值后的字典
         '''
-        pass
+        #第一段
+        for key in self.s2d1:
+            if key == '分析s2d1':
+                pass
+            else:
+                self.data(self.s2d1, key,self.s2d1[key][0], self.s2d1[key][1])
+        #第二段
+        for key in self.s2d2:
+            if key == '分析s2d2':
+                pass
+            else:
+                self.data(self.s2d2, key,self.s2d2[key][0], self.s2d2[key][1])
+        #第三段
+        for key in self.s2d3:
+            if key == '分析s2d3':
+                pass
+            else:
+                self.data(self.s2d3, key,self.s2d3[key][0], self.s2d3[key][1])
+        #第四段
+        for key in self.s2d4:
+            if key == '分析s2d4':
+                pass
+            elif key == '分析s2d4_经营':
+                pass
+            elif key == '分析s2d4_投资':
+                pass
+            elif key == '分析s2d4_筹资':
+                pass
+            else:
+                self.data(self.s2d4, key,self.s2d4[key][0], self.s2d4[key][1])
+        #第五段
+        for key in self.s2d5:
+            if key == '分析s2d5':
+                pass
+            else:
+                self.data(self.s2d5, key,self.s2d5[key][0], self.s2d5[key][1])
+        #第六段
+        for key in self.s2d6:
+            self.data(self.s2d6, key,self.s2d6[key][0], self.s2d6[key][1])
+
+    def db_data(self,item , key): #从数据库读取值 在analysis系列函数中使用
+        return self.table.get(self.Q.items == item)[key]
+
+    def analysis_s2d1(self):
+        commit = ''
+        if self.data_type == 'normal':
+            if (self.db_data('资产负债率','year3')<self.db_data('资产负债率','year2')<self.db_data('资产负债率', 'year1')
+                    <self.db_data('资产负债率','month') ):
+                commit = '逐年增加，有加大资本杠杆的趋势。'
+            elif (self.db_data('资产负债率','year3')>self.db_data('资产负债率','year2')>self.db_data('资产负债率', 'year1')
+                    >self.db_data('资产负债率','month') ):
+                commit = '持续下降，资产负债结构有所改善。'
+            elif (self.db_data('资产负债率','year3')==self.db_data('资产负债率','year2')==self.db_data('资产负债率', 'year1')
+                    ==self.db_data('资产负债率','month')==0 ):
+                commit = '一直为0，近三年及最近一期均无负债。'
+            else:
+                num = self.db_data('资产负债率','averg')
+                commit = '在{:.2f}}上下波动，资产负债结构相对稳定。'.format(num)
+        elif self.data_type == 'no_3year':
+            if (self.db_data('资产负债率','year2')<self.db_data('资产负债率', 'year1')<self.db_data('资产负债率','month')):
+                commit = '逐年增加，有加大资本杠杆的趋势。'
+            elif (self.db_data('资产负债率','year2')>self.db_data('资产负债率', 'year1')>self.db_data('资产负债率','month')):
+                commit = '持续下降，资产负债结构有所改善。'
+            elif (self.db_data('资产负债率','year2')==self.db_data('资产负债率', 'year1')==self.db_data('资产负债率','month')==0 ):
+                commit = '一直为0%，申请人近两年及最近一期均无负债。'
+            else:
+                num = self.db_data('资产负债率','averg')
+                commit = '在{:.2f}}上下波动，资产负债结构相对稳定。'.format(num)
+        elif self.data_type == 'no_2year':
+            if (self.db_data('资产负债率', 'year1') < self.db_data('资产负债率', 'month')):
+                commit = '有所增加，有加大资本杠杆的趋势。'
+            elif (self.db_data('资产负债率', 'year1') > self.db_data('资产负债率', 'month')):
+                commit = '有所下降，资产负债结构有所改善。'
+            elif (self.db_data('资产负债率', 'year1') == self.db_data('资产负债率','month') == 0):
+                commit = '一直为0，处于无负债状态。'
+            else:
+                pass
+        elif self.data_type == 'no_1year':
+            if self.db_data('资产负债率','month') >= 0.5:
+                commit = '超过了50%。'
+            else:
+                commit = '低于50%，资产负债率相对较低。'
+        elif self.data_type == 'all_years':
+            if (self.db_data('资产负债率','year3')<self.db_data('资产负债率','year2')<self.db_data('资产负债率', 'year1')):
+                commit = '逐年增加，有加大资本杠杆的趋势。'
+            elif (self.db_data('资产负债率','year3')>self.db_data('资产负债率','year2')>self.db_data('资产负债率', 'year1')):
+                commit = '持续下降，资产负债结构有所改善。'
+            elif (self.db_data('资产负债率','year3')==self.db_data('资产负债率','year2')==self.db_data('资产负债率','year1')==0 ):
+                commit = '申请人近三年均无负债。'
+            else:
+                num = self.db_data('资产负债率','averg')
+                commit = '在{:.2f}}上下波动，资产负债结构相对稳定。'.format(num)
+        else:
+            pass
+        self.s2d1['分析s2d1'] = commit
+
+    def analysis_s2d2(self):
+        commit = ''
+        if self.data_type == 'normal':
+            pass
 
 
+        elif self.data_type == 'no_3year':
+            pass
+        elif self.data_type == 'no_2year':
+            pass
+        elif self.data_type == 'no_1year':
+            pass
+        elif self.data_type == 'all_years':
+            pass
 
+    def analysis_s2d3(self):
+        commit = ''
+        if self.data_type == 'normal':
+            pass
+        elif self.data_type == 'no_3year':
+            pass
+        elif self.data_type == 'no_2year':
+            pass
+        elif self.data_type == 'no_1year':
+            pass
+        elif self.data_type == 'all_years':
+            pass
 
+    def analysis_s2d4(self):
+        commit = ''
+        if self.data_type == 'normal':
+            pass
+        elif self.data_type == 'no_3year':
+            pass
+        elif self.data_type == 'no_2year':
+            pass
+        elif self.data_type == 'no_1year':
+            pass
+        elif self.data_type == 'all_years':
+            pass
 
-
+    def analysis_s2d5(self):
+        commit = ''
+        if self.data_type == 'normal':
+            pass
+        elif self.data_type == 'no_3year':
+            pass
+        elif self.data_type == 'no_2year':
+            pass
+        elif self.data_type == 'no_1year':
+            pass
+        elif self.data_type == 'all_years':
+            pass
 
 
 if __name__ == '__main__':
-    db_path = _config.Path.db
-    db_file_path = '\\'.join([db_path, os.listdir(db_path)[0]])
-    # print(db_file_path)
-    db = TinyDB(db_file_path)
-    table = db.table('without_nodata')
-    Q = Query()
 
-    s2d1 = {'总资产3': ['资产总计', 'year3'],
-            '总资产2': ['资产总计', 'year2'],
-            '总资产1': ['资产总计', 'year1'],
-            '总资产m': ['资产总计', 'month'],}
-
-    def set_data(para_dict, text_key, item, key):
-        try:
-            para_dict[text_key] = table.get(Q.items == item)[key]
-        except Exception as error:
-            para_dict[text_key] = 0
-
-    for k in s2d1:
-        set_data(s2d1, k, s2d1[k][0], s2d1[k][1])
-
-    print(s2d1)
-
-
+    dict_ = dict_()
+    dict_.set()
+    dict_.analysis_s2d1()
+    print(dict_.s2d1)
+    doc = text.normal().s2d1
+    a = doc.format(**dict_.s2d1)
+    print(a)
 
 
 
