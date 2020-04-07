@@ -13,7 +13,7 @@ import text
 import _config
 
 
-# TODO: 更新analysis系列函数的内容
+# TODO: 更新 （七）变化较大的那部分
 
 '''
 1 判断数据结构的年份构成
@@ -75,20 +75,17 @@ class dict_:
                      '期间费用m':['期间费用','month'], '投资收益m':['投资收益','month'], '净利润率m':['净利润率','month'],
                      }
         self.s2d4 = {'净现金流入3':['现金净流入','year3'], '净现金流入2':['现金净流入','year2'],
-                     '净现金流入1':['现金净流入','year1'], '分析s2d4':str(),
+                     '净现金流入1':['现金净流入','year1'],
                      '经营活动现金净流入3':['经营活动净现金流','year3'], '经营活动现金净流入2':['经营活动净现金流','year2'],
                      '经营活动现金净流入1':['经营活动净现金流','year1'],
-                     '分析s2d4_经营':str(),
                      '投资活动现金净流入3':['投资活动现金净流','year3'], '投资活动现金净流入2':['投资活动现金净流','year2'],
                      '投资活动现金净流入1':['投资活动现金净流','year1'],
-                     '分析s2d4_投资':str(),
                      '筹资活动现金净流入3':['筹资活动现金净流入','year3'], '筹资活动现金净流入2':['筹资活动现金净流入','year2'],
                      '筹资活动现金净流入1':['筹资活动现金净流入','year1'],
-                     '分析s2d4_筹资':str(),
                      }
         self.s2d5 = {'流动资产3':['流动资产合计','year3'], '流动资产2':['流动资产合计','year2'],
                      '流动资产1':['流动资产合计','year1'], '流动资产m':['流动资产合计','month'],
-                     '流动资产占比3':['流动资产占比','year3'], '流动资产2占比':['流动资产占比','year2'],
+                     '流动资产占比3':['流动资产占比','year3'], '流动资产占比2':['流动资产占比','year2'],
                      '流动资产占比1':['流动资产占比','year1'], '流动资产占比m':['流动资产占比','month'],
                      '分析s2d5':str(),
                      }
@@ -230,7 +227,7 @@ class dict_:
                 commit = '申请人近三年均无负债。'
             else:
                 num = self.db_data('资产负债率','averg')
-                commit = '在{:.2f}}上下波动，资产负债结构相对稳定。'.format(num)
+                commit = '在{:.2f}}%上下波动，资产负债结构相对稳定。'.format(num)
         else:
             pass
         self.s2d1['分析s2d1'] = commit
@@ -238,67 +235,224 @@ class dict_:
     def analysis_s2d2(self):
         commit = ''
         if self.data_type == 'normal':
-            pass
-
-
+            # 极端情况：资产负债率始终为0
+            if (self.db_data('资产负债率','year3')==self.db_data('资产负债率','year2')==self.db_data('资产负债率', 'year1')
+                    ==self.db_data('资产负债率','month')==0 ):
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比','month') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。近三年及最新一期'
+                elif self.db_data('短债占比','month') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。近三年及最新一期'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
         elif self.data_type == 'no_3year':
-            pass
+            # 极端情况：资产负债率始终为0
+            if (self.db_data('资产负债率','year2')==self.db_data('资产负债率', 'year1')
+                    ==self.db_data('资产负债率','month')==0 ):
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比','month') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。近两年及最新一期'
+                elif self.db_data('短债占比','month') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。近两年及最新一期'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
         elif self.data_type == 'no_2year':
-            pass
+            # 极端情况：资产负债率始终为0
+            if (self.db_data('资产负债率', 'year1') == self.db_data('资产负债率', 'month') == 0):
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比', 'month') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。上一年及最新一期'
+                elif self.db_data('短债占比', 'month') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。上一年及最新一期'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
         elif self.data_type == 'no_1year':
-            pass
+            # 极端情况：资产负债率始终为0
+            if self.db_data('资产负债率', 'month') == 0:
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比', 'month') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。'
+                elif self.db_data('短债占比', 'month') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
         elif self.data_type == 'all_years':
+            # 极端情况：资产负债率始终为0
+            if (self.db_data('资产负债率','year3')==self.db_data('资产负债率','year2')
+                    ==self.db_data('资产负债率', 'year1')==0 ):
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比','year1') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。近三年'
+                elif self.db_data('短债占比','year1') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。近三年'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
+        else:
             pass
+        self.s2d2['分析s2d2'] = commit
 
+    #TODO: 问题在哪里啊？
     def analysis_s2d3(self):
-        commit = ''
+        commit = '营业收入{com1}，盈利能力{com2}'
+
         if self.data_type == 'normal':
-            pass
+            # com1
+            com1 = ''
+            if self.db_data('营业收入','year3') == self.db_data('营业收入','year2') == self.db_data('营业收入','year1') == 0:
+                commit = '连续三年未实现销售收入。'
+            else:
+                if 0 < self.db_data('营业收入','year3') < self.db_data('营业收入','year2'):
+                    if self.db_data('营业收入','year2') < self.db_data('营业收入','year1'):
+                        tag = (self.db_data('营业收入','year1') - self.db_data('营业收入','year3'))/self.db_data('营业收入','year3')
+                        ave = tag/2
+                        com1 = '持续三年增长，平均增长率为{:,.2%}'.format(ave)
+                    elif self.db_data('营业收入','year2') > self.db_data('营业收入','year1'):
+                        com1 = '出现波动，最近一年营收出现回落'
+                    else:
+                        com1 = '近来年相对稳定，相比前三年营收有所提升'
+                elif self.db_data('营业收入','year3') > self.db_data('营业收入','year2'):
+                    if self.db_data('营业收入','year2') > self.db_data('营业收入','year1'):
+                        tag = (self.db_data('营业收入','year3') - self.db_data('营业收入','year1'))/self.db_data('营业收入','year1')
+                        ave = tag/2
+                        com1 = '持续三年下降，平均降幅为{:,.2%}'.format(ave)
+                    elif self.db_data('营业收入','year2') < self.db_data('营业收入','year1'):
+                        com1 = '出现波动，但最近一年营收有所回升'
+                    else:
+                        com1 = '近来年相对稳定，相比前三年营收有所回落'
+            # com2
+
+            if self.db_data('净利润','month') > 0:
+                if (self.db_data('净利润','year3') < self.db_data('净利润','year2')
+                        < self.db_data('净利润','year1') < self.db_data('净利润','month')):
+                    com2 = '逐年提升'
+                elif (self.db_data('净利润','year3') > self.db_data('净利润','year2')
+                        > self.db_data('净利润','year1') > self.db_data('净利润','month')):
+                    com2 = '逐年下降'
+                else:
+                    com2 = '有所波动'
+            else:
+                com2 = '较弱，出现亏损情况'
+
+            commit.format(com1, com2)
+
         elif self.data_type == 'no_3year':
-            pass
+            # com1
+            if self.db_data('营业收入', 'year2') == self.db_data('营业收入', 'year1') == 0:
+                commit = '连续两年未实现销售收入。'
+            else:
+                if 0 < self.db_data('营业收入', 'year2'):
+                    if self.db_data('营业收入', 'year2') < self.db_data('营业收入', 'year1'):
+                        tag = (self.db_data('营业收入', 'year1') - self.db_data('营业收入', 'year2')) / self.db_data('营业收入','year2')
+                        ave = tag
+                        com1 = '持续两年增长，增长率为{:,.2%}'.format(ave)
+                    elif self.db_data('营业收入', 'year2') > self.db_data('营业收入', 'year1'):
+                        com1 = '出现波动，最近一年营收出现回落'
+                    else:
+                        com1 = '近来年相对稳定'
+            # com2
+            if self.db_data('净利润', 'month') > 0:
+                if (self.db_data('净利润', 'year2') < self.db_data('净利润', 'year1') < self.db_data('净利润', 'month')):
+                    com2 = '逐年提升'
+                elif (self.db_data('净利润', 'year2') > self.db_data('净利润', 'year1') > self.db_data('净利润', 'month')):
+                    com2 = '逐年下降'
+                else:
+                    com2 = '有所波动'
+            else:
+                com2 = '较弱，出现亏损情况'
+
+            commit.format(com1, com2)
+
         elif self.data_type == 'no_2year':
-            pass
+            # com1
+            if self.db_data('营业收入', 'year1') > 0:
+                com1 = '已实现销售收入'
+            else:
+                if self.db_data('营业收入', 'month') > 0:
+                    com1 = '连续实现销售收入'
+                else:
+                    com1 = '不稳定，较难判断'
+            # com2
+            if self.db_data('净利润', 'month') >= 0:
+                if self.db_data('净利润', 'year1') <= self.db_data('净利润', 'month'):
+                    com2 = '逐渐提升'
+                else:
+                    com2 = '有所下降'
+            else:
+                com2 = '较弱，出现亏损情况'
+
+            commit.format(com1, com2)
+
         elif self.data_type == 'no_1year':
             pass
         elif self.data_type == 'all_years':
             pass
 
-    def analysis_s2d4(self):
-        commit = ''
-        if self.data_type == 'normal':
-            pass
-        elif self.data_type == 'no_3year':
-            pass
-        elif self.data_type == 'no_2year':
-            pass
-        elif self.data_type == 'no_1year':
-            pass
-        elif self.data_type == 'all_years':
-            pass
+        self.s2d3['分析s2d3'] = commit
+
+    def sort_asset(self, year, output):
+        Item = self.table.search((self.Q.type == '流动资产') | (self.Q.type == '非流动资产'))
+        list_sorted_dict = sorted(Item, key=lambda Item: Item[year], reverse=True)
+        list_item = []
+        for sorted_dict in list_sorted_dict:
+            list_item.append(sorted_dict[output])
+        return list_item
 
     def analysis_s2d5(self):
-        commit = ''
-        if self.data_type == 'normal':
-            pass
-        elif self.data_type == 'no_3year':
-            pass
-        elif self.data_type == 'no_2year':
-            pass
+        commit = '%s，在总资产构成中的占比分别为%s'
+        text_sorted_asset = ''
+        text_sorted_ratio = ''
+        if (self.data_type == 'normal' or self.data_type == 'no_3year' or self.data_type == 'no_2year' or
+            self.data_type == 'all_years'):
+            text_sorted_asset = '、'.join(self.sort_asset('year1', 'items')[:5])
+            sorted_ratio = []
+            for value in self.sort_asset('year1', 'year1')[:5]:
+                ratio = 100 * value / self.db_data('资产总计', 'year1')
+                sorted_ratio.append('%.2f%%' % ratio)
+            text_sorted_ratio = '、'.join(sorted_ratio)
         elif self.data_type == 'no_1year':
+            text_sorted_asset = '、'.join(self.sort_asset('month', 'items')[:5])
+            sorted_ratio = []
+            for value in self.sort_asset('month', 'month')[:5]:
+                ratio = 100 * value / self.db_data('资产总计', 'month')
+                sorted_ratio.append('%.2f%%' % ratio)
+            text_sorted_ratio = '、'.join(sorted_ratio)
+        else:
             pass
-        elif self.data_type == 'all_years':
-            pass
-
+        self.s2d5['分析s2d5'] = commit%(text_sorted_asset,text_sorted_ratio)
 
 if __name__ == '__main__':
 
     dict_ = dict_()
     dict_.set()
     dict_.analysis_s2d1()
-    print(dict_.s2d1)
-    doc = text.normal().s2d1
-    a = doc.format(**dict_.s2d1)
+    dict_.analysis_s2d2()
+    dict_.analysis_s2d3()
+    dict_.analysis_s2d5()
+
+    # print(dict_.s2d5)
+
+    doc1 = text.no_year3().s2d1
+    doc2 = text.no_year3().s2d2
+    doc3 = text.no_year3().s2d3
+    doc4 = text.no_year3().s2d4
+    doc5 = text.no_year3().s2d5
+
+    a = doc1.format(**dict_.s2d1)
+    b = doc2.format(**dict_.s2d2)
+    c = doc3.format(**dict_.s2d3)
+    d = doc4.format(**dict_.s2d4)
+    e = doc5.format(**dict_.s2d5)
+
     print(a)
+    print(b)
+    print(c)
+    print(d)
+    print(e)
 
 
 
