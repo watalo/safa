@@ -13,8 +13,6 @@ import text
 import _config
 
 
-# TODO: 更新 （七）变化较大的那部分
-
 '''
 1 判断数据结构的年份构成
     normal
@@ -179,6 +177,7 @@ class dict_:
     def db_data(self,item , key): #从数据库读取值 在analysis系列函数中使用
         return self.table.get(self.Q.items == item)[key]
 
+    # analysis系列函数对text中的需要做简单分析的部分进行处理
     def analysis_s2d1(self):
         commit = ''
         if self.data_type == 'normal':
@@ -296,7 +295,7 @@ class dict_:
             pass
         self.s2d2['分析s2d2'] = commit
 
-    #TODO: 问题在哪里啊？
+    #TODO: 问题在哪里啊？ 已解决
     def analysis_s2d3(self):
         commit = '营业收入{com1}，盈利能力{com2}'
 
@@ -338,8 +337,6 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-            commit.format(com1, com2)
-
         elif self.data_type == 'no_3year':
             # com1
             if self.db_data('营业收入', 'year2') == self.db_data('营业收入', 'year1') == 0:
@@ -365,8 +362,6 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-            commit.format(com1, com2)
-
         elif self.data_type == 'no_2year':
             # com1
             if self.db_data('营业收入', 'year1') > 0:
@@ -385,14 +380,12 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-            commit.format(com1, com2)
-
         elif self.data_type == 'no_1year':
             pass
         elif self.data_type == 'all_years':
             pass
 
-        self.s2d3['分析s2d3'] = commit
+        self.s2d3['分析s2d3'] = commit.format(com1=com1,com2=com2)
 
     def sort_asset(self, year, output):
         Item = self.table.search((self.Q.type == '流动资产') | (self.Q.type == '非流动资产'))

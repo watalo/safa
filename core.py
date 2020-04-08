@@ -10,11 +10,14 @@
     Report类
 '''
 
+import os
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
-from far import _config, _formula
-
+from far import _config, _formula, para, text
+from docx import Document
+from docx.oxml.ns import qn
+from docx.shared import Inches
 
 class getDB(object):
 
@@ -265,8 +268,103 @@ class getDB(object):
                 for i in range(len(type_list)):
                     if it in type_list[i]:
                         table.update({'type': type[i]}, Q.items == str(it))
-
         return table
+
+class getDOCX(object):
+    def __init__(self,name):
+        self.name = name
+        self.db_path = _config.Path.db
+        self.db_file_path = '\\'.join([self.db_path, os.listdir(self.db_path)[0]])
+        self.db = TinyDB(self.db_file_path)
+        self.table = self.db.table('without_nodata')
+        self.table_for_print = self.db.table('for_print')
+
+    def init_doc(self):
+        self.document = Document()
+        self.document.styles['Normal'].font.name = u'宋体'
+        self.document.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+
+    def bold(self,text):
+        p = self.document.add_paragragh()
+        p.add_run(text).bold = True
+
+    def financial_sheet(self):
+        Q = Query()
+        item_list = []  # 表头列表
+        for item in self.table_for_print.all():
+            item_list.append(item['items'])
+        data_list = []  # 数据列表
+        for data in self.table_for_print.search(Q.items == '项目'):
+            for i, it in enumerate(data):
+                if type(it) == str:
+                    data_list.append(it)
+        data_list = data_list[:5]
+        xratio = [
+            '资产负债率', '流动比率', '速动比率',
+            '毛利率', '净利润率',
+            '总资产收益率(ROA)', '净资产收益率(ROE)',
+        ]  # 百分数形式的财务指标 eg:‘11.11%’
+        table = self.document.add_table(rows=len(self.table_for_print.all()),
+                                        cols=5,
+                                        style="Medium Grid 1 Accent 1")
+        for irows, item in enumerate(item_list):
+            for icols, data in enumerate(data_list):
+                num = self.table_for_print.get(Q.items == item)[data]
+                if isinstance(num, float):
+                    if item in xratio:
+                        table.cell(irows, icols).text = '{:,2%}'.format(num)
+                    else:
+                        table.cell(irows, icols).text = '{:,0f}'.format(num)
+                else:
+                    table.cell(irows, icols).text = str(num)
+
+    def big_change_items(self):
+        Q = Query()
+        Item = self.table.search((Q.type == '流动资产') | (Q.type == '非流动资产') | (Q.type == '流动负债') | (Q.type == '非流动负债'))
+        list1 = []
+        list2 = []
+        big_change_items = []
+        for dict in Item:
+            if dict['year1'] == 0 and dict['month'] != 0:
+                list1.append(dict)
+            elif dict['year1'] == 0 and dict['month'] == 0:
+                pass
+            else:
+                if (dict['month']-dict['year1'])/dict['year1'] < 0.3 \
+                        and (dict['month']-dict['year1'])/dict['year1'] > -0.3:
+                    pass
+                else:
+                    list2.append(dict)
+        list_sorted_dict = sorted(list2, key=lambda x: x['month']-x['year1'], reverse=True)
+        #组成当期纯变化和超过30%变化的列表
+        for dict in list_sorted_dict:
+            list1.append(dict)
+        # 形成科目名称列表
+        for dict in list1:
+            big_change_items.append(dict['items'])
+        return big_change_items
+
+    def big_change_sheet(self):
+        table_change_item = ['科目名称', '年初值', '较年初变化', '变化率', '变化情况']
+        table_change = self.document.add_table(rows=len(self.big_change_items()) + 1,
+                                               cols=5,
+                                               style='Medium Grid 1 Accent 1')
+        # for i in range(5):
+        #     cell = table_change.cell(0, i)
+        #     cell.text = table_change_item[i]
+        # for i, item in enumerate(self.big_change_items()):
+        #     table_change.cell(i + 1, 0).text = data(item, 'items')  # 科目名称
+        #     table_change.cell(i + 1, 1).text = str(data(item, 'year1'))  # 年初值
+        #     table_change.cell(i + 1, 2).text = str(data(item, 'month') - data(item, 'year1'))  # 变化值
+        #     if data(item, 'year1') != 0:
+        #         ratio = 100 * (data(item, 'month') - data(item, 'year1')) / data(item, 'year1')
+        #         table_change.cell(i + 1, 3).text = ('%.2f%%' % ratio)  # 变化率
+        #     else:
+        #         if data(item, 'month') > 0:
+        #             table_change.cell(i + 1, 3).text = '当期净新增'
+        #         else:
+        #             table_change.cell(i + 1, 3).text = '当期净减少'
+
 
 
 if __name__ == '__main__':

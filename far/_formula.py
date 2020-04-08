@@ -14,8 +14,6 @@
 
 from tinydb import Query
 
-
-
 def formula(db, year, findex):
 
     db.all()

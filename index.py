@@ -7,6 +7,7 @@
 # @Software: PyCharm
 
 import far
+import core
 
 
 
@@ -17,5 +18,3 @@ import far
 
 
 if __name__ == '__main__':
-    doc = far.text.normal()
-    print(doc.s2d1)
