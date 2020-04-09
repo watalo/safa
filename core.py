@@ -457,6 +457,7 @@ class getDOCX(object):
 
 
     def para_add(self, paragragh, item):
+        pass
         # if item == "货币资金":
         #     paragraph.add_run("其中现金【】万元，银行存款【】万元、其他货币资金【】万元。")
         # elif item == "应收票据":
@@ -507,6 +508,7 @@ class getDOCX(object):
         #     paragraph.add_run("其中专项应付款【】万元、【】【】万元、其他【】万元。")
 
     def items_detail(self):
+        pass
         # 形成科目列表
         # list_dict = []
         # for dict in self.table:
