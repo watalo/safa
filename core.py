@@ -279,10 +279,29 @@ class getDOCX(object):
         self.table = self.db.table('without_nodata')
         self.table_for_print = self.db.table('for_print')
 
+        # para类的实例初始化
+        self.data_type = para.dict_().data_type
+        self.para = para.dict_()
+        self.init_para()
+        # text类的实例
+        self.normal = text.normal()
+        self.no_year3 = text.no_year3()
+        self.no_year2 = text.no_year2()
+        self.no_year1 = text.no_year1()
+        self.all_years = text.all_years()
+        self.header = text.header()
+
     def init_doc(self):
         self.document = Document()
         self.document.styles['Normal'].font.name = u'宋体'
         self.document.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+
+    def init_para(self):
+        self.para.set()
+        self.para.analysis_s2d1()
+        self.para.analysis_s2d2()
+        self.para.analysis_s2d3()
+        self.para.analysis_s2d5()
 
     def bold(self,text):
         p = self.document.add_paragragh()
@@ -312,58 +331,250 @@ class getDOCX(object):
                 num = self.table_for_print.get(Q.items == item)[data]
                 if isinstance(num, float):
                     if item in xratio:
-                        table.cell(irows, icols).text = '{:,2%}'.format(num)
+                        table.cell(irows, icols).text = '{:,.2%}'.format(num)
                     else:
-                        table.cell(irows, icols).text = '{:,0f}'.format(num)
+                        table.cell(irows, icols).text = '{:,.0f}'.format(num)
                 else:
                     table.cell(irows, icols).text = str(num)
 
     def big_change_items(self):
+        '''
+        self.data_type == 'no_year1'时不能是使用本函数
+        找出最近一期比上一期变化超过30%的科目
+        :return:
+        '''
         Q = Query()
         Item = self.table.search((Q.type == '流动资产') | (Q.type == '非流动资产') | (Q.type == '流动负债') | (Q.type == '非流动负债'))
         list1 = []
         list2 = []
         big_change_items = []
-        for dict in Item:
-            if dict['year1'] == 0 and dict['month'] != 0:
-                list1.append(dict)
-            elif dict['year1'] == 0 and dict['month'] == 0:
-                pass
-            else:
-                if (dict['month']-dict['year1'])/dict['year1'] < 0.3 \
-                        and (dict['month']-dict['year1'])/dict['year1'] > -0.3:
+        if self.data_type == 'all_years':
+            for dict in Item:
+                if dict['year1'] == 0 and dict['month'] != 0:
+                    list1.append(dict)
+                elif dict['year1'] == 0 and dict['month'] == 0:
                     pass
                 else:
-                    list2.append(dict)
-        list_sorted_dict = sorted(list2, key=lambda x: x['month']-x['year1'], reverse=True)
-        #组成当期纯变化和超过30%变化的列表
-        for dict in list_sorted_dict:
-            list1.append(dict)
-        # 形成科目名称列表
-        for dict in list1:
-            big_change_items.append(dict['items'])
-        return big_change_items
+                    if (dict['month'] - dict['year1']) / dict['year1'] < 0.3 \
+                            and (dict['month'] - dict['year1']) / dict['year1'] > -0.3:
+                        pass
+                    else:
+                        list2.append(dict)
+            list_sorted_dict = sorted(list2, key=lambda x: x['month'] - x['year1'], reverse=True)
+            # 组成当期纯变化和超过30%变化的列表
+            for dict in list_sorted_dict:
+                list1.append(dict)
+            # 形成科目名称列表
+            for dict in list1:
+                big_change_items.append(dict['items'])
+            return big_change_items
+        else:
+            for dict in Item:
+                if dict['year1'] == 0 and dict['year2'] != 0:
+                    list1.append(dict)
+                elif dict['year1'] == 0 and dict['year2'] == 0:
+                    pass
+                else:
+                    if (dict['year1']-dict['year2'])/dict['year2'] < 0.3 \
+                            and (dict['year1']-dict['year2'])/dict['year2'] > -0.3:
+                        pass
+                    else:
+                        list2.append(dict)
+            list_sorted_dict = sorted(list2, key=lambda x: x['year1']-x['year2'], reverse=True)
+            #组成当期纯变化和超过30%变化的列表
+            for dict in list_sorted_dict:
+                list1.append(dict)
+            # 形成科目名称列表
+            for dict in list1:
+                big_change_items.append(dict['items'])
+            return big_change_items
+
+    def data(self,item, key):
+        Q = Query()
+        return self.table.get(Q.items == item)[key]
 
     def big_change_sheet(self):
-        table_change_item = ['科目名称', '年初值', '较年初变化', '变化率', '变化情况']
+        table_change_item = ['科目名称', '当期值', '较年初变化', '变化率', '变化情况']
         table_change = self.document.add_table(rows=len(self.big_change_items()) + 1,
                                                cols=5,
                                                style='Medium Grid 1 Accent 1')
-        # for i in range(5):
-        #     cell = table_change.cell(0, i)
-        #     cell.text = table_change_item[i]
-        # for i, item in enumerate(self.big_change_items()):
-        #     table_change.cell(i + 1, 0).text = data(item, 'items')  # 科目名称
-        #     table_change.cell(i + 1, 1).text = str(data(item, 'year1'))  # 年初值
-        #     table_change.cell(i + 1, 2).text = str(data(item, 'month') - data(item, 'year1'))  # 变化值
-        #     if data(item, 'year1') != 0:
-        #         ratio = 100 * (data(item, 'month') - data(item, 'year1')) / data(item, 'year1')
-        #         table_change.cell(i + 1, 3).text = ('%.2f%%' % ratio)  # 变化率
+        for i in range(5):
+            cell = table_change.cell(0, i)
+            cell.text = table_change_item[i]
+        if self.data_type == 'all_years':
+            for i, item in enumerate(self.big_change_items()):
+                table_change.cell(i + 1, 0).text = self.data(item, 'items')  # 科目名称
+                table_change.cell(i + 1, 1).text = '{:,.2f}'.format(self.data(item, 'year1'))  # 当期值
+                table_change.cell(i + 1, 2).text = '{:,.2f}'.format(
+                    self.data(item, 'month') - self.data(item, 'year1'))  # 变化值
+                if self.data(item, 'year1') != 0:
+                    ratio = self.data(item, 'month') - self.data(item, 'year1') / self.data(item, 'year1')
+                    table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
+                else:
+                    if self.data(item, 'month') > 0:
+                        table_change.cell(i + 1, 3).text = '当期净增加'
+                    else:
+                        table_change.cell(i + 1, 3).text = '当期净减少'
+
+        else:
+            for i, item in enumerate(self.big_change_items()):
+                table_change.cell(i + 1, 0).text = self.data(item, 'items')  # 科目名称
+                table_change.cell(i + 1, 1).text = '{:,.2f}'.format(self.data(item, 'month'))  # 当期值
+                table_change.cell(i + 1, 2).text = '{:,.2f}'.format(self.data(item, 'month') - self.data(item, 'year1'))  # 变化值
+                if self.data(item, 'year1') != 0:
+                    ratio = self.data(item, 'month') - self.data(item, 'year1') / self.data(item, 'year1')
+                    table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
+                else:
+                    if self.data(item, 'month') > 0:
+                        table_change.cell(i + 1, 3).text = '当期净增加'
+                    else:
+                        table_change.cell(i + 1, 3).text = '当期净减少'
+
+
+    def item_table(self, col1, col2, col3, col4):
+        """
+        生成固定格式的表格
+            1、科目明细
+            2、账龄明细
+            3、等等
+        @param colu1: 序号
+        @param colu2: 名称
+        @param colu3: 金额
+        @param colu4: 等等
+        @return:
+        """
+        table_regular = [col1, col2, col3, col4]
+        b_c_table = self.document.add_table(rows=7,
+                                        cols=4,
+                                        style='Medium Shading 1 Accent 1')
+        for i in range(4):
+            cell = b_c_table.cell(0, i)
+            cell.text = table_regular[i]
+        for i in range(5):
+            cell = b_c_table.cell(i + 1, 0)
+            cell.text = str(i + 1)
+
+
+
+    def para_add(self, paragragh, item):
+        # if item == "货币资金":
+        #     paragraph.add_run("其中现金【】万元，银行存款【】万元、其他货币资金【】万元。")
+        # elif item == "应收票据":
+        #     paragraph.add_run("其中银行承兑汇票【】万元，商业承兑汇票【】万元。")
+        # elif item == "应收账款":
+        #     paragraph.add_run("账面余额【】万元、计提坏账准备【】万元，账龄1年以内占比【】%，3年以上占比【】%。其中，应收账款前五位：")
+        #     self.item_table("序号", "名称", "余额（万元）", "占比")
+        # elif item == "预付账款":
+        #     paragraph.add_run("账龄1年以内占比【】%，3年以上占比【】%。其中，预收账款前五位：")
+        #     item_table("序号", "名称", "余额（万元）", "占比")
+        # elif item == "其他应收款":
+        #     paragraph.add_run("账面余额【】万元、计提坏账准备【】万元。其中，其他应付款前五位：")
+        #     item_table("序号", "名称", "余额(万元)", "款项性质")
+        # elif item == "存货":
+        #     paragraph.add_run("其中，原材料【】万元、库存商品【】万元、周转材料【】万元、工程施工【】万元、开发成本【】万元。")
+        # elif item == "其他流动资产":
+        #     paragraph.add_run("其中【添加明细】。")
+        # elif item == "长期股权投资":
+        #     paragraph.add_run("系对【n】家企业的投资，本期主要新增【哪家公司】；对外投资前五位如下：")
+        #     item_table("序号", "名称", "投资额", "投资性质")
+        # elif item == "固定资产":
+        #     paragraph.add_run("固定资产原值【】万元，累计折旧【】万元，其中房屋及建筑物【】万元、机器设备【】万元、办公设备【】万元、【其他】【】万元。")
+        # elif item == "在建工程":
+        #     paragraph.add_run("主要为【项目1】【】万元、【项目2】【】万元、【项目3】【】万元……")
+        # elif item == "无形资产":
+        #     paragraph.add_run("主要为土地使用权【】万元、采矿权【】万元、专利权【】万元、软件【】万元，其他【】万元。")
+        # elif item == "短期借款":
+        #     paragraph.add_run("主要为【XX银行】【】万元、【XX银行】【】万元、【XX银行】【】万元、【xx银行】【】万元、【xx银行】【】万元。【其他需要说明的内容】")
+        # elif item == "应付票据":
+        #     paragraph.add_run("主要为银行承兑汇票【】万元，商业承兑汇票【】万元。")
+        # elif item == "应付账款":
+        #     paragraph.add_run("其中应付材料款【】万元，应付工程款【】万元。其中前五名如下：")
+        #     item_table("序号", "名称", "余额", "性质")
+        # elif item == "预收账款":
+        #     paragraph.add_run("其中前5名如下：")
+        #     item_table("序号", "名称", "余额", "账龄")
+        # elif item == "其他应付款":
+        #     paragraph.add_run("应付利息【】万元，往来款【】万元，押金和保证金【】万元，其中前5名如下：")
+        #     item_table("序号", "名称", "余额", "账龄")
+        # elif item == "其他流动负债":
+        #     paragraph.add_run("主要为【】")
+        # elif item == "长期借款":
+        #     paragraph.add_run("主要为【XX银行】【】万元、【XX银行】【】万元、【XX银行】【】万元、【xx银行】【】万元、【xx银行】【】万元。【其他需要说明的内容】")
+        # elif item == "应付债券":
+        #     paragraph.add_run("主要为【】")
+        #     item_table("序号", "债券名称", "余额", "到期日")
+        # elif item == "长期应付款":
+        #     paragraph.add_run("其中专项应付款【】万元、【】【】万元、其他【】万元。")
+
+    def items_detail(self):
+        # 形成科目列表
+        # list_dict = []
+        # for dict in self.table:
+        #     if dict['type'] in ['流动资产', '非流动资产', '流动负债', '非流动负债']:
+        #         list_dict.append(dict['items'])
         #     else:
-        #         if data(item, 'month') > 0:
-        #             table_change.cell(i + 1, 3).text = '当期净新增'
+        #         pass
+        # # 科目分析
+        # for item in list_dict:  # 第一行是表头，里面有字符串，必须剔除
+        #     if self.data(item, 'year1') != 0:
+        #         text = '【%s】：当期余额%.2f万元，在[%s]中占比%.2f%%，较上年增加%.2f万元，%s。'
+        #         if self.data(item, 'type') in ['流动资产', '非流动资产']:
+        #             type_in_all = '总资产'
+        #             total_ = self.data('资产总计', 'year1')
+        #         elif self.data(item, 'type') in ['流动负债', '非流动负债']:
+        #             type_in_all = '总负债'
+        #             total_ = self.data('负债合计', 'year1')
         #         else:
-        #             table_change.cell(i + 1, 3).text = '当期净减少'
+        #             pass
+        #     else:
+        #         pass
+            # #
+            # if isinstance(self.data(item, 'ratio'), str):
+            #     text_ratio = '为' + self.data(item, 'ratio')
+            # else:
+            #     value_ratio = self.data(item, 'ratio')
+            #     text_ratio = '当年增幅为%.2f%%' % value_ratio
+            #
+            # text_set = (self.data(item, 'items'),
+            #             self.data(item, 'year1'),
+            #             type_in_all,
+            #             100 * self.data(item, 'year1') / total_,
+            #             self.data(item, 'add_b'),
+            #             text_ratio
+            #             )
+            # para_ = self.document.add_paragraph(text % text_set)
+            # para_add(para_, self.data(item, 'items'))
+
+    def run(self):
+        self.document.add_heading('{}财务分析报告'.format(self.name))
+        # 1.数据
+        self.document.bold(self.header.h1)
+        self.financial_sheet()
+        self.document.add_paragragh(':::::::请调整成自己喜欢的表格样式::::::')
+        # 2.分析
+        if self.data_type == 'normal':
+            self.document.bold(self.header.h2)
+            self.document.bold(self.header.h2s1)
+            self.document.add_paragragh(self.normal.s1d1)
+            self.document.bold(self.header.h2s2)
+            self.document.add_paragragh(self.normal.s2d1.format(**self.para.s2d1))
+            self.document.add_paragragh(self.normal.s2d2.format(**self.para.s2d2))
+            self.document.bold(self.header.h2s3)
+            self.document.add_paragragh(self.normal.s2d3.format(**self.para.s2d3))
+            self.document.bold(self.header.h2s4)
+            self.document.add_paragragh(self.normal.s2d4.format(**self.para.s2d4))
+            self.document.bold(self.header.h2s5)
+            self.document.add_paragragh(self.normal.s2d5.format(**self.para.s2d5))
+            self.document.bold(self.header.h2s6)
+            self.document.add_paragragh(self.normal.s2d6.format(**self.para.s2d6))
+            self.document.bold(self.header.h2s7)
+            self.big_change_sheet()
+            self.document.bold(self.header.h3)
+
+
+
+
+
 
 
 
