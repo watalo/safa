@@ -11,9 +11,9 @@ import os
 class Path:
     '路径类的配置文件'
     root = os.path.dirname(os.getcwd())
-    db = root+ r'\db'
-    input = root+ r'\input'
-    output = root+ r'\output'
+    db = root+ r'\safa\db'
+    input = root+ r'\safa\input'
+    output = root+ r'\safa\output'
 
 
 

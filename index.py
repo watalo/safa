@@ -6,9 +6,14 @@
 # @File    : index.py
 # @Software: PyCharm
 
-import far
-import core
+from core import getDB,getDOCX
+from docx import Document
+from far import _config
 
+
+class test(Document):
+    def __int__(self,parent=None):
+        super(test,self).__init__(parent)
 
 
 
