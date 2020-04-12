@@ -6,20 +6,22 @@
 # @File    : index.py
 # @Software: PyCharm
 
-from core import getDB,getDOCX
+'''
+python-docx库运用中出现的问题
+
+
+
+'''
 from docx import Document
-from far import _config
+import docx
 
+class Test(object):
+    def __init__(self,name):
+        self.name = name
 
-class test(Document):
-    def __int__(self,parent=None):
-        super(test,self).__init__(parent)
-
-
-
-
-
-
-
+    def test(self,doc,text):
+        p = doc.add_paragragh(text)
 
 if __name__ == '__main__':
+    D = Document()
+    D.add_paragragh('1123')
