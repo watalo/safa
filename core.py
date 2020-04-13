@@ -15,12 +15,19 @@ import os
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
-from far import _config, _formula, para, text
+from far import _config, _formula, _para, _text
 from docx import Document
+
 from docx.oxml.ns import qn
 from docx.shared import Inches
 
 class getDB(object):
+    '''
+        执行顺序：
+            g_db= getDB('temple')
+
+
+    '''
 
     def __init__(self, name):
         '''
@@ -271,8 +278,11 @@ class getDB(object):
                         table.update({'type': type[i]}, Q.items == str(it))
         return table
 
+
 class getDOCX(object):
-    def __init__(self,name,doc_obj):
+    document = Document()
+
+    def __init__(self,name):
         self.name = name
         self.db_path = _config.Path.db
         self.db_file_path = '\\'.join([self.db_path, os.listdir(self.db_path)[0]])
@@ -280,24 +290,23 @@ class getDOCX(object):
         self.table = self.db.table('without_nodata')
         self.table_for_print = self.db.table('for_print')
         # docx类的实例初始化
-        self.doc = doc_obj
         self.init_doc()
         # para类的实例初始化
-        self.data_type = para.dict_().data_type
-        self.para = para.dict_()
+        self.data_type = _para.dict_().data_type
+        self.para = _para.dict_()
         self.init_para()
         # text类的实例
-        self.normal = text.normal()
-        self.no_year3 = text.no_year3()
-        self.no_year2 = text.no_year2()
-        self.no_year1 = text.no_year1()
-        self.all_years = text.all_years()
-        self.header = text.header()
+        self.normal = _text.normal()
+        self.no_year3 = _text.no_year3()
+        self.no_year2 = _text.no_year2()
+        self.no_year1 = _text.no_year1()
+        self.all_years = _text.all_years()
+        self.header = _text.header()
 
     def init_doc(self):
-
-        self.doc.styles['Normal'].font.name = u'宋体'
-        self.doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+        global document
+        document.styles['Normal'].font.name = u'宋体'
+        document.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
     def init_para(self):
         self.para.set()
@@ -307,7 +316,7 @@ class getDOCX(object):
         self.para.analysis_s2d5()
 
     def bold(self,text):
-        self.doc.add_paragragh().add_run(text).bold = True
+        document.add_paragragh().add_run(text).bold = True
         # p.add_run(text).bold = True
 
     def financial_sheet(self):
@@ -326,7 +335,7 @@ class getDOCX(object):
             '毛利率', '净利润率',
             '总资产收益率(ROA)', '净资产收益率(ROE)',
         ]  # 百分数形式的财务指标 eg:‘11.11%’
-        table = self.doc.add_table(rows=len(self.table_for_print.all()),
+        table = document.add_table(rows=len(self.table_for_print.all()),
                                         cols=5,
                                         style="Medium Grid 1 Accent 1")
         for irows, item in enumerate(item_list):
@@ -398,7 +407,7 @@ class getDOCX(object):
 
     def big_change_sheet(self):
         table_change_item = ['科目名称', '当期值', '较年初变化', '变化率', '变化情况']
-        table_change = self.doc.add_table(rows=len(self.big_change_items()) + 1,
+        table_change = document.add_table(rows=len(self.big_change_items()) + 1,
                                                cols=5,
                                                style='Medium Grid 1 Accent 1')
         for i in range(5):
@@ -446,7 +455,7 @@ class getDOCX(object):
         @return: 空白表格
         """
         table_regular = [col1, col2, col3, col4]
-        b_c_table = self.doc.add_table(rows=7,
+        b_c_table = document.add_table(rows=7,
                                         cols=4,
                                         style='Medium Shading 1 Accent 1')
         for i in range(4):
@@ -554,69 +563,69 @@ class getDOCX(object):
                                  self.data(item, 'delta'),
                                  text_ratio
                                  )
-            para_ = self.doc.add_paragraph(item_text)
+            para_ = document.add_paragraph(item_text)
             self.para_add(para_, self.data(item, date)) #根据不同的科目在文字模版后新增文字
 
     def run(self):
-        self.doc.add_heading('{}财务分析报告'.format(self.name))
+        document.add_heading('{}财务分析报告'.format(self.name))
         # 1.数据
         self.bold(self.header.h1)
         self.financial_sheet()
-        self.doc.add_paragragh(':::::::请调整成自己喜欢的表格样式::::::')
+        document.add_paragragh(':::::::请调整成自己喜欢的表格样式::::::')
         # 2.分析
         if self.data_type == 'normal':
             self.bold(self.header.h2)
             self.bold(self.header.h2s1)
-            self.doc.add_paragragh(self.normal.s1d1)
+            document.add_paragragh(self.normal.s1d1)
             self.bold(self.header.h2s2)
-            self.doc.add_paragragh(self.normal.s2d1.format(**self.para.s2d1))
-            self.doc.add_paragragh(self.normal.s2d2.format(**self.para.s2d2))
+            document.add_paragragh(self.normal.s2d1.format(**self.para.s2d1))
+            document.add_paragragh(self.normal.s2d2.format(**self.para.s2d2))
             self.bold(self.header.h2s3)
-            self.doc.add_paragragh(self.normal.s2d3.format(**self.para.s2d3))
+            document.add_paragragh(self.normal.s2d3.format(**self.para.s2d3))
             self.bold(self.header.h2s4)
-            self.doc.add_paragragh(self.normal.s2d4.format(**self.para.s2d4))
+            document.add_paragragh(self.normal.s2d4.format(**self.para.s2d4))
             self.bold(self.header.h2s5)
-            self.doc.add_paragragh(self.normal.s2d5.format(**self.para.s2d5))
+            document.add_paragragh(self.normal.s2d5.format(**self.para.s2d5))
             self.bold(self.header.h2s6)
-            self.doc.add_paragragh(self.normal.s2d6.format(**self.para.s2d6))
+            document.add_paragragh(self.normal.s2d6.format(**self.para.s2d6))
             self.bold(self.header.h2s7)
             self.big_change_sheet()
-            self.doc.bold(self.header.h3)
+            document.bold(self.header.h3)
             self.items_detail('year1')
         elif self.data_type == 'no_3year':
             self.bold(self.header.h2)
             self.bold(self.header.h2s1)
-            self.doc.add_paragragh(self.no_year3.s1d1)
+            document.add_paragragh(self.no_year3.s1d1)
             self.bold(self.header.h2s2)
-            self.doc.add_paragragh(self.no_year3.s2d1.format(**self.para.s2d1))
-            self.doc.add_paragragh(self.no_year3.s2d2.format(**self.para.s2d2))
+            document.add_paragragh(self.no_year3.s2d1.format(**self.para.s2d1))
+            document.add_paragragh(self.no_year3.s2d2.format(**self.para.s2d2))
             self.bold(self.header.h2s3)
-            self.doc.add_paragragh(self.no_year3.s2d3.format(**self.para.s2d3))
+            document.add_paragragh(self.no_year3.s2d3.format(**self.para.s2d3))
             self.bold(self.header.h2s4)
-            self.doc.add_paragragh(self.no_year3.s2d4.format(**self.para.s2d4))
+            document.add_paragragh(self.no_year3.s2d4.format(**self.para.s2d4))
             self.bold(self.header.h2s5)
-            self.doc.add_paragragh(self.no_year3.s2d5.format(**self.para.s2d5))
+            document.add_paragragh(self.no_year3.s2d5.format(**self.para.s2d5))
             self.bold(self.header.h2s6)
-            self.doc.add_paragragh(self.no_year3.s2d6.format(**self.para.s2d6))
+            document.add_paragragh(self.no_year3.s2d6.format(**self.para.s2d6))
             self.bold(self.header.h2s7)
             self.big_change_sheet()
-            self.doc.bold(self.header.h3)
+            document.bold(self.header.h3)
             self.items_detail('year1')
         elif self.data_type == 'no_year2':
             self.bold(self.header.h2)
             self.bold(self.header.h2s1)
-            self.doc.add_paragragh(self.no_year2.s1d1)
+            document.add_paragragh(self.no_year2.s1d1)
             self.bold(self.header.h2s2)
-            self.doc.add_paragragh(self.no_year2.s2d1.format(**self.para.s2d1))
-            self.doc.add_paragragh(self.no_year2.s2d2.format(**self.para.s2d2))
+            document.add_paragragh(self.no_year2.s2d1.format(**self.para.s2d1))
+            document.add_paragragh(self.no_year2.s2d2.format(**self.para.s2d2))
             self.bold(self.header.h2s3)
-            self.doc.add_paragragh(self.no_year2.s2d3.format(**self.para.s2d3))
+            document.add_paragragh(self.no_year2.s2d3.format(**self.para.s2d3))
             self.bold(self.header.h2s4)
-            self.doc.add_paragragh(self.no_year2.s2d4.format(**self.para.s2d4))
+            document.add_paragragh(self.no_year2.s2d4.format(**self.para.s2d4))
             self.bold(self.header.h2s5)
-            self.doc.add_paragragh(self.no_year2.s2d5.format(**self.para.s2d5))
+            document.add_paragragh(self.no_year2.s2d5.format(**self.para.s2d5))
             self.bold(self.header.h2s6)
-            self.doc.add_paragragh(self.no_year2.s2d6.format(**self.para.s2d6))
+            document.add_paragragh(self.no_year2.s2d6.format(**self.para.s2d6))
             self.bold(self.header.h2s7)
             self.big_change_sheet()
             self.bold(self.header.h3)
@@ -624,55 +633,49 @@ class getDOCX(object):
         elif self.data_type == 'no_year1':
             self.bold(self.header.h2)
             self.bold(self.header.h2s1)
-            self.doc.add_paragragh(self.no_year1.s1d1)
+            document.add_paragragh(self.no_year1.s1d1)
             self.bold(self.header.h2s2)
-            self.doc.add_paragragh(self.no_year1.s2d1.format(**self.para.s2d1))
-            self.doc.add_paragragh(self.no_year1.s2d2.format(**self.para.s2d2))
+            document.add_paragragh(self.no_year1.s2d1.format(**self.para.s2d1))
+            document.add_paragragh(self.no_year1.s2d2.format(**self.para.s2d2))
             self.bold(self.header.h2s3)
-            self.doc.add_paragragh(self.no_year1.s2d3.format(**self.para.s2d3))
+            document.add_paragragh(self.no_year1.s2d3.format(**self.para.s2d3))
             self.bold(self.header.h2s4)
-            self.doc.add_paragragh(self.no_year1.s2d4.format(**self.para.s2d4))
+            document.add_paragragh(self.no_year1.s2d4.format(**self.para.s2d4))
             self.bold(self.header.h2s5)
-            self.doc.add_paragragh(self.no_year1.s2d5.format(**self.para.s2d5))
+            document.add_paragragh(self.no_year1.s2d5.format(**self.para.s2d5))
             self.bold(self.header.h2s6)
-            self.doc.add_paragragh(self.no_year1.s2d6.format(**self.para.s2d6))
+            document.add_paragragh(self.no_year1.s2d6.format(**self.para.s2d6))
             self.bold(self.header.h3)
             self.items_detail('month')
         elif self.data_type == 'all_years':
             self.bold(self.header.h2)
             self.bold(self.header.h2s1)
-            self.doc.add_paragragh(self.all_years.s1d1)
+            document.add_paragragh(self.all_years.s1d1)
             self.bold(self.header.h2s2)
-            self.doc.add_paragragh(self.all_years.s2d1.format(**self.para.s2d1))
-            self.doc.add_paragragh(self.all_years.s2d2.format(**self.para.s2d2))
+            document.add_paragragh(self.all_years.s2d1.format(**self.para.s2d1))
+            document.add_paragragh(self.all_years.s2d2.format(**self.para.s2d2))
             self.bold(self.header.h2s3)
-            self.doc.add_paragragh(self.all_years.s2d3.format(**self.para.s2d3))
+            document.add_paragragh(self.all_years.s2d3.format(**self.para.s2d3))
             self.bold(self.header.h2s4)
-            self.doc.add_paragragh(self.all_years.s2d4.format(**self.para.s2d4))
+            document.add_paragragh(self.all_years.s2d4.format(**self.para.s2d4))
             self.bold(self.header.h2s5)
-            self.doc.add_paragragh(self.all_years.s2d5.format(**self.para.s2d5))
+            document.add_paragragh(self.all_years.s2d5.format(**self.para.s2d5))
             self.bold(self.header.h2s6)
-            self.doc.add_paragragh(self.all_years.s2d6.format(**self.para.s2d6))
+            document.add_paragragh(self.all_years.s2d6.format(**self.para.s2d6))
             self.bold(self.header.h3)
             self.items_detail('year1')
         else:
             pass
         # 3.讨米文案
-        self.doc.add_picture('img/taomi.png',width=Inches(2.25))
-        p = self.doc.add_paragragh()
+        document.add_picture('img/taomi.png',width=Inches(2.25))
+        p = document.add_paragragh()
         run_1 = p.add_run('后期开发计划是增加各个行业的行业分析，扫码赞赏可以加快开发速度哦，感谢您的支持！').bold = True
 
+    def docx_save(self,output_path):
+        document.save(output_path)
 
 if __name__ == '__main__':
-
-    report = getDB('temple')
-    report.calc_f_index('without_nodata')
-    report.calc_m_index('without_nodata')
-    report.calc_m_index('for_print')
-    document = Document()
-    d = getDOCX('temple',document)
-    d.run()
-    document.save(_config.Path.output + 'temple.docx')
+    g_db = getDB('temple')
 
 
 

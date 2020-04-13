@@ -6,7 +6,7 @@
 # @File    : __init__.py
 # @Software: PyCharm
 
-from text import normal,no_year1,no_year2,no_year3,all_years,header
+from _text import normal,no_year1,no_year2,no_year3,all_years,header
 
 
 

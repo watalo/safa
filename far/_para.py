@@ -3,13 +3,13 @@
 #__author__:"watalo"
 # @Time: 2020/3/22 22:59
 # @Site    : 
-# @File    : para.py
+# @File    : _para.py
 # @Software: PyCharm
 
 
 import os
 from tinydb import TinyDB ,Query
-import text
+import _text
 import _config
 
 
@@ -429,11 +429,11 @@ if __name__ == '__main__':
 
     # print(dict_.s2d5)
 
-    doc1 = text.no_year3().s2d1
-    doc2 = text.no_year3().s2d2
-    doc3 = text.no_year3().s2d3
-    doc4 = text.no_year3().s2d4
-    doc5 = text.no_year3().s2d5
+    doc1 = _text.no_year3().s2d1
+    doc2 = _text.no_year3().s2d2
+    doc3 = _text.no_year3().s2d3
+    doc4 = _text.no_year3().s2d4
+    doc5 = _text.no_year3().s2d5
 
     a = doc1.format(**dict_.s2d1)
     b = doc2.format(**dict_.s2d2)

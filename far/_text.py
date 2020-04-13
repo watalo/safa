@@ -3,7 +3,7 @@
 # __author__:"watalo"
 # @Time: 2020/3/19 0:33
 # @Site    : 
-# @File    : text.py
+# @File    : _text.py
 # @Software: PyCharm
 '''
 使用self.normal.s2d1.format(**self.normal.s2d1_dict)给模版传入数据
