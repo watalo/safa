@@ -24,29 +24,29 @@ def get_docx(name, output_path):
     conf = Conf(name)
     doc = Document()
     doc.styles['Normal'].font.name = u'宋体'
-    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+    # doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
     # 文档标题
     doc.add_heading('{}财务分析报告'.format(conf.name))
     # 1.数据
     bold(doc, conf.header.h1)
     financial_sheet(conf, doc)
-    doc.add_paragragh(':::::::请调整成自己喜欢的表格样式::::::')
+    doc.add_paragraph(':::::::请调整成自己喜欢的表格样式::::::')
     # 2.分析
     if conf.data_type == 'normal':
         bold(doc, conf.header.h2)
         bold(doc, conf.header.h2s1)
-        doc.add_paragragh(conf.normal.s1d1)
+        doc.add_paragraph(conf.normal.s1d1)
         bold(doc, conf.header.h2s2)
-        doc.add_paragragh(conf.normal.s2d1.format(conf.para.s2d1))
-        doc.add_paragragh(conf.normal.s2d2.format(conf.para.s2d2))
+        doc.add_paragraph(conf.normal.s2d1.format(**conf.para.s2d1))
+        doc.add_paragraph(conf.normal.s2d2.format(**conf.para.s2d2))
         bold(doc, conf.header.h2s3)
-        doc.add_paragragh(conf.normal.s2d3.format(conf.para.s2d3))
+        doc.add_paragraph(conf.normal.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4)
-        doc.add_paragragh(conf.normal.s2d4.format(conf.para.s2d4))
+        doc.add_paragraph(conf.normal.s2d4.format(**conf.para.s2d4))
         bold(doc, conf.header.h2s5)
-        doc.add_paragragh(conf.normal.s2d5.format(conf.para.s2d5))
+        doc.add_paragraph(conf.normal.s2d5.format(**conf.para.s2d5))
         bold(doc, conf.header.h2s6)
-        doc.add_paragragh(conf.normal.s2d6.format(conf.para.s2d6))
+        doc.add_paragraph(conf.normal.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h2s7)
         big_change_sheet(conf, doc)
         bold(doc, conf.header.h3)
@@ -54,37 +54,37 @@ def get_docx(name, output_path):
     elif conf.data_type == 'no_3year':
         bold(doc, conf.header.h2)
         bold(doc, conf.header.h2s1)
-        doc.add_paragragh(conf.no_year3.s1d1)
+        doc.add_paragraph(conf.no_year3.s1d1)
         bold(doc, conf.header.h2s2)
-        doc.add_paragragh(conf.no_year3.s2d1.format(conf.para.s2d1))
-        doc.add_paragragh(conf.no_year3.s2d2.format(conf.para.s2d2))
+        doc.add_paragraph(conf.no_year3.s2d1.format(**conf.para.s2d1))
+        doc.add_paragraph(conf.no_year3.s2d2.format(**conf.para.s2d2))
         bold(doc, conf.header.h2s3)
-        doc.add_paragragh(conf.no_year3.s2d3.format(conf.para.s2d3))
+        doc.add_paragraph(conf.no_year3.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4)
-        doc.add_paragragh(conf.no_year3.s2d4.format(conf.para.s2d4))
+        doc.add_paragraph(conf.no_year3.s2d4.format(**conf.para.s2d4))
         bold(doc, conf.header.h2s5)
-        doc.add_paragragh(conf.no_year3.s2d5.format(conf.para.s2d5))
+        doc.add_paragraph(conf.no_year3.s2d5.format(**conf.para.s2d5))
         bold(doc, conf.header.h2s6)
-        doc.add_paragragh(conf.no_year3.s2d6.format(conf.para.s2d6))
+        doc.add_paragraph(conf.no_year3.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h2s7)
         big_change_sheet(conf, doc)
-        doc.bold(doc, conf.header.h3)
+        bold(doc, conf.header.h3)
         items_detail(conf, doc, 'year1')
     elif conf.data_type == 'no_year2':
         bold(doc, conf.header.h2)
         bold(doc, conf.header.h2s1)
-        doc.add_paragragh(conf.no_year2.s1d1)
+        doc.add_paragraph(conf.no_year2.s1d1)
         bold(doc, conf.header.h2s2)
-        doc.add_paragragh(conf.no_year2.s2d1.format(conf.para.s2d1))
-        doc.add_paragragh(conf.no_year2.s2d2.format(conf.para.s2d2))
+        doc.add_paragraph(conf.no_year2.s2d1.format(**conf.para.s2d1))
+        doc.add_paragraph(conf.no_year2.s2d2.format(**conf.para.s2d2))
         bold(doc, conf.header.h2s3)
-        doc.add_paragragh(conf.no_year2.s2d3.format(conf.para.s2d3))
+        doc.add_paragraph(conf.no_year2.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4)
-        doc.add_paragragh(conf.no_year2.s2d4.format(conf.para.s2d4))
+        doc.add_paragraph(conf.no_year2.s2d4.format(**conf.para.s2d4))
         bold(doc, conf.header.h2s5)
-        doc.add_paragragh(conf.no_year2.s2d5.format(conf.para.s2d5))
+        doc.add_paragraph(conf.no_year2.s2d5.format(**conf.para.s2d5))
         bold(doc, conf.header.h2s6)
-        doc.add_paragragh(conf.no_year2.s2d6.format(conf.para.s2d6))
+        doc.add_paragraph(conf.no_year2.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h2s7)
         big_change_sheet(conf, doc)
         bold(doc, conf.header.h3)
@@ -92,42 +92,42 @@ def get_docx(name, output_path):
     elif conf.data_type == 'no_year1':
         bold(doc, conf.header.h2)
         bold(doc, conf.header.h2s1)
-        doc.add_paragragh(conf.no_year1.s1d1)
+        doc.add_paragraph(conf.no_year1.s1d1)
         bold(doc, conf.header.h2s2)
-        doc.add_paragragh(conf.no_year1.s2d1.format(conf.para.s2d1))
-        doc.add_paragragh(conf.no_year1.s2d2.format(conf.para.s2d2))
+        doc.add_paragraph(conf.no_year1.s2d1.format(**conf.para.s2d1))
+        doc.add_paragraph(conf.no_year1.s2d2.format(**conf.para.s2d2))
         bold(doc, conf.header.h2s3)
-        doc.add_paragragh(conf.no_year1.s2d3.format(conf.para.s2d3))
+        doc.add_paragraph(conf.no_year1.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4)
-        doc.add_paragragh(conf.no_year1.s2d4.format(conf.para.s2d4))
+        doc.add_paragraph(conf.no_year1.s2d4.format(**conf.para.s2d4))
         bold(doc, conf.header.h2s5)
-        doc.add_paragragh(conf.no_year1.s2d5.format(conf.para.s2d5))
+        doc.add_paragraph(conf.no_year1.s2d5.format(**conf.para.s2d5))
         bold(doc, conf.header.h2s6)
-        doc.add_paragragh(conf.no_year1.s2d6.format(conf.para.s2d6))
+        doc.add_paragraph(conf.no_year1.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h3)
         items_detail(conf, doc, 'month')
     elif conf.data_type == 'all_years':
         bold(doc, conf.header.h2)
         bold(doc, conf.header.h2s1)
-        doc.add_paragragh(conf.all_years.s1d1)
+        doc.add_paragraph(conf.all_years.s1d1)
         bold(doc, conf.header.h2s2)
-        doc.add_paragragh(conf.all_years.s2d1.format(conf.para.s2d1))
-        doc.add_paragragh(conf.all_years.s2d2.format(conf.para.s2d2))
+        doc.add_paragraph(conf.all_years.s2d1.format(**conf.para.s2d1))
+        doc.add_paragraph(conf.all_years.s2d2.format(**conf.para.s2d2))
         bold(doc, conf.header.h2s3)
-        doc.add_paragragh(conf.all_years.s2d3.format(conf.para.s2d3))
+        doc.add_paragraph(conf.all_years.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4)
-        doc.add_paragragh(conf.all_years.s2d4.format(conf.para.s2d4))
+        doc.add_paragraph(conf.all_years.s2d4.format(**conf.para.s2d4))
         bold(doc, conf.header.h2s5)
-        doc.add_paragragh(conf.all_years.s2d5.format(conf.para.s2d5))
+        doc.add_paragraph(conf.all_years.s2d5.format(**conf.para.s2d5))
         bold(doc, conf.header.h2s6)
-        doc.add_paragragh(conf.all_years.s2d6.format(conf.para.s2d6))
+        doc.add_paragraph(conf.all_years.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h3)
         items_detail(conf, doc, 'year1')
     else:
         pass
     # 3.讨米文案
     doc.add_picture('img/taomi.png', width=Inches(2.25))
-    p = doc.add_paragragh()
+    p = doc.add_paragraph()
     run = p.add_run('后期开发计划是增加各个行业的行业分析，扫码赞赏可以加快开发速度哦，感谢您的支持！')
     run.bold = True
     # 4.保存
@@ -166,7 +166,7 @@ class Conf(object):
 # ----------------需要用到的函数--------------------------
 
 def bold(doc, text):
-    p = doc.add_paragragh().add_run(text)
+    p = doc.add_paragraph()
     p.add_run(text).bold = True
 
 def data(conf_obj,item, key):
@@ -185,6 +185,8 @@ def financial_sheet(conf_obj,doc):
             if type(it) == str:
                 data_list.append(it)
     data_list = data_list[:5]
+
+
     xratio = [
         '资产负债率', '流动比率', '速动比率',
         '毛利率', '净利润率',
@@ -371,9 +373,12 @@ def items_detail(conf_obj, doc, date):
     global type_in_all, total_, item_text
     list_dict = []
     for dict in conf_obj.table:
-        if dict['type'] in ['流动资产', '非流动资产', '流动负债', '非流动负债']:
-            list_dict.append(dict['items'])
-        else:
+        try:
+            if dict['type'] in ['流动资产', '非流动资产', '流动负债', '非流动负债']:
+                list_dict.append(dict['items'])
+            else:
+                pass
+        except Exception as Er:
             pass
     # 科目分析
     for item in list_dict:  # 第一行是表头，里面有字符串，必须剔除

@@ -6,7 +6,8 @@
 # @File    : test.py
 # @Software: PyCharm
 
-if __name__ == '__main__':
-    dict = {'yi': 1, 'er': 2,'san':3,}
-    str = '打印{yi}和{er}'.format(**dict)
-    print(str)
+from docx import Document
+
+doc = Document()
+doc.add_paragragh('I love python-docx')
+doc.save('test.docx')

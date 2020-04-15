@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b76fbcd-43df-4c10-9bbd-b6a73358d303" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/safa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/safa.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_para.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_para.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,20 +38,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ddipy_e.1.0" />
-    <property name="settings.editor.selected.configurable" value="com.jiyuanime.ui.Setting" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PYTHON\projects\easyanalysis" />
-      <recent name="D:\PYTHON\projects\easyanalysis\far" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PYTHON\projects\safa" />
       <recent name="D:\PYTHON\projects\easyanalysis\input" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PYTHON\projects\easyanalysis" />
+      <recent name="D:\PYTHON\projects\easyanalysis\far" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.core">
+  <component name="RunManager" selected="Python.test">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="safa" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,6 +96,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="_para" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="easyanalysis" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/far" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/far/_para.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -160,15 +187,15 @@
       <method v="2" />
     </configuration>
     <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="safa" />
+      <module name="easyanalysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\watalo\PycharmProjects\safa\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -181,42 +208,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="safa" />
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="easyanalysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="D:\PYTHON\python37\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="text" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="safa" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/far" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/far/text.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -284,13 +289,20 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python._para" />
+      <item itemvalue="Python.core" />
+      <item itemvalue="Python.core (1)" />
+      <item itemvalue="Python.index" />
+      <item itemvalue="Python.test" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.core" />
-        <item itemvalue="Python.core (1)" />
-        <item itemvalue="Python.text" />
-        <item itemvalue="Python.test (1)" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.index" />
+        <item itemvalue="Python.core" />
+        <item itemvalue="Python._para" />
+        <item itemvalue="Python.core (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -322,7 +334,10 @@
       <workItem from="1586692715014" duration="13000" />
       <workItem from="1586692737979" duration="785000" />
       <workItem from="1586707479960" duration="185000" />
-      <workItem from="1586781784315" duration="12575000" />
+      <workItem from="1586781784315" duration="12984000" />
+      <workItem from="1586869330851" duration="1079000" />
+      <workItem from="1586870561205" duration="1641000" />
+      <workItem from="1586958961934" duration="1331000" />
     </task>
     <task id="LOCAL-00001" summary="根目录变更">
       <created>1586781830138</created>
@@ -331,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586781830138</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="没有找到docx不能在类里面实例化的原因，直接使用函数进行操作，同时对数据库文件进行完善，增加了数据库初始化的内容">
+      <created>1586798131725</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1586798131725</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,25 +361,34 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="根目录变更" />
-    <option name="LAST_COMMIT_MESSAGE" value="根目录变更" />
+    <MESSAGE value="没有找到docx不能在类里面实例化的原因，直接使用函数进行操作，同时对数据库文件进行完善，增加了数据库初始化的内容" />
+    <option name="LAST_COMMIT_MESSAGE" value="没有找到docx不能在类里面实例化的原因，直接使用函数进行操作，同时对数据库文件进行完善，增加了数据库初始化的内容" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="94" y="351" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584460060717">
+    <state x="1137" y="534" key="#Notifications" timestamp="1586958968896">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="94" y="351" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1584460060717" />
+    <state x="1137" y="534" key="#Notifications/0.0.2560.1400@0.0.2560.1400" timestamp="1586958968896" />
+    <state x="94" y="351" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586870338874">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="94" y="351" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586870338874" />
     <state x="1567" y="212" key="#core" timestamp="1586692507173">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1567" y="212" key="#core/0.0.2560.1400@0.0.2560.1400" timestamp="1586692507173" />
-    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1586781829343">
+    <state x="1567" y="209" key="#test" timestamp="1586872538393">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1586781829343" />
-    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1586793336969">
+    <state x="1567" y="209" key="#test/0.0.2560.1400@0.0.2560.1400" timestamp="1586872538393" />
+    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1586798131134">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586793336969" />
+    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1586798131134" />
+    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1586959055997">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586959055997" />
     <state x="565" y="571" width="581" height="336" key="Github.ShareDialog" timestamp="1585583888298">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -366,50 +397,50 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="517" y="343" width="623" height="721" key="Github.UntrackedFilesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1585583904139" />
-    <state width="2507" height="394" key="GridCell.Tab.0.bottom" timestamp="1586797861457">
+    <state width="1224" height="394" key="GridCell.Tab.0.bottom" timestamp="1586872558875">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586797861457" />
-    <state width="2507" height="394" key="GridCell.Tab.0.center" timestamp="1586797861457">
+    <state width="1224" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
+    <state width="1224" height="394" key="GridCell.Tab.0.center" timestamp="1586872558875">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586797861457" />
-    <state width="2507" height="394" key="GridCell.Tab.0.left" timestamp="1586797861457">
+    <state width="1224" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
+    <state width="1224" height="394" key="GridCell.Tab.0.left" timestamp="1586872558875">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586797861457" />
-    <state width="2507" height="394" key="GridCell.Tab.0.right" timestamp="1586797861457">
+    <state width="1224" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
+    <state width="1224" height="394" key="GridCell.Tab.0.right" timestamp="1586872558875">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586797861457" />
-    <state width="2507" height="476" key="GridCell.Tab.1.bottom" timestamp="1586794647515">
+    <state width="1224" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
+    <state width="2507" height="476" key="GridCell.Tab.1.bottom" timestamp="1586798323129">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586794647515" />
-    <state width="2507" height="476" key="GridCell.Tab.1.center" timestamp="1586794647515">
+    <state width="2507" height="476" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
+    <state width="2507" height="476" key="GridCell.Tab.1.center" timestamp="1586798323129">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586794647515" />
-    <state width="2507" height="476" key="GridCell.Tab.1.left" timestamp="1586794647515">
+    <state width="2507" height="476" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
+    <state width="2507" height="476" key="GridCell.Tab.1.left" timestamp="1586798323129">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586794647515" />
-    <state width="2507" height="476" key="GridCell.Tab.1.right" timestamp="1586794647515">
+    <state width="2507" height="476" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
+    <state width="2507" height="476" key="GridCell.Tab.1.right" timestamp="1586798323129">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586794647515" />
+    <state width="2507" height="476" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
     <state x="118" y="375" key="IDE.errors.dialog" timestamp="1586787121337">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="118" y="375" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586787121337" />
-    <state x="25" y="261" key="SettingsEditor" timestamp="1586787134549">
+    <state x="25" y="261" key="SettingsEditor" timestamp="1586959067835">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="25" y="261" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1586787134549" />
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1586781841365">
+    <state x="25" y="261" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1586959067835" />
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1586798136691">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1586781841365" />
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1586798136691" />
     <state x="264" y="482" key="com.intellij.ide.util.TipDialog" timestamp="1585832334346">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -422,11 +453,14 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/easyanalysis$xlsx2db.coverage" NAME="xlsx2db Coverage Results" MODIFIED="1584546441467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FAreport$core.coverage" NAME="core Coverage Results" MODIFIED="1586707626889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$test.coverage" NAME="test Coverage Results" MODIFIED="1586872538441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$_para.coverage" NAME="_para Coverage Results" MODIFIED="1586869511980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
     <SUITE FILE_PATH="coverage/easyanalysis$text.coverage" NAME="text Coverage Results" MODIFIED="1585575341362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
     <SUITE FILE_PATH="coverage/easyanalysis$core__1_.coverage" NAME="core (1) Coverage Results" MODIFIED="1585581735726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585502736802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$index.coverage" NAME="index Coverage Results" MODIFIED="1585498084621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1586797861450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1586869517635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1586870587936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test.coverage" NAME="test Coverage Results" MODIFIED="1584635704597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
   </component>
 </project>

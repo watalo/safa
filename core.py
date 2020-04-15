@@ -10,16 +10,12 @@
     Report类
 '''
 
-import os
 
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
-from far import _config, _formula, _para, _text
-from docx import Document
+from far import _config, _formula
 
-from docx.oxml.ns import qn
-from docx.shared import Inches
 
 class getDB(object):
     '''
@@ -285,14 +281,14 @@ class getDB(object):
                         table.update({'type': type[i]}, Q.items == str(it))
         return table
 
-
-if __name__ == '__main__':
-    db = getDB('temple')
-    # print(db.table_without_nodata.all())
-
-
-    for dict_ in db.table_without_nodata.all():
-        print(dict_)
-
-    for dict_ in db.table_for_print.all():
-        print(dict_)
+#
+# if __name__ == '__main__':
+#     db = getDB('temple')
+#     # print(db.table_without_nodata.all())
+#
+#
+#     for dict_ in db.table_without_nodata.all():
+#         print(dict_)
+#
+#     for dict_ in db.table_for_print.all():
+#         print(dict_)

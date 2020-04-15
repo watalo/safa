@@ -418,34 +418,34 @@ class dict_:
             pass
         self.s2d5['分析s2d5'] = commit%(text_sorted_asset,text_sorted_ratio)
 
-if __name__ == '__main__':
-
-    dict_ = dict_()
-    dict_.set()
-    dict_.analysis_s2d1()
-    dict_.analysis_s2d2()
-    dict_.analysis_s2d3()
-    dict_.analysis_s2d5()
-
-    # print(dict_.s2d5)
-
-    doc1 = _text.no_year3().s2d1
-    doc2 = _text.no_year3().s2d2
-    doc3 = _text.no_year3().s2d3
-    doc4 = _text.no_year3().s2d4
-    doc5 = _text.no_year3().s2d5
-
-    a = doc1.format(**dict_.s2d1)
-    b = doc2.format(**dict_.s2d2)
-    c = doc3.format(**dict_.s2d3)
-    d = doc4.format(**dict_.s2d4)
-    e = doc5.format(**dict_.s2d5)
-
-    print(a)
-    print(b)
-    print(c)
-    print(d)
-    print(e)
+# if __name__ == '__main__':
+#
+#     dict_ = dict_()
+#     dict_.set()
+#     dict_.analysis_s2d1()
+#     dict_.analysis_s2d2()
+#     dict_.analysis_s2d3()
+#     dict_.analysis_s2d5()
+#
+#     # print(dict_.s2d5)
+#
+#     doc1 = _text.no_year3().s2d1
+#     doc2 = _text.no_year3().s2d2
+#     doc3 = _text.no_year3().s2d3
+#     doc4 = _text.no_year3().s2d4
+#     doc5 = _text.no_year3().s2d5
+#
+#     a = doc1.format(**dict_.s2d1)
+#     b = doc2.format(**dict_.s2d2)
+#     c = doc3.format(**dict_.s2d3)
+#     d = doc4.format(**dict_.s2d4)
+#     e = doc5.format(**dict_.s2d5)
+#
+#     print(a)
+#     print(b)
+#     print(c)
+#     print(d)
+#     print(e)
 
 
 

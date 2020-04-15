@@ -9,19 +9,15 @@
 '''
 python-docx库运用中出现的问题
 
-
-
 '''
-from docx import Document
-import docx
+import os
+from far import _config
+from core import getDB
+from main import get_docx
 
-class Test(object):
-    def __init__(self,name):
-        self.name = name
+name = 'temple'
+output_path = '\\'.join([_config.Path.output, name +'.docx'])
+getDB(name = name)
+get_docx(name=name,
+         output_path=output_path)
 
-    def test(self,doc,text):
-        p = doc.add_paragragh(text)
-
-if __name__ == '__main__':
-    D = Document()
-    D.add_paragragh('1123')
