@@ -10,18 +10,15 @@
     Report类
 '''
 
-
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
 from far import _config, _formula
 
-
 class getDB(object):
     '''
     直接实例化后即可使用
     '''
-
     def __init__(self, name):
         '''
         getDB类的功能：
@@ -32,7 +29,6 @@ class getDB(object):
             name：企业名称（xlsx文件名称），被index模块调用，index模块获取name传入
         方法：
             xls_db(): 形成初始数据库
-
         :param name: 企业名称(xlsx文件名称)
         '''
         self.name = name
@@ -63,6 +59,8 @@ class getDB(object):
         self.calc_f_index('without_nodata')
         self.calc_m_index('without_nodata')
         self.calc_f_index('for_print')
+        # self.calc_m_index('for_print')
+        self.__remove_zore_item()
 
     def xlsx_db(self):
         '''
@@ -73,7 +71,6 @@ class getDB(object):
         self.db_path = ''.join([self.root_path, r"\db\{}.json".format(self.name)])
         db = TinyDB(self.db_path)
         # 清洗数据中因复制粘贴带有的‘\u202c’和数字中含有‘，’的问题
-
         def clear_data(data):
             if isinstance(data, str):
                 data = data.replace('\u202c', '').replace(',', '')
@@ -125,7 +122,6 @@ class getDB(object):
         '''
         前置步骤:
             cal_f_index() ---> table('without_nodata')
-            cal_f_index() ---> table('without_nodata')
         清除无数据年份
         row_dict类型为字典，删除无数据年份对应的键值对
         '''
@@ -138,27 +134,26 @@ class getDB(object):
             table_w.insert(row)
             table_p.insert(row)
 
-
-    def __remove_zore_item(self, table):
-        table.all()
+    def __remove_zore_item(self):
+        '''
+        仅对table_for_print使用
+        :return:
+        '''
         Q = Query()
-        table.remove(
-            Q.year3 == 0 and
-            Q.year2 == 0 and
-            Q.year1 == 0 and
-            Q.month == 0
-        )
-        return table
+        self.table_for_print.remove(Q.year3 == 0 and
+                                    Q.year2 == 0 and
+                                    Q.year1 == 0 and
+                                    Q.month == 0)
 
     def calc_f_index(self, table_name):
         """
-            '''纵向扩展 使用insert'''
-            1、根据同年数据计算财务指标
-            2、存货周转天数、应收账款周转天数 应使用前值与当前值的均值，暂未处理
-            3、指标增加需在
-                （1）index_list中新增指标名称，
-                （2）__formula模块中新增指标计算公式
-        :param table:  tinydb.table类实例
+        '''纵向扩展 使用insert'''
+        1、根据同年数据计算财务指标
+        2、存货周转天数、应收账款周转天数 应使用前值与当前值的均值，暂未处理
+        3、指标增加需在
+            （1）index_list中新增指标名称，
+            （2）__formula模块中新增指标计算公式
+        :param table: tinydb.table类实例
         :return: tinydb.table类实例
         """
         table = self.db.table(table_name)
@@ -185,14 +180,13 @@ class getDB(object):
                 index_dict.setdefault(i, _formula.formula(table, i, index))
             table.insert(index_dict)
 
-        return table
+        # return table
 
     def calc_m_index(self, table_name):
         """
             '''横向扩展，使用update'''
-            1、清除全部为0的科目
-            2、增加平均值、求和数、增长率、平均增长率
-            3、科目进行分类，更新type标签
+            1、增加平均值、求和数、增长率、平均增长率
+            2、科目进行分类，更新type标签
         @param table:xlsx转换的tinydb里的table类
         @return: 格式化的数据
         """
@@ -272,7 +266,6 @@ class getDB(object):
             '营运资产', '营运负债', '营运资金需求', '营运资本', '存货周转天数', '应收账款周转天数',
             '毛利率', '净利润率', '总资产收益率(ROA)', '净资产收益率(ROE)',
         ]  # 财务指标列表
-
         type_list = [li_a, fi_a, li_d, fi_d, equi, reve, csfl, inde]
         for ty in type_list:
             for it in ty:
@@ -281,14 +274,15 @@ class getDB(object):
                         table.update({'type': type[i]}, Q.items == str(it))
         return table
 
-#
+
+# #
 # if __name__ == '__main__':
-#     db = getDB('temple')
-#     # print(db.table_without_nodata.all())
-#
-#
+# #     db = getDB('temple')
+# #     # print(db.table_without_nodata.all())
+# #
+# #
 #     for dict_ in db.table_without_nodata.all():
 #         print(dict_)
-#
+# #
 #     for dict_ in db.table_for_print.all():
 #         print(dict_)

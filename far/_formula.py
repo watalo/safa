@@ -81,9 +81,9 @@ def formula(db, year, findex):
         return divd_(year,
                      minu_(year,
                            '流动资产合计',
-                           '其他流动资产'
+                           '存货'
                            ),
-                     '非流动资产合计'
+                     '流动负债合计'
                      )
 
     elif findex == 'EBIT':

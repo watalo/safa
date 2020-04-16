@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b76fbcd-43df-4c10-9bbd-b6a73358d303" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/safa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/safa.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/far/_para.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_para.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_formula.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_formula.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_text.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ddipy_e.1.0" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -51,7 +49,7 @@
       <recent name="D:\PYTHON\projects\easyanalysis\far" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.index">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="safa" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -298,9 +296,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.index" />
         <item itemvalue="Python.core" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python._para" />
         <item itemvalue="Python.core (1)" />
       </list>
@@ -338,6 +336,8 @@
       <workItem from="1586869330851" duration="1079000" />
       <workItem from="1586870561205" duration="1641000" />
       <workItem from="1586958961934" duration="1331000" />
+      <workItem from="1587039770788" duration="2732000" />
+      <workItem from="1587043200904" duration="8510000" />
     </task>
     <task id="LOCAL-00001" summary="根目录变更">
       <created>1586781830138</created>
@@ -385,10 +385,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1586798131134" />
-    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1586959055997">
+    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1587045078405">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586959055997" />
+    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587045078405" />
     <state x="565" y="571" width="581" height="336" key="Github.ShareDialog" timestamp="1585583888298">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -397,46 +397,46 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="517" y="343" width="623" height="721" key="Github.UntrackedFilesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1585583904139" />
-    <state width="1224" height="394" key="GridCell.Tab.0.bottom" timestamp="1586872558875">
+    <state width="1376" height="475" key="GridCell.Tab.0.bottom" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1224" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
-    <state width="1224" height="394" key="GridCell.Tab.0.center" timestamp="1586872558875">
+    <state width="1376" height="475" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.0.center" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1224" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
-    <state width="1224" height="394" key="GridCell.Tab.0.left" timestamp="1586872558875">
+    <state width="1376" height="475" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.0.left" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1224" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
-    <state width="1224" height="394" key="GridCell.Tab.0.right" timestamp="1586872558875">
+    <state width="1376" height="475" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.0.right" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1224" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586872558875" />
-    <state width="2507" height="476" key="GridCell.Tab.1.bottom" timestamp="1586798323129">
+    <state width="1376" height="475" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.1.bottom" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
-    <state width="2507" height="476" key="GridCell.Tab.1.center" timestamp="1586798323129">
+    <state width="1376" height="475" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.1.center" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
-    <state width="2507" height="476" key="GridCell.Tab.1.left" timestamp="1586798323129">
+    <state width="1376" height="475" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.1.left" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
-    <state width="2507" height="476" key="GridCell.Tab.1.right" timestamp="1586798323129">
+    <state width="1376" height="475" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
+    <state width="1376" height="475" key="GridCell.Tab.1.right" timestamp="1587050609675">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2507" height="476" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586798323129" />
+    <state width="1376" height="475" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587050609675" />
     <state x="118" y="375" key="IDE.errors.dialog" timestamp="1586787121337">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="118" y="375" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586787121337" />
-    <state x="25" y="261" key="SettingsEditor" timestamp="1586959067835">
+    <state x="25" y="261" key="SettingsEditor" timestamp="1587043228127">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="25" y="261" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1586959067835" />
+    <state x="25" y="261" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587043228127" />
     <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1586798136691">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -450,6 +450,187 @@
     </state>
     <state x="1273" y="0" width="1294" height="1407" key="dock-window-1/0.0.2560.1400@0.0.2560.1400" timestamp="1584684917040" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>413</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>414</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>415</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>416</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>417</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>419</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>420</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>421</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>422</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>418</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>424</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>426</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>427</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>425</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>429</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>430</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>431</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>428</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>434</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>433</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>432</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>423</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>301</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>288</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>289</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>291</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>290</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>292</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>295</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>294</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>296</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>297</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>298</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>299</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/easyanalysis$xlsx2db.coverage" NAME="xlsx2db Coverage Results" MODIFIED="1584546441467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FAreport$core.coverage" NAME="core Coverage Results" MODIFIED="1586707626889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -459,8 +640,8 @@
     <SUITE FILE_PATH="coverage/easyanalysis$core__1_.coverage" NAME="core (1) Coverage Results" MODIFIED="1585581735726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585502736802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$index.coverage" NAME="index Coverage Results" MODIFIED="1585498084621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1586869517635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1586870587936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1587048815340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1587050609665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test.coverage" NAME="test Coverage Results" MODIFIED="1584635704597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
   </component>
 </project>

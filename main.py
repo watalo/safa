@@ -133,8 +133,7 @@ def get_docx(name, output_path):
     # 4.保存
     doc.save(output_path)
 
-
-#----------------配置类：调用其他类------------
+#------------------------------配置类：调用其他类-------------------------
 class Conf(object):
 
     def __init__(self, name):
@@ -163,7 +162,7 @@ class Conf(object):
         self.para.analysis_s2d3()
         self.para.analysis_s2d5()
 
-# ----------------需要用到的函数--------------------------
+# -----------------------------需要用到的函数-----------------------------
 
 def bold(doc, text):
     p = doc.add_paragraph()
@@ -173,7 +172,11 @@ def data(conf_obj,item, key):
     Q = Query()
     return conf_obj.table.get(Q.items == item)[key]
 
-# -------------------------------------------------------
+# def data_fp(conf_obj,item, key):
+#     Q_fp = Query()
+#     return conf_obj.table_for_print.get(Q_fp.items == item)[key]
+
+# -----------------------------------------------------------------------
 def financial_sheet(conf_obj,doc):
     Q = Query()
     item_list = []  # 表头列表
@@ -185,26 +188,27 @@ def financial_sheet(conf_obj,doc):
             if type(it) == str:
                 data_list.append(it)
     data_list = data_list[:5]
-
-
+# ------------------------------------------------------------------------
     xratio = [
-        '资产负债率', '流动比率', '速动比率',
-        '毛利率', '净利润率',
+        '资产负债率', '费用收入比', '流动资产占比',
+        '毛利率', '净利润率', '刚兑占比', '短债占比',
         '总资产收益率(ROA)', '净资产收益率(ROE)',
     ]  # 百分数形式的财务指标 eg:‘11.11%’
     table = doc.add_table(rows=len(conf_obj.table_for_print.all()),
-                                    cols=5,
-                                    style="Medium Grid 1 Accent 1")
+                          cols=5,
+                          style="Medium Grid 1 Accent 1")
+# ------------------------------------------------------------------------
     for irows, item in enumerate(item_list):
         for icols, data in enumerate(data_list):
             num = conf_obj.table_for_print.get(Q.items == item)[data]
             if isinstance(num, float):
                 if item in xratio:
-                    table.cell(irows, icols).text = '{:,.2%}'.format(num)
+                    table.cell(irows, icols).text = '{:.2%}'.format(num)
                 else:
-                    table.cell(irows, icols).text = '{:,.0f}'.format(num)
+                    table.cell(irows, icols).text = '{:,.2f}'.format(num)
             else:
                 table.cell(irows, icols).text = str(num)
+# ------------------------------------------------------------------------
 
 def big_change_items(conf_obj):
     '''
@@ -269,28 +273,28 @@ def big_change_sheet(conf_obj,doc):
         cell.text = table_change_item[i]
     if conf_obj.data_type == 'all_years':
         for i, item in enumerate(big_change_items(conf_obj)):
-            table_change.cell(i + 1, 0).text = data(conf_obj,item, 'items')  # 科目名称
-            table_change.cell(i + 1, 1).text = '{:,.2f}'.format(data(conf_obj,item, 'year1'))  # 当期值
+            table_change.cell(i + 1, 0).text = data(conf_obj,item,'items')  # 科目名称
+            table_change.cell(i + 1, 1).text = '{:,.2f}'.format(data(conf_obj,item,'year1'))  # 当期值
             table_change.cell(i + 1, 2).text = '{:,.2f}'.format(
-                data(conf_obj,item, 'month') - data(conf_obj,item, 'year1'))  # 变化值
-            if data(conf_obj,item, 'year1') != 0:
-                ratio = data(conf_obj,item, 'month') - data(conf_obj,item, 'year1') / data(conf_obj,item, 'year1')
+                data(conf_obj,item,'year1') - data(conf_obj,item,'year2'))  # 变化值
+            if data(conf_obj,item,'year2') != 0:
+                ratio = data(conf_obj,item,'year1') - data(conf_obj, item, 'year2') / data(conf_obj, item, 'year2')
                 table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
             else:
-                if data(conf_obj,item, 'month') > 0:
+                if data(conf_obj, item, 'year1') > 0:
                     table_change.cell(i + 1, 3).text = '当期净增加'
                 else:
                     table_change.cell(i + 1, 3).text = '当期净减少'
     else:
         for i, item in enumerate(big_change_items(conf_obj)):
-            table_change.cell(i + 1, 0).text = data(conf_obj,item, 'items')  # 科目名称
-            table_change.cell(i + 1, 1).text = '{:,.2f}'.format(data(conf_obj,item, 'month'))  # 当期值
-            table_change.cell(i + 1, 2).text = '{:,.2f}'.format(data(conf_obj,item, 'month') - data(conf_obj,item, 'year1'))  # 变化值
-            if data(conf_obj,item, 'year1') != 0:
-                ratio = data(conf_obj,item, 'month') - data(conf_obj,item, 'year1') / data(conf_obj,item, 'year1')
+            table_change.cell(i + 1, 0).text = data(conf_obj,item,'items')  # 科目名称
+            table_change.cell(i + 1, 1).text = '{:,.2f}'.format(data(conf_obj,item,'month'))  # 当期值
+            table_change.cell(i + 1, 2).text = '{:,.2f}'.format(data(conf_obj,item,'month') - data(conf_obj,item, 'year1'))  # 变化值
+            if data(conf_obj,item,'year1') != 0:
+                ratio = data(conf_obj,item,'month') - data(conf_obj,item,'year1') / data(conf_obj,item,'year1')
                 table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
             else:
-                if data(conf_obj,item, 'month') > 0:
+                if data(conf_obj,item,'month') > 0:
                     table_change.cell(i + 1, 3).text = '当期净增加'
                 else:
                     table_change.cell(i + 1, 3).text = '当期净减少'
@@ -298,9 +302,7 @@ def big_change_sheet(conf_obj,doc):
 def item_table(doc, col1, col2, col3, col4):
     """
     生成固定格式的表格
-        1、科目明细
-        2、账龄明细
-        3、等等
+        1、科目明细，2、账龄明细，3、等等
     @param col1: 序号
     @param col2: 名称
     @param col3: 金额
@@ -309,8 +311,8 @@ def item_table(doc, col1, col2, col3, col4):
     """
     table_regular = [col1, col2, col3, col4]
     b_c_table = doc.add_table(rows=7,
-                                   cols=4,
-                                   style='Medium Shading 1 Accent 1')
+                              cols=4,
+                              style='Medium Shading 1 Accent 1')
     for i in range(4):
         cell = b_c_table.cell(0, i)
         cell.text = table_regular[i]
@@ -337,7 +339,7 @@ def para_add(doc, item_para, item):
     elif item == "其他流动资产":
         item_para.add_run("其中【添加明细】。")
     elif item == "长期股权投资":
-        item_para.add_run("系对【n】家企业的投资，本期主要新增【哪家公司】；对外投资前五位如下：")
+        item_para.add_run("系对【N】家企业的投资，本期主要新增【哪家公司】；对外投资前五位如下：")
         item_table(doc, "序号", "名称", "投资额", "投资性质")
     elif item == "固定资产":
         item_para.add_run("固定资产原值【】万元，累计折旧【】万元，其中房屋及建筑物【】万元、机器设备【】万元、办公设备【】万元、【其他】【】万元。")
@@ -369,12 +371,16 @@ def para_add(doc, item_para, item):
         item_para.add_run("其中专项应付款【】万元、【】【】万元、其他【】万元。")
 
 def items_detail(conf_obj, doc, date):
-    # 形成科目列表
-    global type_in_all, total_, item_text
+
+    #变量声明
     list_dict = []
-    for dict in conf_obj.table:
+    item_text = ''
+    type_in_all = ''
+    total_ = float()
+    # 形成科目列表
+    for dict in conf_obj.table_for_print:
         try:
-            if dict['type'] in ['流动资产', '非流动资产', '流动负债', '非流动负债']:
+            if data(conf_obj,dict['items'],'type') in ['流动资产', '非流动资产', '流动负债', '非流动负债']:
                 list_dict.append(dict['items'])
             else:
                 pass
@@ -387,7 +393,7 @@ def items_detail(conf_obj, doc, date):
             if conf_obj.data_type == 'no_1year':
                 item_text = '【{}】：当期余额{:,.2f}万元，在{}中占比{:.2%}。'
             else:
-                item_text = '【{}】：当期余额{:,.2f}万元，在{}中占比{:.2f}，较上年增加{:.2f}万元，{}。'
+                item_text = '【{}】：当期余额{:,.2f}万元，在{}中占比{:.2%}，较上年增加{:.2f}万元，{}。'
 
             if data(conf_obj, item, 'type') in ['流动资产', '非流动资产']:
                 type_in_all = '总资产'
@@ -406,21 +412,27 @@ def items_detail(conf_obj, doc, date):
             text_ratio = '当年增幅为{:.2%}'.format(data(conf_obj, item, 'ratio'))
         # 模版的格式化输出
         if conf_obj.data_type == 'no_1year':
-            item_text.format(data(conf_obj, item,'items'),
-                             data(conf_obj, item, date),
-                             type_in_all,
-                             data(conf_obj, item, date) / total_
-                             )
+            para_ = doc.add_paragraph(
+                item_text.format(
+                    data(conf_obj, item,'items'),
+                    data(conf_obj, item, date),
+                    type_in_all,
+                    data(conf_obj, item, date) / total_
+                )
+            )
+            para_add(doc, para_, data(conf_obj, item, date))  # 根据不同的科目在文字模版后新增文字
         else:
-            item_text.format(data(conf_obj, item, 'items'),
-                             data(conf_obj, item, date),
-                             type_in_all,
-                             data(conf_obj, item, date) / total_,
-                             data(conf_obj, item, 'delta'),
-                             text_ratio
-                             )
-        para_ = doc.add_paragraph(item_text)
-        para_add(doc, para_, data(conf_obj, item, date)) #根据不同的科目在文字模版后新增文字
+            para_ = doc.add_paragraph(
+                item_text.format(
+                    data(conf_obj, item, 'items'),
+                    data(conf_obj, item, date),
+                    type_in_all,
+                    data(conf_obj, item, date) / total_,
+                    data(conf_obj, item, 'delta'),
+                    text_ratio
+                )
+            )
+            para_add(doc, para_, data(conf_obj, item, 'items')) #根据不同的科目在文字模版后新增文字
 
 # ----------------------------------------------
 
