@@ -172,10 +172,6 @@ def data(conf_obj,item, key):
     Q = Query()
     return conf_obj.table.get(Q.items == item)[key]
 
-# def data_fp(conf_obj,item, key):
-#     Q_fp = Query()
-#     return conf_obj.table_for_print.get(Q_fp.items == item)[key]
-
 # -----------------------------------------------------------------------
 def financial_sheet(conf_obj,doc):
     Q = Query()
@@ -291,7 +287,7 @@ def big_change_sheet(conf_obj,doc):
             table_change.cell(i + 1, 1).text = '{:,.2f}'.format(data(conf_obj,item,'month'))  # 当期值
             table_change.cell(i + 1, 2).text = '{:,.2f}'.format(data(conf_obj,item,'month') - data(conf_obj,item, 'year1'))  # 变化值
             if data(conf_obj,item,'year1') != 0:
-                ratio = data(conf_obj,item,'month') - data(conf_obj,item,'year1') / data(conf_obj,item,'year1')
+                ratio = (data(conf_obj,item,'month') - data(conf_obj,item,'year1')) / data(conf_obj,item,'year1')
                 table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
             else:
                 if data(conf_obj,item,'month') > 0:
@@ -433,7 +429,6 @@ def items_detail(conf_obj, doc, date):
                 )
             )
             para_add(doc, para_, data(conf_obj, item, 'items')) #根据不同的科目在文字模版后新增文字
-
 # ----------------------------------------------
 
 
