@@ -10,7 +10,9 @@ import os
 from tinydb import TinyDB, Query
 from docx.shared import Inches
 from docx import Document
-from docx.opc.oxml import qn
+from docx.oxml.ns import qn
+from docx.shared import Pt, Length
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from far import _para, _text, _config
 
 '''
@@ -23,108 +25,117 @@ from far import _para, _text, _config
 def get_docx(name, output_path):
     conf = Conf(name)
     doc = Document()
-    doc.styles['Normal'].font.name = u'宋体'
-    # doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+
+    doc.styles['Normal'].font.name = 'Times New Roman'
+    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+
     # 文档标题
-    doc.add_heading('{}财务分析报告'.format(conf.name))
+    title = doc.add_heading('',level=0).add_run('{}财务分析报告'.format(conf.name))
+    title.font.name = 'Times New Roman'
+    title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
     # 1.数据
-    bold(doc, conf.header.h1)
+    bold(doc, conf.header.h1,2)
     financial_sheet(conf, doc)
     doc.add_paragraph(':::::::请调整成自己喜欢的表格样式::::::')
     # 2.分析
     if conf.data_type == 'normal':
-        bold(doc, conf.header.h2)
-        bold(doc, conf.header.h2s1)
-        doc.add_paragraph(conf.normal.s1d1)
-        bold(doc, conf.header.h2s2)
-        doc.add_paragraph(conf.normal.s2d1.format(**conf.para.s2d1))
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.normal.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.normal.s2d1.format(**conf.para.s2d1))
         doc.add_paragraph(conf.normal.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3)
-        doc.add_paragraph(conf.normal.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4)
-        doc.add_paragraph(conf.normal.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5)
-        doc.add_paragraph(conf.normal.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6)
-        doc.add_paragraph(conf.normal.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7)
+        p3 = bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.normal.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.normal.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.normal.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.normal.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h2s7,3)
         big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3)
+        bold(doc, conf.header.h3,3)
         items_detail(conf, doc, 'year1')
     elif conf.data_type == 'no_3year':
-        bold(doc, conf.header.h2)
-        bold(doc, conf.header.h2s1)
-        doc.add_paragraph(conf.no_year3.s1d1)
-        bold(doc, conf.header.h2s2)
-        doc.add_paragraph(conf.no_year3.s2d1.format(**conf.para.s2d1))
-        doc.add_paragraph(conf.no_year3.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3)
-        doc.add_paragraph(conf.no_year3.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4)
-        doc.add_paragraph(conf.no_year3.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5)
-        doc.add_paragraph(conf.no_year3.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6)
-        doc.add_paragraph(conf.no_year3.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7)
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.no_year3.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.no_year3.s2d1.format(**conf.para.s2d1))
+        p3 = doc.add_paragraph(conf.no_year3.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.no_year3.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.no_year3.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.no_year3.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.no_year3.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h2s7, 3)
         big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3)
+        bold(doc, conf.header.h3, 2)
         items_detail(conf, doc, 'year1')
     elif conf.data_type == 'no_year2':
-        bold(doc, conf.header.h2)
-        bold(doc, conf.header.h2s1)
-        doc.add_paragraph(conf.no_year2.s1d1)
-        bold(doc, conf.header.h2s2)
-        doc.add_paragraph(conf.no_year2.s2d1.format(**conf.para.s2d1))
-        doc.add_paragraph(conf.no_year2.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3)
-        doc.add_paragraph(conf.no_year2.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4)
-        doc.add_paragraph(conf.no_year2.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5)
-        doc.add_paragraph(conf.no_year2.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6)
-        doc.add_paragraph(conf.no_year2.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7)
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.no_year2.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.no_year2.s2d1.format(**conf.para.s2d1))
+        p3 = doc.add_paragraph(conf.no_year2.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.no_year2.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.no_year2.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.no_year2.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.no_year2.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h2s7, 3)
         big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3)
+        bold(doc, conf.header.h3, 2)
         items_detail(conf, doc, 'year1')
     elif conf.data_type == 'no_year1':
-        bold(doc, conf.header.h2)
-        bold(doc, conf.header.h2s1)
-        doc.add_paragraph(conf.no_year1.s1d1)
-        bold(doc, conf.header.h2s2)
-        doc.add_paragraph(conf.no_year1.s2d1.format(**conf.para.s2d1))
-        doc.add_paragraph(conf.no_year1.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3)
-        doc.add_paragraph(conf.no_year1.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4)
-        doc.add_paragraph(conf.no_year1.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5)
-        doc.add_paragraph(conf.no_year1.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6)
-        doc.add_paragraph(conf.no_year1.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h3)
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.no_year1.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.no_year1.s2d1.format(**conf.para.s2d1))
+        p3 = doc.add_paragraph(conf.no_year1.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.no_year1.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.no_year1.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.no_year1.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.no_year1.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h3, 2)
         items_detail(conf, doc, 'month')
     elif conf.data_type == 'all_years':
-        bold(doc, conf.header.h2)
-        bold(doc, conf.header.h2s1)
-        doc.add_paragraph(conf.all_years.s1d1)
-        bold(doc, conf.header.h2s2)
-        doc.add_paragraph(conf.all_years.s2d1.format(**conf.para.s2d1))
-        doc.add_paragraph(conf.all_years.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3)
-        doc.add_paragraph(conf.all_years.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4)
-        doc.add_paragraph(conf.all_years.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5)
-        doc.add_paragraph(conf.all_years.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6)
-        doc.add_paragraph(conf.all_years.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h3)
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.all_years.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.all_years.s2d1.format(**conf.para.s2d1))
+        p3 = doc.add_paragraph(conf.all_years.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.all_years.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.all_years.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.all_years.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.all_years.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h3,2)
         items_detail(conf, doc, 'year1')
     else:
         pass
+
+    for paragraph in [p1,p2,p3,p4,p5,p6,p7]:
+        paragraph.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+        paragraph.paragraph_format.first_line_indent = Pt(24)
+
     # 3.讨米文案
     doc.add_picture('img/taomi.png', width=Inches(2.25))
     p = doc.add_paragraph()
@@ -164,9 +175,10 @@ class Conf(object):
 
 # -----------------------------需要用到的函数-----------------------------
 
-def bold(doc, text):
-    p = doc.add_paragraph()
-    p.add_run(text).bold = True
+def bold(doc, text, level):
+    run = doc.add_heading('', level=level).add_run(text)
+    run.font.name = 'Times Nwe Roman'
+    run._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
 def data(conf_obj,item, key):
     Q = Query()
@@ -192,7 +204,7 @@ def financial_sheet(conf_obj,doc):
     ]  # 百分数形式的财务指标 eg:‘11.11%’
     table = doc.add_table(rows=len(conf_obj.table_for_print.all()),
                           cols=5,
-                          style="Medium Grid 1 Accent 1")
+                          style="Light Grid")
 # ------------------------------------------------------------------------
     for irows, item in enumerate(item_list):
         for icols, data in enumerate(data_list):
@@ -263,7 +275,7 @@ def big_change_sheet(conf_obj,doc):
     table_change_item = ['科目名称', '当期值', '较年初变化', '变化率', '变化情况']
     table_change = doc.add_table(rows=len(big_change_items(conf_obj)) + 1,
                                  cols=5,
-                                 style='Medium Grid 1 Accent 1')
+                                 style='Light Grid')
     for i in range(5):
         cell = table_change.cell(0, i)
         cell.text = table_change_item[i]
@@ -308,7 +320,7 @@ def item_table(doc, col1, col2, col3, col4):
     table_regular = [col1, col2, col3, col4]
     b_c_table = doc.add_table(rows=7,
                               cols=4,
-                              style='Medium Shading 1 Accent 1')
+                              style='Light Grid')
     for i in range(4):
         cell = b_c_table.cell(0, i)
         cell.text = table_regular[i]
@@ -416,6 +428,8 @@ def items_detail(conf_obj, doc, date):
                     data(conf_obj, item, date) / total_
                 )
             )
+            para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+            para_.paragraph_format.first_line_indent = Pt(24)
             para_add(doc, para_, data(conf_obj, item, date))  # 根据不同的科目在文字模版后新增文字
         else:
             para_ = doc.add_paragraph(
@@ -428,6 +442,8 @@ def items_detail(conf_obj, doc, date):
                     text_ratio
                 )
             )
+            para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+            para_.paragraph_format.first_line_indent = Pt(24)
             para_add(doc, para_, data(conf_obj, item, 'items')) #根据不同的科目在文字模版后新增文字
 # ----------------------------------------------
 

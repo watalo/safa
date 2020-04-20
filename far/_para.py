@@ -55,9 +55,9 @@ class dict_:
                      '刚性负债1': ['刚性负债','year1'], '刚性负债m': ['刚性负债','month'],
                      '刚性兑付占比3': ['刚兑占比','year3'], '刚性兑付占比2': ['刚兑占比','year2'],
                      '刚性兑付占比1': ['刚兑占比','year1'], '刚性兑付占比m': ['刚兑占比','month'],
-                     '短期刚兑m': ['短期刚兑','month'],
-                     '短期借款m': ['短期借款','month'],
-                     '一年内非流m': ['一年内到期的非流动负债','month'],
+                     '短期刚兑m': ['短期刚兑','month'],'短期刚兑1':['短期刚兑','year1'],
+                     '短期借款m': ['短期借款','month'],'短期借款1':['短期借款','year1'],
+                     '一年内非流m': ['一年内到期的非流动负债','month'],'一年内非流1': ['一年内到期的非流动负债','year1'],
                      }
         self.s2d3 = {'营业收入3': ['营业收入','year3'], '营业收入2': ['营业收入','year2'],
                      '营业收入1': ['营业收入','year1'], '分析s2d3':str(),
@@ -74,10 +74,10 @@ class dict_:
                      }
         self.s2d4 = {'净现金流入3':['现金净流入','year3'], '净现金流入2':['现金净流入','year2'],
                      '净现金流入1':['现金净流入','year1'],
-                     '经营活动现金净流入3':['经营活动净现金流','year3'], '经营活动现金净流入2':['经营活动净现金流','year2'],
-                     '经营活动现金净流入1':['经营活动净现金流','year1'],
-                     '投资活动现金净流入3':['投资活动现金净流','year3'], '投资活动现金净流入2':['投资活动现金净流','year2'],
-                     '投资活动现金净流入1':['投资活动现金净流','year1'],
+                     '经营活动现金净流入3':['经营活动净现金流入','year3'], '经营活动现金净流入2':['经营活动净现金流入','year2'],
+                     '经营活动现金净流入1':['经营活动净现金流入','year1'],
+                     '投资活动现金净流入3':['投资活动现金净流入','year3'], '投资活动现金净流入2':['投资活动现金净流入','year2'],
+                     '投资活动现金净流入1':['投资活动现金净流入','year1'],
                      '筹资活动现金净流入3':['筹资活动现金净流入','year3'], '筹资活动现金净流入2':['筹资活动现金净流入','year2'],
                      '筹资活动现金净流入1':['筹资活动现金净流入','year1'],
                      }
@@ -90,9 +90,9 @@ class dict_:
         self.s2d6 = {'流动比率3':['流动比率','year3'], '流动比率2':['流动比率','year2'],
                      '流动比率1':['流动比率','year1'], '流动比率m':['流动比率','month'],
                      '流动比率av':['流动比率','averg'], '流动比率delta':['流动比率','delta'],
-                     '速动比率3':['流动比率','year3'], '速动比率2':['流动比率','year2'],
-                     '速动比率1':['流动比率','year1'], '速动比率m':['流动比率','month'],
-                     '速动比率av':['流动比率','averg'], '速动比率delta':['流动比率','delta'],
+                     '速动比率3':['速动比率','year3'], '速动比率2':['速动比率','year2'],
+                     '速动比率1':['速动比率','year1'], '速动比率m':['速动比率','month'],
+                     '速动比率av':['速动比率','averg'], '速动比率delta':['速动比率','delta'],
                       }
 
     @property
@@ -295,7 +295,6 @@ class dict_:
             pass
         self.s2d2['分析s2d2'] = commit
 
-    #TODO: 问题在哪里啊？ 已解决
     def analysis_s2d3(self):
         commit = '营业收入{com1}，盈利能力{com2}'
 
@@ -352,7 +351,7 @@ class dict_:
                     else:
                         com1 = '近来年相对稳定'
             # com2
-            if self.db_data('净利润', 'month') > 0:
+            if self.db_data('净利润', 'month') >= 0:
                 if (self.db_data('净利润', 'year2') < self.db_data('净利润', 'year1') < self.db_data('净利润', 'month')):
                     com2 = '逐年提升'
                 elif (self.db_data('净利润', 'year2') > self.db_data('净利润', 'year1') > self.db_data('净利润', 'month')):
@@ -381,9 +380,45 @@ class dict_:
                 com2 = '较弱，出现亏损情况'
 
         elif self.data_type == 'no_1year':
-            pass
+            com1 = '{:,.f}'.format(self.db_data('营业收入','month'))
+            com2 = '{:,.f}'.format(self.db_data('净利润','month'))
+
         elif self.data_type == 'all_years':
-            pass
+            # com1
+            com1 = ''
+            if self.db_data('营业收入','year3') == self.db_data('营业收入','year2') == self.db_data('营业收入','year1') == 0:
+                commit = '连续三年未实现销售收入。'
+            else:
+                if 0 < self.db_data('营业收入','year3') < self.db_data('营业收入','year2'):
+                    if self.db_data('营业收入','year2') < self.db_data('营业收入','year1'):
+                        tag = (self.db_data('营业收入','year1') - self.db_data('营业收入','year3'))/self.db_data('营业收入','year3')
+                        ave = tag/2
+                        com1 = '持续三年增长，平均增长率为{:,.2%}'.format(ave)
+                    elif self.db_data('营业收入','year2') > self.db_data('营业收入','year1'):
+                        com1 = '出现波动，最近一年营收出现回落'
+                    else:
+                        com1 = '近来年相对稳定，相比前三年营收有所提升'
+                elif self.db_data('营业收入','year3') > self.db_data('营业收入','year2'):
+                    if self.db_data('营业收入','year2') > self.db_data('营业收入','year1'):
+                        tag = (self.db_data('营业收入','year3') - self.db_data('营业收入','year1'))/self.db_data('营业收入','year1')
+                        ave = tag/2
+                        com1 = '持续三年下降，平均降幅为{:,.2%}'.format(ave)
+                    elif self.db_data('营业收入','year2') < self.db_data('营业收入','year1'):
+                        com1 = '出现波动，但最近一年营收有所回升'
+                    else:
+                        com1 = '近来年相对稳定，相比前三年营收有所回落'
+            # com2
+            if self.db_data('净利润','year1') >= 0:
+                if (self.db_data('净利润','year3') < self.db_data('净利润','year2')
+                        < self.db_data('净利润','year1')):
+                    com2 = '逐年提升'
+                elif (self.db_data('净利润','year3') > self.db_data('净利润','year2')
+                        > self.db_data('净利润','year1')):
+                    com2 = '逐年下降'
+                else:
+                    com2 = '有所波动'
+            else:
+                com2 = '较弱，出现亏损情况'
 
         self.s2d3['分析s2d3'] = commit.format(com1=com1,com2=com2)
 

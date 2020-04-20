@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9b76fbcd-43df-4c10-9bbd-b6a73358d303" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_para.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_para.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/far/_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/temple.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/input/temple.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../github/safa" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/far" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -90,28 +96,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="ADDITIONAL_ARGS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="_para" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="easyanalysis" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/far" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/far/_para.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -202,6 +186,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="safa" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="easyanalysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -284,19 +290,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python._para" />
       <item itemvalue="Python.core" />
       <item itemvalue="Python.index" />
       <item itemvalue="Python.test" />
       <item itemvalue="Python.index (1)" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.index" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.index (1)" />
         <item itemvalue="Python.core" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python._para" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +344,8 @@
       <workItem from="1587304869689" duration="46000" />
       <workItem from="1587304927067" duration="470000" />
       <workItem from="1587305409567" duration="854000" />
-      <workItem from="1587306275458" duration="62000" />
+      <workItem from="1587306275458" duration="9751000" />
+      <workItem from="1587384510442" duration="2688000" />
     </task>
     <task id="LOCAL-00001" summary="根目录变更">
       <created>1586781830138</created>
@@ -361,7 +368,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587051834399</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="大型bug已修复，开始调整文档格式">
+      <created>1587306628047</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587306628047</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +385,8 @@
     <MESSAGE value="根目录变更" />
     <MESSAGE value="没有找到docx不能在类里面实例化的原因，直接使用函数进行操作，同时对数据库文件进行完善，增加了数据库初始化的内容" />
     <MESSAGE value="bug: 1、流动性分析里数据一样；2、变化表里的变化率有问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug: 1、流动性分析里数据一样；2、变化表里的变化率有问题" />
+    <MESSAGE value="大型bug已修复，开始调整文档格式" />
+    <option name="LAST_COMMIT_MESSAGE" value="大型bug已修复，开始调整文档格式" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1137" y="534" key="#Notifications" timestamp="1586958968896">
@@ -386,18 +401,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1567" y="212" key="#core/0.0.2560.1400@0.0.2560.1400" timestamp="1586692507173" />
+    <state x="287" y="212" key="#main" timestamp="1587310450480">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="287" y="212" key="#main/0.0.2560.1400@0.0.2560.1400" timestamp="1587310450480" />
     <state x="1567" y="209" key="#test" timestamp="1586872538393">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1567" y="209" key="#test/0.0.2560.1400@0.0.2560.1400" timestamp="1586872538393" />
-    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1587051833533">
+    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1587306627412">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587051833533" />
-    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1587306317049">
+    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587306627412" />
+    <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1587384545543">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587306317049" />
+    <state x="1488" y="264" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587384545543" />
     <state x="565" y="571" width="581" height="336" key="Github.ShareDialog" timestamp="1585583888298">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -406,22 +425,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="517" y="343" width="623" height="721" key="Github.UntrackedFilesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1585583904139" />
-    <state width="612" height="494" key="GridCell.Tab.0.bottom" timestamp="1587306262857">
+    <state width="1226" height="496" key="GridCell.Tab.0.bottom" timestamp="1587387861124">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="612" height="494" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587306262857" />
-    <state width="612" height="494" key="GridCell.Tab.0.center" timestamp="1587306262857">
+    <state width="1226" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
+    <state width="1226" height="496" key="GridCell.Tab.0.center" timestamp="1587387861124">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="612" height="494" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587306262857" />
-    <state width="612" height="494" key="GridCell.Tab.0.left" timestamp="1587306262856">
+    <state width="1226" height="496" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
+    <state width="1226" height="496" key="GridCell.Tab.0.left" timestamp="1587387861124">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="612" height="494" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587306262856" />
-    <state width="612" height="494" key="GridCell.Tab.0.right" timestamp="1587306262857">
+    <state width="1226" height="496" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
+    <state width="1226" height="496" key="GridCell.Tab.0.right" timestamp="1587387861124">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="612" height="494" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587306262857" />
+    <state width="1226" height="496" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
     <state width="1376" height="475" key="GridCell.Tab.1.bottom" timestamp="1587051963451">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -442,14 +461,14 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="118" y="375" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586787121337" />
-    <state x="489" y="354" key="SettingsEditor" timestamp="1587306336614">
+    <state x="489" y="354" key="SettingsEditor" timestamp="1587384550476">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="489" y="354" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587306336614" />
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1587051854124">
+    <state x="489" y="354" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587384550476" />
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1587306682423">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587051854124" />
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587306682423" />
     <state x="264" y="482" key="com.intellij.ide.util.TipDialog" timestamp="1585832334346">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -469,7 +488,7 @@
     <SUITE FILE_PATH="coverage/easyanalysis$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585502736802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$index.coverage" NAME="index Coverage Results" MODIFIED="1585498084621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1587048815340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1587306344088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1587388248826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test.coverage" NAME="test Coverage Results" MODIFIED="1584635704597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
     <SUITE FILE_PATH="coverage/safa$index__1_.coverage" NAME="index (1) Coverage Results" MODIFIED="1587306072474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../github/safa" />
   </component>
