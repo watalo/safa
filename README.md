@@ -1,6 +1,6 @@
-##Semi-Automatic Financial Analysis(简称safa)
-
+##Semi-Automatic Financial Analysis(safa) 
 本意是想给懒得烧蛇吃的我，节省点写报告的时间，结果自学Python又花了不少时间。
+
 
 ##safa用法
 
