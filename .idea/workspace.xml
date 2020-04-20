@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9b76fbcd-43df-4c10-9bbd-b6a73358d303" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/far/_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/far/_para.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_para.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/far/_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/far/_text.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/temple.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/input/temple.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -345,7 +341,7 @@
       <workItem from="1587304927067" duration="470000" />
       <workItem from="1587305409567" duration="854000" />
       <workItem from="1587306275458" duration="9751000" />
-      <workItem from="1587384510442" duration="2688000" />
+      <workItem from="1587384510442" duration="7164000" />
     </task>
     <task id="LOCAL-00001" summary="根目录变更">
       <created>1586781830138</created>
@@ -375,7 +371,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587306628047</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix：小型文本错误&#10;bug：无法处理0110和0010的情况，目前1111、0111、0011、0001、1110可以处理">
+      <created>1587389054508</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1587389054508</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,7 +389,8 @@
     <MESSAGE value="没有找到docx不能在类里面实例化的原因，直接使用函数进行操作，同时对数据库文件进行完善，增加了数据库初始化的内容" />
     <MESSAGE value="bug: 1、流动性分析里数据一样；2、变化表里的变化率有问题" />
     <MESSAGE value="大型bug已修复，开始调整文档格式" />
-    <option name="LAST_COMMIT_MESSAGE" value="大型bug已修复，开始调整文档格式" />
+    <MESSAGE value="fix：小型文本错误&#10;bug：无法处理0110和0010的情况，目前1111、0111、0011、0001、1110可以处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix：小型文本错误&#10;bug：无法处理0110和0010的情况，目前1111、0111、0011、0001、1110可以处理" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1137" y="534" key="#Notifications" timestamp="1586958968896">
@@ -409,10 +413,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1567" y="209" key="#test/0.0.2560.1400@0.0.2560.1400" timestamp="1586872538393" />
-    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1587306627412">
+    <state x="802" y="190" key="CommitChangelistDialog2" timestamp="1587389053777">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587306627412" />
+    <state x="802" y="190" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587389053777" />
     <state x="1488" y="264" key="FileChooserDialogImpl" timestamp="1587384545543">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -425,22 +429,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="517" y="343" width="623" height="721" key="Github.UntrackedFilesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1585583904139" />
-    <state width="1226" height="496" key="GridCell.Tab.0.bottom" timestamp="1587387861124">
+    <state width="2507" height="496" key="GridCell.Tab.0.bottom" timestamp="1587392411942">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1226" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
-    <state width="1226" height="496" key="GridCell.Tab.0.center" timestamp="1587387861124">
+    <state width="2507" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587392411942" />
+    <state width="2507" height="496" key="GridCell.Tab.0.center" timestamp="1587392411942">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1226" height="496" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
-    <state width="1226" height="496" key="GridCell.Tab.0.left" timestamp="1587387861124">
+    <state width="2507" height="496" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587392411942" />
+    <state width="2507" height="496" key="GridCell.Tab.0.left" timestamp="1587392411942">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1226" height="496" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
-    <state width="1226" height="496" key="GridCell.Tab.0.right" timestamp="1587387861124">
+    <state width="2507" height="496" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587392411942" />
+    <state width="2507" height="496" key="GridCell.Tab.0.right" timestamp="1587392411942">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1226" height="496" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587387861124" />
+    <state width="2507" height="496" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587392411942" />
     <state width="1376" height="475" key="GridCell.Tab.1.bottom" timestamp="1587051963451">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -465,10 +469,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="489" y="354" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587384550476" />
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1587306682423">
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2" timestamp="1587389059813">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587306682423" />
+    <state x="772" y="368" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587389059813" />
     <state x="264" y="482" key="com.intellij.ide.util.TipDialog" timestamp="1585832334346">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -488,7 +492,7 @@
     <SUITE FILE_PATH="coverage/easyanalysis$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585502736802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$index.coverage" NAME="index Coverage Results" MODIFIED="1585498084621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/safa$core.coverage" NAME="core Coverage Results" MODIFIED="1587048815340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1587388248826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/safa$index.coverage" NAME="index Coverage Results" MODIFIED="1587392411935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/easyanalysis$test.coverage" NAME="test Coverage Results" MODIFIED="1584635704597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/far" />
     <SUITE FILE_PATH="coverage/safa$index__1_.coverage" NAME="index (1) Coverage Results" MODIFIED="1587306072474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../github/safa" />
   </component>

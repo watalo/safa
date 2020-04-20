@@ -99,7 +99,7 @@ class dict_:
     def data_type(self):
         '''
         判断数据类型
-        :return: 数据结构的类型[normal,no_3year,no_2year,no_1year,all_years]
+        :return: 数据结构的类型[normal,no_3year,no_2year,no_1year,all_years,two_years]
         '''
         Q = Query()
         table = self.db.table('without_nodata')
@@ -120,6 +120,9 @@ class dict_:
         elif ('year3' in type_list and 'year2' in type_list and
                 'year1' in type_list and 'month' not in type_list):
             return 'all_years'
+        elif ('year3' not in type_list and 'year2' in type_list and
+                'year1' in type_list and 'month' not in type_list):
+            return 'two_years'
         else:
             return '无法识别'
 
@@ -227,6 +230,16 @@ class dict_:
             else:
                 num = self.db_data('资产负债率','averg')
                 commit = '在{:.2f}}%上下波动，资产负债结构相对稳定。'.format(num)
+        elif self.data_type == 'two_years':
+            if (self.db_data('资产负债率','year2')<self.db_data('资产负债率', 'year1')):
+                commit = '逐年增加，有加大资本杠杆的趋势。'
+            elif (self.db_data('资产负债率','year2')>self.db_data('资产负债率', 'year1')):
+                commit = '持续下降，资产负债结构有所改善。'
+            elif self.db_data('资产负债率','year2')==self.db_data('资产负债率','year1')==0:
+                commit = '申请人近两年均无负债。'
+            else:
+                num = self.db_data('资产负债率','averg')
+                commit = '在{:.2f}}%上下波动，资产负债结构相对稳定。'.format(num)
         else:
             pass
         self.s2d1['分析s2d1'] = commit
@@ -291,6 +304,18 @@ class dict_:
                     commit = '以长期负债为主，非流动负债占比高于50%。近三年'
                 else:
                     commit = '期限结构均衡，流动负债占比等于50%。'
+        elif self.data_type == 'two_years':
+            # 极端情况：资产负债率始终为0
+            if (self.db_data('资产负债率', 'year2') == self.db_data('资产负债率', 'year1') == 0):
+                commit = '为零>>>请删除本段文字<<<'
+            else:
+                if self.db_data('短债占比', 'year1') > 0.5:
+                    commit = '以短期债务为主，流动负债占比高于50%。近两年'
+                elif self.db_data('短债占比', 'year1') < 0.5:
+                    commit = '以长期负债为主，非流动负债占比高于50%。近两年'
+                else:
+                    commit = '期限结构均衡，流动负债占比等于50%。'
+
         else:
             pass
         self.s2d2['分析s2d2'] = commit
@@ -323,7 +348,6 @@ class dict_:
                     else:
                         com1 = '近来年相对稳定，相比前三年营收有所回落'
             # com2
-
             if self.db_data('净利润','month') > 0:
                 if (self.db_data('净利润','year3') < self.db_data('净利润','year2')
                         < self.db_data('净利润','year1') < self.db_data('净利润','month')):
@@ -420,6 +444,26 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
+        elif self.data_type == 'two_years':
+            # com1
+            com1 = ''
+            if self.db_data('营业收入','year2') == self.db_data('营业收入','year1') == 0:
+                commit = '连续两年未实现销售收入。'
+            elif self.db_data('营业收入','year2') < self.db_data('营业收入','year1'):
+                pass
+            elif self.db_data('营业收入','year2') > self.db_data('营业收入','year1'):
+                pass
+            # com2
+            if self.db_data('净利润','year1') >= 0:
+                if self.db_data('净利润','year2') < self.db_data('净利润','year1'):
+                    com2 = '较上年有所提升'
+                elif self.db_data('净利润','year2') > self.db_data('净利润','year1'):
+                    com2 = '较上年有所下降'
+                else:
+                    com2 = '保持不变'
+            else:
+                com2 = '较弱，出现亏损情况'
+
         self.s2d3['分析s2d3'] = commit.format(com1=com1,com2=com2)
 
     def sort_asset(self, year, output):
@@ -435,7 +479,7 @@ class dict_:
         text_sorted_asset = ''
         text_sorted_ratio = ''
         if (self.data_type == 'normal' or self.data_type == 'no_3year' or self.data_type == 'no_2year' or
-            self.data_type == 'all_years'):
+            self.data_type == 'all_years' or self.data_type == 'two_years'):
             text_sorted_asset = '、'.join(self.sort_asset('year1', 'items')[:5])
             sorted_ratio = []
             for value in self.sort_asset('year1', 'year1')[:5]:

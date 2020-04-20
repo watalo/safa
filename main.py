@@ -129,9 +129,26 @@ def get_docx(name, output_path):
         p7 = doc.add_paragraph(conf.all_years.s2d6.format(**conf.para.s2d6))
         bold(doc, conf.header.h3,2)
         items_detail(conf, doc, 'year1')
+    elif conf.data_type == 'two_years':
+        bold(doc, conf.header.h2, 2)
+        bold(doc, conf.header.h2s1, 3)
+        p1 = doc.add_paragraph(conf.two_years.s1d1)
+        bold(doc, conf.header.h2s2, 3)
+        p2 = doc.add_paragraph(conf.two_years.s2d1.format(**conf.para.s2d1))
+        p3 = doc.add_paragraph(conf.two_years.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
+        p4 = doc.add_paragraph(conf.two_years.s2d3.format(**conf.para.s2d3))
+        bold(doc, conf.header.h2s4, 3)
+        p5 = doc.add_paragraph(conf.two_years.s2d4.format(**conf.para.s2d4))
+        bold(doc, conf.header.h2s5, 3)
+        p6 = doc.add_paragraph(conf.two_years.s2d5.format(**conf.para.s2d5))
+        bold(doc, conf.header.h2s6, 3)
+        p7 = doc.add_paragraph(conf.two_years.s2d6.format(**conf.para.s2d6))
+        bold(doc, conf.header.h3,2)
+        items_detail(conf, doc, 'year1')
     else:
         pass
-
+    
     for paragraph in [p1,p2,p3,p4,p5,p6,p7]:
         paragraph.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
         paragraph.paragraph_format.first_line_indent = Pt(24)
@@ -164,6 +181,7 @@ class Conf(object):
         self.no_year2 = _text.no_year2()
         self.no_year1 = _text.no_year1()
         self.all_years = _text.all_years()
+        self.two_years = _text.two_years()
         self.header = _text.header()
 
     def init_para(self):
