@@ -9,8 +9,8 @@
 
 import os
 from tinydb import TinyDB ,Query
-import _text
-import _config
+from . import _text
+from . import _config
 
 
 '''

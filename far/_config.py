@@ -16,6 +16,6 @@ class Path:
     output = root+ r'\safa\output'
 
 
-
-# print(os.path.dirname(os.getcwd()))
+print(os.getcwd())
+print(os.path.dirname(os.getcwd()))
 

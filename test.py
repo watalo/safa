@@ -6,8 +6,8 @@
 # @File    : test.py
 # @Software: PyCharm
 
-from docx import Document
+from far import _text
 
-doc = Document()
-doc.add_paragragh('I love python-docx')
-doc.save('test.docx')
+
+
+print(_text.normal)
