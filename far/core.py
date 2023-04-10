@@ -6,14 +6,13 @@
 
 
 '''
-    读取xlsx表的数据，形成数据库，形成分析报告
-    Report类
+    读取xlsx表的数据，形成数据库，形成分析报告Report类
 '''
 
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
-from far import _config, _formula
+from . import _config, _formula
 
 class getDB(object):
     '''
@@ -44,7 +43,7 @@ class getDB(object):
         # xlsx文件根目录
         self.root_path = _config.Path.root + '/safa'
         # xlsx文件路径
-        self.xls_file_path = ''.join([self.root_path, r"\input\{}".format(self.xls_file_name)])
+        self.xls_file_path = ''.join([self.root_path, r"/input/{}".format(self.xls_file_name)])
         # 读取xlsx文件
         self.ws = load_workbook(
             filename=self.xls_file_path,
@@ -68,7 +67,7 @@ class getDB(object):
         :param output: xlsx文件数据形成tinydb数据库对象
         :return: tinydb数据库对象
         '''
-        self.db_path = ''.join([self.root_path, r"\db\{}.json".format(self.name)])
+        self.db_path = ''.join([self.root_path, "/db/{}.json".format(self.name)])
         db = TinyDB(self.db_path)
         # 清洗数据中因复制粘贴带有的‘\u202c’和数字中含有‘，’的问题
         def clear_data(data):

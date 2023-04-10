@@ -13,12 +13,9 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.shared import Pt, Length
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from far import _para, _text, _config
+from far import *
 
 '''
-    在有限的时间里，创造无限的价值
-    既然不会使用类，那我就只用函数
-    
     直接使用get_docx()生成docx文件
 '''
 
@@ -167,7 +164,7 @@ class Conf(object):
     def __init__(self, name):
         self.name = name
         self.db_path = _config.Path.db
-        self.db_file_path = '\\'.join([self.db_path, os.listdir(self.db_path)[0]])
+        self.db_file_path = '/'.join([self.db_path, os.listdir(self.db_path)[0]])
         self.db = TinyDB(self.db_file_path)
         self.table = self.db.table('without_nodata')
         self.table_for_print = self.db.table('for_print')

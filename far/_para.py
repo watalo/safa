@@ -9,8 +9,7 @@
 
 import os
 from tinydb import TinyDB ,Query
-from . import _text
-from . import _config
+from far import _text ,_config
 
 
 '''
@@ -33,7 +32,7 @@ class dict_:
     '''
     def __init__(self):
         self.db_path = _config.Path.db
-        self.db_file_path = '\\'.join([self.db_path, os.listdir(self.db_path)[0]])
+        self.db_file_path = '/'.join([self.db_path, os.listdir(self.db_path)[0]])
         # print(db_file_path)
         self.db = TinyDB(self.db_file_path)
         self.table = self.db.table('without_nodata')
