@@ -153,7 +153,7 @@ def get_docx(name, output_path):
     # 3.讨米文案
     doc.add_picture('img/taomi.png', width=Inches(2.25))
     p = doc.add_paragraph()
-    run = p.add_run('后期开发计划是增加各个行业的行业分析，扫码赞赏可以加快开发速度哦，感谢您的支持！')
+    run = p.add_run('如果本项目有点帮助,you can buy me a coffee.')
     run.bold = True
     # 4.保存
     doc.save(output_path)

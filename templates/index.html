@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SAFA</title>
+  <style>
+    body {
+      background-color: #303030;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #70afce;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    form * {
+      box-sizing: border-box;
+      margin: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #70afce;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      display: inline-flex;
+    }
+
+    input[type="submit"] {
+      background-color: #70afce;
+      color: #303030;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    a {
+      background-color: #70afce;
+      border: 1px solid #70afce;
+      color: #303030;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    a:hover {
+      background-color: #70afce;
+      color: #303030;
+    }
+
+    kbd {
+      display: inline-block;
+      font-family: sans-serif;
+      background-color: #70afce;
+      color: #303030;
+      border-radius: 3px;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+      transition: all 0.1s ease-in-out;
+    }
+
+    kbd:hover {
+      background-color: #e7e7e7;
+      border-color: #bbb;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2),
+        0 0 0 2px #f7f7f7 inset;
+    }
+
+    .highlight {
+      background-color: #ffffff;
+      border-color: #f5f5f5;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2),
+        0 0 0 2px #f7f7f7 inset;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <h1>小白摸鱼神器</h1>
+  </header>
+
+  <main>
+  <div>
+    <p>在一个月黑风高的夜晚......
+      <p>你的行长又打来了催命连环call,“你的调查报告到底写完了没有，刷个数据要这么半天吗？”</p>
+
+    <p>你看了看时间，已经刷了3个小时的剧，是该干点正事了...</p>
+    </div>
+
+    <h2>第1步</h2>
+    <p>把财务数据填到<kbd>下载模板</kbd>的【模板.xlsx】里面，记得按保存，<font color="yellow">不要改文件名</font>。或者你可以先<kbd>下载样品</kbd>来看看</p>
+    <form>
+      <a href="{{ url_for('download_file') }}">下载模板</a>
+      <a href="{{ url_for('download_file2') }}">下载样品</a>
+    </form>
+    <h2>第2步</h2>
+    <p>点下面的<kbd class="key highlight">选择文件</kbd>，把你填好的报表传上来<kbd>上传报表</kbd></p>
+    <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" id="file-upload">
+      <input type="submit" value="上传报表">
+    </form>
+    <script>
+      {% if success %}
+      alert("上传成功！");
+      {% endif %}
+    </script>
+    <h2>第3步</h2>
+    <p>一手交钱，一手交货，点完<kbd>生成报告</kbd>后耐心等待10秒钟</p>
+    <form>
+      <a href="{{ url_for('generate_report') }}" id="generate-report-btn">生成报告</a>
+      <i id="spinner" class="fas fa-spinner fa-spin" style="display: none;"></i>
+
+      <script>
+        const spinner = document.getElementById('spinner');
+        const generateReportBtn = document.getElementById('generate-report-btn');
+
+        function generateReport() {
+          // 显示旋转图标
+          spinner.style.display = 'inline-block';
+
+          // 发起生成报告请求
+          fetch('{{ url_for("generate_report") }}')
+            .then(response => {
+              // 隐藏旋转图标
+              spinner.style.display = 'none';
+
+              // 弹出文件下载窗口
+              response.blob().then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.click();
+                window.URL.revokeObjectURL(url);
+              });
+            });
+        }
+
+        generateReportBtn.addEventListener('click', generateReport);
+      </script>
+    </form>
+
+
+  </main>
+</body>
+
+
+
+</html>

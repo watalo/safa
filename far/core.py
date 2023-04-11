@@ -43,7 +43,7 @@ class getDB(object):
         # xlsx文件根目录
         self.root_path = _config.Path.root + '/safa'
         # xlsx文件路径
-        self.xls_file_path = ''.join([self.root_path, r"/input/{}".format(self.xls_file_name)])
+        self.xls_file_path = ''.join([self.root_path, "/input/{}".format(self.xls_file_name)])
         # 读取xlsx文件
         self.ws = load_workbook(
             filename=self.xls_file_path,
