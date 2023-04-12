@@ -47,6 +47,7 @@ if __name__ == "__main__":
     init_dir()  
     name = os.listdir(''.join(_config.Path.input))[0].split('.')[0]
     output_path = '/'.join([_config.Path.output, name +'.docx'])
+    print(output_path)
     db_path = '/'.join([_config.Path.db, name + '.json'])
     db = getDB(name = name)
     get_docx(name=name,output_path=output_path)

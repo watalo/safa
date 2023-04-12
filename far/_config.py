@@ -14,8 +14,11 @@ class Path:
     db = root+ '/safa/db'
     input = root+ '/safa/input'
     output = root+ '/safa/output'
+    # 设置模型路径
+    model = root+ '/safa/models'
+    
 
-
-print(os.getcwd())
-print(os.path.dirname(os.getcwd()))
+if __name__ == '__main__':
+    print(os.getcwd()) 
+    print(os.path.dirname(os.getcwd()))
 

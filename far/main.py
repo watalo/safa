@@ -41,8 +41,8 @@ def get_docx(name, output_path):
         p1 = doc.add_paragraph(conf.normal.s1d1)
         bold(doc, conf.header.h2s2, 3)
         p2 = doc.add_paragraph(conf.normal.s2d1.format(**conf.para.s2d1))
-        doc.add_paragraph(conf.normal.s2d2.format(**conf.para.s2d2))
-        p3 = bold(doc, conf.header.h2s3, 3)
+        p3 = doc.add_paragraph(conf.normal.s2d2.format(**conf.para.s2d2))
+        bold(doc, conf.header.h2s3, 3)
         p4 = doc.add_paragraph(conf.normal.s2d3.format(**conf.para.s2d3))
         bold(doc, conf.header.h2s4, 3)
         p5 = doc.add_paragraph(conf.normal.s2d4.format(**conf.para.s2d4))
@@ -146,10 +146,10 @@ def get_docx(name, output_path):
     else:
         pass
     
-    for paragraph in [p1,p2,p3,p4,p5,p6,p7]:
-        paragraph.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
-        paragraph.paragraph_format.first_line_indent = Pt(24)
-
+    for para_ in [p1,p2,p3,p4,p5,p6,p7]:
+        para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+        para_.paragraph_format.first_line_indent = Pt(24)
+    
     # 3.讨米文案
     doc.add_picture('img/taomi.png', width=Inches(2.25))
     p = doc.add_paragraph()
@@ -157,6 +157,9 @@ def get_docx(name, output_path):
     run.bold = True
     # 4.保存
     doc.save(output_path)
+
+
+
 
 #------------------------------配置类：调用其他类-------------------------
 class Conf(object):

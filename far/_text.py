@@ -357,7 +357,6 @@ class two_years:
         # 7、当期科目变化情况（变化超过30%）
         # 直接在core中调用
 
-
 class header:
     def __init__(self):
         self.h1 = "一、财务报表"
@@ -370,6 +369,7 @@ class header:
         self.h2s6 = "（六）流动性分析"
         self.h2s7 = "（七）科目变化情况"
         self.h3 = "三、科目明细分析"
+
 
 
 # if __name__ == '__main__':
