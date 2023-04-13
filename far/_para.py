@@ -12,6 +12,7 @@ from tinydb import TinyDB ,Query
 from far import _text ,_config
 
 
+
 '''
 1 判断数据结构的年份构成
     normal
@@ -19,11 +20,15 @@ from far import _text ,_config
     no_2year
     no_1year
     all_years
+    two_years
 2 对text类中的text进行匹配
+
     2.1 可直接读取的数据
         从数据中读取    
     2.2 需进行分析的文字
         直接形成分析结果，按字符串形式存储
+    
+    
 '''
 
 class dict_:
@@ -465,14 +470,6 @@ class dict_:
 
         self.s2d3['分析s2d3'] = commit.format(com1=com1,com2=com2)
 
-    def sort_asset(self, year, output):
-        Item = self.table.search((self.Q.type == '流动资产') | (self.Q.type == '非流动资产'))
-        list_sorted_dict = sorted(Item, key=lambda Item: Item[year], reverse=True)
-        list_item = []
-        for sorted_dict in list_sorted_dict:
-            list_item.append(sorted_dict[output])
-        return list_item
-
     def analysis_s2d5(self):
         commit = '%s，在总资产构成中的占比分别为%s'
         text_sorted_asset = ''
@@ -496,6 +493,13 @@ class dict_:
             pass
         self.s2d5['分析s2d5'] = commit%(text_sorted_asset,text_sorted_ratio)
 
+    def sort_asset(self, year, output):
+        Item = self.table.search((self.Q.type == '流动资产') | (self.Q.type == '非流动资产'))
+        list_sorted_dict = sorted(Item, key=lambda Item: Item[year], reverse=True)
+        list_item = []
+        for sorted_dict in list_sorted_dict:
+            list_item.append(sorted_dict[output])
+        return list_item
 
 
 

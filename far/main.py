@@ -33,123 +33,8 @@ def get_docx(name, output_path):
     # 1.数据
     bold(doc, conf.header.h1,2)
     financial_sheet(conf, doc)
-    doc.add_paragraph(':::::::请调整成自己喜欢的表格样式::::::')
     # 2.分析
-    if conf.data_type == 'normal':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.normal.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.normal.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.normal.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.normal.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.normal.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.normal.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.normal.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7,3)
-        big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3,3)
-        items_detail(conf, doc, 'year1')
-    elif conf.data_type == 'no_3year':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.no_year3.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.no_year3.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.no_year3.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.no_year3.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.no_year3.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.no_year3.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.no_year3.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7, 3)
-        big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3, 2)
-        items_detail(conf, doc, 'year1')
-    elif conf.data_type == 'no_year2':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.no_year2.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.no_year2.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.no_year2.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.no_year2.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.no_year2.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.no_year2.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.no_year2.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h2s7, 3)
-        big_change_sheet(conf, doc)
-        bold(doc, conf.header.h3, 2)
-        items_detail(conf, doc, 'year1')
-    elif conf.data_type == 'no_year1':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.no_year1.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.no_year1.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.no_year1.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.no_year1.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.no_year1.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.no_year1.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.no_year1.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h3, 2)
-        items_detail(conf, doc, 'month')
-    elif conf.data_type == 'all_years':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.all_years.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.all_years.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.all_years.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.all_years.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.all_years.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.all_years.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.all_years.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h3,2)
-        items_detail(conf, doc, 'year1')
-    elif conf.data_type == 'two_years':
-        bold(doc, conf.header.h2, 2)
-        bold(doc, conf.header.h2s1, 3)
-        p1 = doc.add_paragraph(conf.two_years.s1d1)
-        bold(doc, conf.header.h2s2, 3)
-        p2 = doc.add_paragraph(conf.two_years.s2d1.format(**conf.para.s2d1))
-        p3 = doc.add_paragraph(conf.two_years.s2d2.format(**conf.para.s2d2))
-        bold(doc, conf.header.h2s3, 3)
-        p4 = doc.add_paragraph(conf.two_years.s2d3.format(**conf.para.s2d3))
-        bold(doc, conf.header.h2s4, 3)
-        p5 = doc.add_paragraph(conf.two_years.s2d4.format(**conf.para.s2d4))
-        bold(doc, conf.header.h2s5, 3)
-        p6 = doc.add_paragraph(conf.two_years.s2d5.format(**conf.para.s2d5))
-        bold(doc, conf.header.h2s6, 3)
-        p7 = doc.add_paragraph(conf.two_years.s2d6.format(**conf.para.s2d6))
-        bold(doc, conf.header.h3,2)
-        items_detail(conf, doc, 'year1')
-    else:
-        pass
-    
-    for para_ in [p1,p2,p3,p4,p5,p6,p7]:
-        para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
-        para_.paragraph_format.first_line_indent = Pt(24)
-    
+    para_analysis(doc,conf)
     # 3.讨米文案
     doc.add_picture('img/taomi.png', width=Inches(2.25))
     p = doc.add_paragraph()
@@ -157,11 +42,8 @@ def get_docx(name, output_path):
     run.bold = True
     # 4.保存
     doc.save(output_path)
-
-
-
-
-#------------------------------配置类：调用其他类-------------------------
+    
+#配置类：调用其他类
 class Conf(object):
 
     def __init__(self, name):
@@ -176,7 +58,8 @@ class Conf(object):
         self.para = _para.dict_()
         self.init_para()
         # text类的实例
-        self.normal = _text.normal()
+    
+        # self.normal = _text.normal()
         self.no_year3 = _text.no_year3()
         self.no_year2 = _text.no_year2()
         self.no_year1 = _text.no_year1()
@@ -184,6 +67,10 @@ class Conf(object):
         self.two_years = _text.two_years()
         self.header = _text.header()
 
+    def normal(self):
+        return _text.normal()
+    
+    
     def init_para(self):
         self.para.set()
         self.para.analysis_s2d1()
@@ -192,15 +79,101 @@ class Conf(object):
         self.para.analysis_s2d5()
 
 # -----------------------------需要用到的函数-----------------------------
-
 def bold(doc, text, level):
     run = doc.add_heading('', level=level).add_run(text)
     run.font.name = 'Times Nwe Roman'
     run._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
+# -----------------------------------------------------------------------
 def data(conf_obj,item, key):
     Q = Query()
     return conf_obj.table.get(Q.items == item)[key]
+
+# -----------------------------------------------------------------------
+def para_analysis(doc,conf):
+    para = getattr(conf,conf.data_type)
+    print(para)
+    bold(doc, conf.header.h2, 2)
+    bold(doc, conf.header.h2s1, 3)
+    p1 = doc.add_paragraph(para().s1d1)
+    bold(doc, conf.header.h2s2, 3)
+    p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
+    p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
+    bold(doc, conf.header.h2s3, 3)
+    p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
+    bold(doc, conf.header.h2s4, 3)
+    p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))
+    bold(doc, conf.header.h2s5, 3)
+    p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
+    bold(doc, conf.header.h2s6, 3)
+    p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
+    bold(doc, conf.header.h2s7,3)
+    big_change_sheet(conf, doc)
+    bold(doc, conf.header.h3,3)
+    if conf.data_type == 'no_year1':
+        items_detail(conf, doc, 'month')
+    else:
+        items_detail(conf, doc, 'year1')
+    
+    for para_ in [p1, p2_1, p2_2, p3, p4, p5, p6]:
+        para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+        para_.paragraph_format.first_line_indent = Pt(24)
+
+# -----------------------------------------------------------------------
+def para_analysis_with_GLM(doc,conf):
+    para = getattr(conf,conf.data_type)
+    print(para)
+    bold(doc, conf.header.h2, 2)
+    bold(doc, conf.header.h2s1, 3)
+    p1 = doc.add_paragraph(para().s1d1)
+    
+    bold(doc, conf.header.h2s2, 3)
+    p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
+    p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
+    # 引入ChatGLM的分析结果
+    res_p2 =_gpt.Glm().response("，".join([para().s2d1, para().s2d2, _gpt.Prompt.p2])) 
+    p2_res = doc.add_paragraph(res_p2)
+    
+    bold(doc, conf.header.h2s3, 3)
+    p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
+    # 引入ChatGLM的分析结果
+    res_p3 =_gpt.Glm().response("，".join([para().s2d3,_gpt.Prompt.p3])) 
+    p3_res = doc.add_paragraph(res_p3)
+ 
+    bold(doc, conf.header.h2s4, 3)
+    p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))   
+    # 引入ChatGLM的分析结果
+    res_p4 =_gpt.Glm().response("，".join([para().s2d4,_gpt.Prompt.p4])) 
+    p4_res = doc.add_paragraph(res_p4)
+    
+    bold(doc, conf.header.h2s5, 3)
+    p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
+    # 引入ChatGLM的分析结果
+    res_p5 =_gpt.Glm().response("，".join([para().s2d5,_gpt.Prompt.p5])) 
+    p5_res = doc.add_paragraph(res_p5)    
+    
+    bold(doc, conf.header.h2s6, 3)
+    p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
+    # 引入ChatGLM的分析结果
+    res_p6 =_gpt.Glm().response("，".join([para().s2d6,_gpt.Prompt.p6])) 
+    p6_res = doc.add_paragraph(res_p6)   
+
+    bold(doc, conf.header.h2s7,3)
+    big_change_sheet(conf, doc)
+    
+    bold(doc, conf.header.h3,3)
+    if conf.data_type == 'no_year1':
+        items_detail(conf, doc, 'month')
+    else:
+        items_detail(conf, doc, 'year1')
+    
+    for para_ in [p1,p2_1, p2_2, p2_res, p3, p3_res ,p4, p4_res ,p5, p5_res, p6, p6_res]:
+        para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+        para_.paragraph_format.first_line_indent = Pt(24)
+
+
+
+
 
 # -----------------------------------------------------------------------
 def financial_sheet(conf_obj,doc):
@@ -214,6 +187,7 @@ def financial_sheet(conf_obj,doc):
             if type(it) == str:
                 data_list.append(it)
     data_list = data_list[:5]
+    
 # ------------------------------------------------------------------------
     xratio = [
         '资产负债率', '费用收入比', '流动资产占比',
@@ -325,6 +299,7 @@ def big_change_sheet(conf_obj,doc):
                 else:
                     table_change.cell(i + 1, 3).text = '当期净减少'
 
+# -----------------------------------------------------------------------
 def item_table(doc, col1, col2, col3, col4):
     """
     生成固定格式的表格
@@ -346,6 +321,7 @@ def item_table(doc, col1, col2, col3, col4):
         cell = b_c_table.cell(i + 1, 0)
         cell.text = str(i + 1)
 
+# -----------------------------------------------------------------------
 def para_add(doc, item_para, item):
     if item == "货币资金":
         item_para.add_run("其中现金【】万元，银行存款【】万元、其他货币资金【】万元。")
@@ -396,6 +372,7 @@ def para_add(doc, item_para, item):
     elif item == "长期应付款":
         item_para.add_run("其中专项应付款【】万元、【】【】万元、其他【】万元。")
 
+# -----------------------------------------------------------------------
 def items_detail(conf_obj, doc, date):
 
     #变量声明
@@ -463,7 +440,3 @@ def items_detail(conf_obj, doc, date):
             para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
             para_.paragraph_format.first_line_indent = Pt(24)
             para_add(doc, para_, data(conf_obj, item, 'items')) #根据不同的科目在文字模版后新增文字
-# ----------------------------------------------
-
-
-

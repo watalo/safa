@@ -12,8 +12,18 @@
 from transformers import AutoTokenizer, AutoModel
 from . import _config
 
-class GLM():
-    
+
+'''
+Glm类
+用来调用ChatGLM的返回信息
+- 属性
+    .model_path 指定存放模型的文件夹路径
+- 方法
+    .response() 唯一的,用来接受prompt列表,并返回‘回复’列表
+        调整_text.py内容，
+'''
+
+class Glm():
     def __init__(self):
         self.model_path = _config.Path.model
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
@@ -27,35 +37,16 @@ class GLM():
         model = model.eval()   
         return model
     
-    def __response(self,input:str):
-        response, history = self.__model().chat(self.tokenizer, input, history=[])
-        return response
-       
-    def normol(self,):
-        input = []
-        res = []
-        for i in input:
-            res.append(self.__response(i))
-    
-    @property 
-    def no_year3(self):
-        pass
-    
-    @property     
-    def no_year2(self):
-        pass
-    
-    @property 
-    def no_year1(self):
-        pass
+    def response(self,prompt):
+        res = self.__model().chat(self.tokenizer, prompt, history=[])
+        return res
 
-    @property 
-    def all_years(self):
-        pass
+class Prompt(object):
+    p2 = '请分析申请人的资本结构。'
+    p3 = '请分析申请人的盈利能力。'
+    p4 = '请分析申请人的现金流量。'
+    p5 = '请分析申请人的资产质量。'
+    p6 = '请分析申请人的流动性'
     
-    @property 
-    def two_years(self):
-        pass
-    
-if __name__ == '__main__':
-    pass
+
+
