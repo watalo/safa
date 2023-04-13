@@ -43,6 +43,31 @@ def get_docx(name, output_path):
     # 4.保存
     doc.save(output_path)
     
+def get_docx_with_ChatGLM(name, output_path):
+    conf = Conf(name)
+    doc = Document()
+
+    doc.styles['Normal'].font.name = 'Times New Roman'
+    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+
+    # 文档标题
+    title = doc.add_heading('',level=0).add_run('{}财务分析报告'.format(conf.name))
+    title.font.name = 'Times New Roman'
+    title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
+    # 1.数据
+    bold(doc, conf.header.h1,2)
+    financial_sheet(conf, doc)
+    # 2.分析
+    para_analysis_with_GLM(doc,conf)
+    # 3.讨米文案
+    doc.add_picture('img/taomi.png', width=Inches(2.25))
+    p = doc.add_paragraph()
+    run = p.add_run('如果本项目有点帮助,you can buy me a coffee.')
+    run.bold = True
+    # 4.保存
+    doc.save(output_path)
+    
+    
 #配置类：调用其他类
 class Conf(object):
 
