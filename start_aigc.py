@@ -1,11 +1,10 @@
-import sys 
-sys.path.append('/home/aistudio/work/external-libraries')
-sys.path.append('/home/aistudio/external-libraries')
+# AIstudio运行取消以下注释
 
-'''
-python-docx库运用中出现的问题
+# import sys 
+# sys.path.append('/home/aistudio/work/external-libraries')
+# sys.path.append('/home/aistudio/external-libraries')
 
-'''
+
 import os
 from far import _config
 from far.core import getDB

@@ -84,17 +84,31 @@ class Conf(object):
         self.init_para()
         # text类的实例
     
-        # self.normal = _text.normal()
-        self.no_year3 = _text.no_year3()
-        self.no_year2 = _text.no_year2()
-        self.no_year1 = _text.no_year1()
-        self.all_years = _text.all_years()
-        self.two_years = _text.two_years()
+        #self.normal = _text.normal()
+        # self.no_year3 = _text.no_year3()
+        # self.no_year2 = _text.no_year2()
+        # self.no_year1 = _text.no_year1()
+        # self.all_years = _text.all_years()
+        # self.two_years = _text.two_years()
         self.header = _text.header()
 
     def normal(self):
         return _text.normal()
     
+    def no_years3(self):
+        return _text.no_year3()
+    
+    def no_years2(self):
+        return _text.no_year2()
+    
+    def no_years1(self):
+        return _text.no_year1()
+    
+    def all_years(self):
+        return _text.all_years()
+    
+    def two_years(self):
+        return _text.two_years()
     
     def init_para(self):
         self.para.set()

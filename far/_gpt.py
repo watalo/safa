@@ -11,6 +11,7 @@
 # here put the import lib
 from transformers import AutoTokenizer, AutoModel
 from . import _config
+import re
 
 
 '''
@@ -38,15 +39,21 @@ class Glm():
         return model
     
     def response(self,prompt):
-        res = self.__model().chat(self.tokenizer, prompt, history=[])
+        res,his = self.__model('CPU').chat(self.tokenizer, prompt, history=[])
+        res = res.strip(r'\r').strip(r'\n').strip(r'\t')
         return res
+
+    # 清楚字符串中的‘\r'、'\n’和‘\t’
+    
+    
+    
 
 class Prompt(object):
     p2 = '请分析申请人的资本结构。'
     p3 = '请分析申请人的盈利能力。'
     p4 = '请分析申请人的现金流量。'
     p5 = '请分析申请人的资产质量。'
-    p6 = '请分析申请人的流动性'
+    p6 = '请分析申请人的流动性。'
     
 
 
