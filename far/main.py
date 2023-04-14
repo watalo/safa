@@ -170,31 +170,31 @@ def para_analysis_with_GLM(doc,conf):
     p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
     p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
     # 引入ChatGLM的分析结果
-    res_p2 =_gpt.Glm().response("，".join([para().s2d1, para().s2d2, _gpt.Prompt.p2])) 
+    res_p2 =_gpt.Glm().response("，".join([para().s2d1.format(**conf.para.s2d1), para().s2d2.format(**conf.para.s2d2), _gpt.Prompt.p2])) 
     p2_res = doc.add_paragraph(res_p2)
     
     bold(doc, conf.header.h2s3, 3)
     p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
     # 引入ChatGLM的分析结果
-    res_p3 =_gpt.Glm().response("，".join([para().s2d3,_gpt.Prompt.p3])) 
+    res_p3 =_gpt.Glm().response("，".join([para().s2d3.format(**conf.para.s2d3),_gpt.Prompt.p3])) 
     p3_res = doc.add_paragraph(res_p3)
  
     bold(doc, conf.header.h2s4, 3)
     p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))   
     # 引入ChatGLM的分析结果
-    res_p4 =_gpt.Glm().response("，".join([para().s2d4,_gpt.Prompt.p4])) 
+    res_p4 =_gpt.Glm().response("，".join([para().s2d4.format(**conf.para.s2d4),_gpt.Prompt.p4])) 
     p4_res = doc.add_paragraph(res_p4)
     
     bold(doc, conf.header.h2s5, 3)
     p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
     # 引入ChatGLM的分析结果
-    res_p5 =_gpt.Glm().response("，".join([para().s2d5,_gpt.Prompt.p5])) 
+    res_p5 =_gpt.Glm().response("，".join([para().s2d5.format(**conf.para.s2d5),_gpt.Prompt.p5])) 
     p5_res = doc.add_paragraph(res_p5)    
     
     bold(doc, conf.header.h2s6, 3)
     p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
     # 引入ChatGLM的分析结果
-    res_p6 =_gpt.Glm().response("，".join([para().s2d6,_gpt.Prompt.p6])) 
+    res_p6 =_gpt.Glm().response("，".join([para().s2d6.format(**conf.para.s2d6),_gpt.Prompt.p6])) 
     p6_res = doc.add_paragraph(res_p6)   
 
     bold(doc, conf.header.h2s7,3)

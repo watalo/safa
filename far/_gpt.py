@@ -32,7 +32,7 @@ class Glm():
     def __model(self,type='GPU'):
         model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True)
         if type == 'GPU':
-            model = model.quantize(4).half().cuda()
+            model = model.half().cuda()
         elif type == 'CPU':
             model = model.float()
         model = model.eval()   
@@ -40,7 +40,8 @@ class Glm():
     
     def response(self,prompt):
         res,his = self.__model('CPU').chat(self.tokenizer, prompt, history=[])
-        res = res.strip(r'\r').strip(r'\n').strip(r'\t')
+        # res = res.strip(r'\r').strip(r'\n').strip(r'\t')
+        res = res.strip(r'\r').strip(r'\n').strip('\t').strip('^l')
         return res
 
     # 清楚字符串中的‘\r'、'\n’和‘\t’

@@ -15,7 +15,7 @@ class Path:
     input = root+ '/safa/input'
     output = root+ '/safa/output'
     # 设置模型路径
-    model = '/media/watalo/DATA/chat/wenda0406/model/chatglm-6b-int4'
+    model = "THUDM/chatglm-6b"
     
 
 if __name__ == '__main__':
