@@ -36,7 +36,7 @@ class dict_:
     设定变量字典
     '''
     def __init__(self):
-        self.db_path = _config.Path.db
+        self.db_path = _config.DB_PATH
         self.db_file_path = '/'.join([self.db_path, os.listdir(self.db_path)[0]])
         # print(db_file_path)
         self.db = TinyDB(self.db_file_path)

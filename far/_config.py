@@ -1,24 +1,11 @@
 
-# -*- coding: utf-8 -*-
-#__author__:"watalo"
-# @Time: 2020/3/30 22:22
-# @Site    : 
-# @File    : _config.py
-# @Software: PyCharm
+'''路径配置文件'''
 
 import os
 
-class Path:
-    '路径类的配置文件'
-    root = os.path.dirname(os.getcwd())
-    db = root+ '/safa/db'
-    input = root+ '/safa/input'
-    output = root+ '/safa/output'
-    # 设置模型路径
-    model = "THUDM/chatglm-6b"
-    
-
-if __name__ == '__main__':
-    print(os.getcwd()) 
-    print(os.path.dirname(os.getcwd()))
-
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+INPUT_PATH = os.path.join(ROOT_PATH, 'input')
+OUTPUT_PATH = os.path.join(ROOT_PATH, 'output')
+IMG_PATH = os.path.join(ROOT_PATH, 'img')
+DB_PATH = os.path.join(ROOT_PATH, 'db')
+MODEL_PATH = os.path.join(ROOT_PATH, 'THUDM', 'chatglm-6b')

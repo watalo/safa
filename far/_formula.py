@@ -6,12 +6,6 @@
 # @File    : _formula.py
 # @Software: PyCharm
 
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-# author:Administrator
-# datetime:2020/2/23 20:19
-# software: PyCharm
-
 from tinydb import Query
 
 def formula(db, year, findex):
@@ -23,8 +17,8 @@ def formula(db, year, findex):
         '''
         除法计算
         @param year:明确数据是哪年的
-        @param a: 浮点数，直接调用db中的数据/ 其他公式的计算结果
-        @param b: 浮点数，直接调用db中的数据/ 其他公式的计算结果
+        @param a: 浮点数,直接调用db中的数据/ 其他公式的计算结果
+        @param b: 浮点数,直接调用db中的数据/ 其他公式的计算结果
         @return: 结果
         '''
         if db.get(Q.items == a) in db.all():

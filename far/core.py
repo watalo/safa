@@ -6,13 +6,14 @@
 
 
 '''
-    读取xlsx表的数据，形成数据库，形成分析报告Report类
+    读取xlsx表的数据,形成数据库,形成分析报告Report类
 '''
-
+import os
 from tinydb import TinyDB
 from tinydb import Query
 from openpyxl import load_workbook
 from . import _config, _formula
+
 
 class getDB(object):
     '''
@@ -20,13 +21,13 @@ class getDB(object):
     '''
     def __init__(self, name):
         '''
-        getDB类的功能：
-            1、获取用户发送的数据文件（xlsx文件）
-            2、形成和调用过程数据库（json文件）
-            3、形成报告，需要导入(text和para模块)
-        属性：
-            name：企业名称（xlsx文件名称），被index模块调用，index模块获取name传入
-        方法：
+        getDB类的功能:
+            1、获取用户发送的数据文件(xlsx文件)
+            2、形成和调用过程数据库(json文件)
+            3、形成报告,需要导入(text和para模块)
+        属性:
+            name:企业名称(xlsx文件名称),被index模块调用,index模块获取name传入
+        方法:
             xls_db(): 形成初始数据库
         :param name: 企业名称(xlsx文件名称)
         '''
@@ -39,11 +40,11 @@ class getDB(object):
 
     def initPath(self):
         # xlsx文件名
-        self.xls_file_name = '%s.xlsx' % self.name
+        self.xls_file_name = f'{self.name}.xlsx'
         # xlsx文件根目录
-        self.root_path = _config.Path.root + '/safa'
+        self.root_path = os.path.join(_config.ROOT_PATH, 'safa')
         # xlsx文件路径
-        self.xls_file_path = ''.join([self.root_path, "/input/{}".format(self.xls_file_name)])
+        self.xls_file_path = os.path.join(_config.INPUT_PATH, f'{self.name}.xlsx')
         # 读取xlsx文件
         self.ws = load_workbook(
             filename=self.xls_file_path,
@@ -67,9 +68,9 @@ class getDB(object):
         :param output: xlsx文件数据形成tinydb数据库对象
         :return: tinydb数据库对象
         '''
-        self.db_path = ''.join([self.root_path, "/db/{}.json".format(self.name)])
+        self.db_path = os.path.join(_config.DB_PATH, f'{self.name}.json')
         db = TinyDB(self.db_path)
-        # 清洗数据中因复制粘贴带有的‘\u202c’和数字中含有‘，’的问题
+        # 清洗数据中因复制粘贴带有的‘\u202c’和数字中含有‘,’的问题
         def clear_data(data):
             if isinstance(data, str):
                 data = data.replace('\u202c', '').replace(',', '')
@@ -99,8 +100,8 @@ class getDB(object):
 
     def check_complete(self):
         """
-        判断原始数据库db中，没有数据的年份或月份
-        :param db: 原始数据库，tinydb类
+        判断原始数据库db中,没有数据的年份或月份
+        :param db: 原始数据库,tinydb类
         :return: 无数据年份列表
         """
         def get_data(db, a, b):
@@ -122,7 +123,7 @@ class getDB(object):
         前置步骤:
             cal_f_index() ---> table('without_nodata')
         清除无数据年份
-        row_dict类型为字典，删除无数据年份对应的键值对
+        row_dict类型为字典,删除无数据年份对应的键值对
         '''
         table_w = self.db.table('without_nodata')
         table_p = self.db.table('for_print')
@@ -148,10 +149,10 @@ class getDB(object):
         """
         '''纵向扩展 使用insert'''
         1、根据同年数据计算财务指标
-        2、存货周转天数、应收账款周转天数 应使用前值与当前值的均值，暂未处理
+        2、存货周转天数、应收账款周转天数 应使用前值与当前值的均值,暂未处理
         3、指标增加需在
-            （1）index_list中新增指标名称，
-            （2）__formula模块中新增指标计算公式
+            (1)index_list中新增指标名称,
+            (2)__formula模块中新增指标计算公式
         :param table: tinydb.table类实例
         :return: tinydb.table类实例
         """
@@ -183,9 +184,9 @@ class getDB(object):
 
     def calc_m_index(self, table_name):
         """
-            '''横向扩展，使用update'''
+            '''横向扩展,使用update'''
             1、增加平均值、求和数、增长率、平均增长率
-            2、科目进行分类，更新type标签
+            2、科目进行分类,更新type标签
         @param table:xlsx转换的tinydb里的table类
         @return: 格式化的数据
         """

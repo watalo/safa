@@ -1,10 +1,6 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#__author__:"watalo"
-# @Time: 2020/4/13 21:25
-# @Site    : 
-# @File    : main.py
-# @Software: PyCharm
+'''
+    直接使用get_docx()生成docx文件
+'''
 
 import os
 from tinydb import TinyDB, Query
@@ -14,11 +10,11 @@ from docx.oxml.ns import qn
 from docx.shared import Pt, Length
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from far import *
+from far._config import IMG_PATH
 
-'''
-    直接使用get_docx()生成docx文件
-'''
 
+
+#-----------------------------------------------------------------------
 def get_docx(name, output_path):
     conf = Conf(name)
     doc = Document()
@@ -27,7 +23,7 @@ def get_docx(name, output_path):
     doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
     # 文档标题
-    title = doc.add_heading('',level=0).add_run('{}财务分析报告'.format(conf.name))
+    title = doc.add_heading('',level=0).add_run('{}财务分析'.format(conf.name))
     title.font.name = 'Times New Roman'
     title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
     # 1.数据
@@ -36,9 +32,9 @@ def get_docx(name, output_path):
     # 2.分析
     para_analysis(doc,conf)
     # 3.讨米文案
-    doc.add_picture('img/taomi.png', width=Inches(2.25))
+    doc.add_picture(os.path.join(IMG_PATH, 'taomi.png'), width=Inches(2.25))
     p = doc.add_paragraph()
-    run = p.add_run('如果本项目有点帮助,you can buy me a coffee.')
+    run = p.add_run('如果本项目有点帮助, U can buy me a coffee.')
     run.bold = True
     # 4.保存
     doc.save(output_path)
@@ -51,7 +47,7 @@ def get_docx_with_ChatGLM(name, output_path):
     doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
     # 文档标题
-    title = doc.add_heading('',level=0).add_run('{}财务分析报告'.format(conf.name))
+    title = doc.add_heading('',level=0).add_run(f'{conf.name}财务分析报告')
     title.font.name = 'Times New Roman'
     title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
     # 1.数据
@@ -60,9 +56,9 @@ def get_docx_with_ChatGLM(name, output_path):
     # 2.分析
     para_analysis_with_GLM(doc,conf)
     # 3.讨米文案
-    doc.add_picture('img/taomi.png', width=Inches(2.25))
+    doc.add_picture(os.path.join(IMG_PATH, 'taomi.png'), width=Inches(2.25))
     p = doc.add_paragraph()
-    run = p.add_run('如果本项目有点帮助,you can buy me a coffee.')
+    run = p.add_run('如果本项目有点帮助, U can buy me a coffee.')
     run.bold = True
     # 4.保存
     doc.save(output_path)
@@ -73,8 +69,8 @@ class Conf(object):
 
     def __init__(self, name):
         self.name = name
-        self.db_path = _config.Path.db
-        self.db_file_path = '/'.join([self.db_path, os.listdir(self.db_path)[0]])
+        self.db_path = _config.DB_PATH
+        self.db_file_path = os.path.join(self.db_path, os.listdir(self.db_path)[0])
         self.db = TinyDB(self.db_file_path)
         self.table = self.db.table('without_nodata')
         self.table_for_print = self.db.table('for_print')
@@ -82,14 +78,6 @@ class Conf(object):
         self.data_type = _para.dict_().data_type
         self.para = _para.dict_()
         self.init_para()
-        # text类的实例
-    
-        #self.normal = _text.normal()
-        # self.no_year3 = _text.no_year3()
-        # self.no_year2 = _text.no_year2()
-        # self.no_year1 = _text.no_year1()
-        # self.all_years = _text.all_years()
-        # self.two_years = _text.two_years()
         self.header = _text.header()
 
     def normal(self):
@@ -170,31 +158,31 @@ def para_analysis_with_GLM(doc,conf):
     p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
     p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
     # 引入ChatGLM的分析结果
-    res_p2 =_gpt.Glm().response("，".join([para().s2d1.format(**conf.para.s2d1), para().s2d2.format(**conf.para.s2d2), _gpt.Prompt.p2])) 
+    res_p2 =_gpt.Glm().response(",".join([para().s2d1.format(**conf.para.s2d1), para().s2d2.format(**conf.para.s2d2), _gpt.Prompt.p2])) 
     p2_res = doc.add_paragraph(res_p2)
     
     bold(doc, conf.header.h2s3, 3)
     p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
     # 引入ChatGLM的分析结果
-    res_p3 =_gpt.Glm().response("，".join([para().s2d3.format(**conf.para.s2d3),_gpt.Prompt.p3])) 
+    res_p3 =_gpt.Glm().response(",".join([para().s2d3.format(**conf.para.s2d3),_gpt.Prompt.p3])) 
     p3_res = doc.add_paragraph(res_p3)
  
     bold(doc, conf.header.h2s4, 3)
     p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))   
     # 引入ChatGLM的分析结果
-    res_p4 =_gpt.Glm().response("，".join([para().s2d4.format(**conf.para.s2d4),_gpt.Prompt.p4])) 
+    res_p4 =_gpt.Glm().response(",".join([para().s2d4.format(**conf.para.s2d4),_gpt.Prompt.p4])) 
     p4_res = doc.add_paragraph(res_p4)
     
     bold(doc, conf.header.h2s5, 3)
     p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
     # 引入ChatGLM的分析结果
-    res_p5 =_gpt.Glm().response("，".join([para().s2d5.format(**conf.para.s2d5),_gpt.Prompt.p5])) 
+    res_p5 =_gpt.Glm().response(",".join([para().s2d5.format(**conf.para.s2d5),_gpt.Prompt.p5])) 
     p5_res = doc.add_paragraph(res_p5)    
     
     bold(doc, conf.header.h2s6, 3)
     p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
     # 引入ChatGLM的分析结果
-    res_p6 =_gpt.Glm().response("，".join([para().s2d6.format(**conf.para.s2d6),_gpt.Prompt.p6])) 
+    res_p6 =_gpt.Glm().response(",".join([para().s2d6.format(**conf.para.s2d6),_gpt.Prompt.p6])) 
     p6_res = doc.add_paragraph(res_p6)   
 
     bold(doc, conf.header.h2s7,3)
@@ -209,10 +197,6 @@ def para_analysis_with_GLM(doc,conf):
     for para_ in [p1,p2_1, p2_2, p2_res, p3, p3_res ,p4, p4_res ,p5, p5_res, p6, p6_res]:
         para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
         para_.paragraph_format.first_line_indent = Pt(24)
-
-
-
-
 
 # -----------------------------------------------------------------------
 def financial_sheet(conf_obj,doc):
@@ -251,7 +235,7 @@ def financial_sheet(conf_obj,doc):
 
 def big_change_items(conf_obj):
     '''
-    不直接使用，只在big_change_sheet()中被调用。
+    不直接使用,只在big_change_sheet()中被调用。
     conf.data_type == 'no_year1'时不能是使用本函数
     找出最近一期比上一期变化超过30%的科目
     :return:
@@ -342,7 +326,9 @@ def big_change_sheet(conf_obj,doc):
 def item_table(doc, col1, col2, col3, col4):
     """
     生成固定格式的表格
-        1、科目明细，2、账龄明细，3、等等
+        1.科目明细
+        2.账龄明细
+        3.等等
     @param col1: 序号
     @param col2: 名称
     @param col3: 金额
@@ -363,43 +349,43 @@ def item_table(doc, col1, col2, col3, col4):
 # -----------------------------------------------------------------------
 def para_add(doc, item_para, item):
     if item == "货币资金":
-        item_para.add_run("其中现金【】万元，银行存款【】万元、其他货币资金【】万元。")
+        item_para.add_run("其中现金【】万元,银行存款【】万元、其他货币资金【】万元。")
     elif item == "应收票据":
-        item_para.add_run("其中银行承兑汇票【】万元，商业承兑汇票【】万元。")
+        item_para.add_run("其中银行承兑汇票【】万元,商业承兑汇票【】万元。")
     elif item == "应收账款":
-        item_para.add_run("账面余额【】万元、计提坏账准备【】万元，账龄1年以内占比【】%，3年以上占比【】%。其中，应收账款前五位：")
+        item_para.add_run("账面余额【】万元、计提坏账准备【】万元,账龄1年以内占比【】%,3年以上占比【】%。其中,应收账款前五位：")
         item_table(doc, "序号", "名称", "余额（万元）", "占比")
     elif item == "预付账款":
-        item_para.add_run("账龄1年以内占比【】%，3年以上占比【】%。其中，预收账款前五位：")
+        item_para.add_run("账龄1年以内占比【】%,3年以上占比【】%。其中,预收账款前五位：")
         item_table(doc, "序号", "名称", "余额（万元）", "占比")
     elif item == "其他应收款":
-        item_para.add_run("账面余额【】万元、计提坏账准备【】万元。其中，其他应付款前五位：")
+        item_para.add_run("账面余额【】万元、计提坏账准备【】万元。其中,其他应付款前五位：")
         item_table(doc, "序号", "名称", "余额(万元)", "款项性质")
     elif item == "存货":
-        item_para.add_run("其中，原材料【】万元、库存商品【】万元、周转材料【】万元、工程施工【】万元、开发成本【】万元。")
+        item_para.add_run("其中,原材料【】万元、库存商品【】万元、周转材料【】万元、工程施工【】万元、开发成本【】万元。")
     elif item == "其他流动资产":
         item_para.add_run("其中【添加明细】。")
     elif item == "长期股权投资":
-        item_para.add_run("系对【N】家企业的投资，本期主要新增【哪家公司】；对外投资前五位如下：")
+        item_para.add_run("系对【N】家企业的投资,本期主要新增【哪家公司】；对外投资前五位如下：")
         item_table(doc, "序号", "名称", "投资额", "投资性质")
     elif item == "固定资产":
-        item_para.add_run("固定资产原值【】万元，累计折旧【】万元，其中房屋及建筑物【】万元、机器设备【】万元、办公设备【】万元、【其他】【】万元。")
+        item_para.add_run("固定资产原值【】万元,累计折旧【】万元,其中房屋及建筑物【】万元、机器设备【】万元、办公设备【】万元、【其他】【】万元。")
     elif item == "在建工程":
         item_para.add_run("主要为【项目1】【】万元、【项目2】【】万元、【项目3】【】万元……")
     elif item == "无形资产":
-        item_para.add_run("主要为土地使用权【】万元、采矿权【】万元、专利权【】万元、软件【】万元，其他【】万元。")
+        item_para.add_run("主要为土地使用权【】万元、采矿权【】万元、专利权【】万元、软件【】万元,其他【】万元。")
     elif item == "短期借款":
         item_para.add_run("主要为【XX银行】【】万元、【XX银行】【】万元、【XX银行】【】万元、【xx银行】【】万元、【xx银行】【】万元。【其他需要说明的内容】")
     elif item == "应付票据":
-        item_para.add_run("主要为银行承兑汇票【】万元，商业承兑汇票【】万元。")
+        item_para.add_run("主要为银行承兑汇票【】万元,商业承兑汇票【】万元。")
     elif item == "应付账款":
-        item_para.add_run("其中应付材料款【】万元，应付工程款【】万元。其中前五名如下：")
+        item_para.add_run("其中应付材料款【】万元,应付工程款【】万元。其中前五名如下：")
         item_table(doc, "序号", "名称", "余额", "性质")
     elif item == "预收账款":
         item_para.add_run("其中前5名如下：")
         item_table(doc, "序号", "名称", "余额", "账龄")
     elif item == "其他应付款":
-        item_para.add_run("应付利息【】万元，往来款【】万元，押金和保证金【】万元，其中前5名如下：")
+        item_para.add_run("应付利息【】万元,往来款【】万元,押金和保证金【】万元,其中前5名如下：")
         item_table(doc, "序号", "名称", "余额", "账龄")
     elif item == "其他流动负债":
         item_para.add_run("主要为【】")
@@ -429,13 +415,13 @@ def items_detail(conf_obj, doc, date):
         except Exception as Er:
             pass
     # 科目分析
-    for item in list_dict:  # 第一行是表头，里面有字符串，必须剔除
+    for item in list_dict:  # 第一行是表头,里面有字符串,必须剔除
         # 设置科目分析的文字模版
         if data(conf_obj, item, date) != 0:
             if conf_obj.data_type == 'no_1year':
-                item_text = '【{}】：当期余额{:,.2f}万元，在{}中占比{:.2%}。'
+                item_text = '【{}】：当期余额{:,.2f}万元,在{}中占比{:.2%}。'
             else:
-                item_text = '【{}】：当期余额{:,.2f}万元，在{}中占比{:.2%}，较上年增加{:.2f}万元，{}。'
+                item_text = '【{}】：当期余额{:,.2f}万元,在{}中占比{:.2%},较上年增加{:.2f}万元,{}。'
 
             if data(conf_obj, item, 'type') in ['流动资产', '非流动资产']:
                 type_in_all = '总资产'
