@@ -1,13 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-'''
-@File    :   _response.py
-@Time    :   2023/04/13 00:20:03
-@Author  :   watalo 
-@Version :   1.0
-@Contact :   watalo@163.com
-'''
-
 # here put the import lib
 from transformers import AutoTokenizer, AutoModel
 from . import _config

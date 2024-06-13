@@ -39,29 +39,29 @@ def get_docx(name, output_path):
     # 4.保存
     doc.save(output_path)
     
-def get_docx_with_ChatGLM(name, output_path):
-    conf = Conf(name)
-    doc = Document()
+# def get_docx_with_ChatGLM(name, output_path):
+    # conf = Conf(name)
+    # doc = Document()
 
-    doc.styles['Normal'].font.name = 'Times New Roman'
-    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+    # doc.styles['Normal'].font.name = 'Times New Roman'
+    # doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
 
-    # 文档标题
-    title = doc.add_heading('',level=0).add_run(f'{conf.name}财务分析报告')
-    title.font.name = 'Times New Roman'
-    title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
-    # 1.数据
-    bold(doc, conf.header.h1,2)
-    financial_sheet(conf, doc)
-    # 2.分析
-    para_analysis_with_GLM(doc,conf)
-    # 3.讨米文案
-    doc.add_picture(os.path.join(IMG_PATH, 'taomi.png'), width=Inches(2.25))
-    p = doc.add_paragraph()
-    run = p.add_run('如果本项目有点帮助, U can buy me a coffee.')
-    run.bold = True
-    # 4.保存
-    doc.save(output_path)
+    # # 文档标题
+    # title = doc.add_heading('',level=0).add_run(f'{conf.name}财务分析报告')
+    # title.font.name = 'Times New Roman'
+    # title._element.rPr.rFonts.set(qn('w:eastAsia'), u'黑体')
+    # # 1.数据
+    # bold(doc, conf.header.h1,2)
+    # financial_sheet(conf, doc)
+    # # 2.分析
+    # para_analysis_with_GLM(doc,conf)
+    # # 3.讨米文案
+    # doc.add_picture(os.path.join(IMG_PATH, 'taomi.png'), width=Inches(2.25))
+    # p = doc.add_paragraph()
+    # run = p.add_run('如果本项目有点帮助, U can buy me a coffee.')
+    # run.bold = True
+    # # 4.保存
+    # doc.save(output_path)
     
     
 #配置类：调用其他类
@@ -147,56 +147,56 @@ def para_analysis(doc,conf):
         para_.paragraph_format.first_line_indent = Pt(24)
 
 # -----------------------------------------------------------------------
-def para_analysis_with_GLM(doc,conf):
-    para = getattr(conf,conf.data_type)
-    print(para)
-    bold(doc, conf.header.h2, 2)
-    bold(doc, conf.header.h2s1, 3)
-    p1 = doc.add_paragraph(para().s1d1)
+# def para_analysis_with_GLM(doc,conf):
+    # para = getattr(conf,conf.data_type)
+    # print(para)
+    # bold(doc, conf.header.h2, 2)
+    # bold(doc, conf.header.h2s1, 3)
+    # p1 = doc.add_paragraph(para().s1d1)
     
-    bold(doc, conf.header.h2s2, 3)
-    p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
-    p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
-    # 引入ChatGLM的分析结果
-    res_p2 =_gpt.Glm().response(",".join([para().s2d1.format(**conf.para.s2d1), para().s2d2.format(**conf.para.s2d2), _gpt.Prompt.p2])) 
-    p2_res = doc.add_paragraph(res_p2)
+    # bold(doc, conf.header.h2s2, 3)
+    # p2_1 = doc.add_paragraph(para().s2d1.format(**conf.para.s2d1))
+    # p2_2 = doc.add_paragraph(para().s2d2.format(**conf.para.s2d2))
+    # # 引入ChatGLM的分析结果
+    # res_p2 =_gpt.Glm().response(",".join([para().s2d1.format(**conf.para.s2d1), para().s2d2.format(**conf.para.s2d2), _gpt.Prompt.p2])) 
+    # p2_res = doc.add_paragraph(res_p2)
     
-    bold(doc, conf.header.h2s3, 3)
-    p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
-    # 引入ChatGLM的分析结果
-    res_p3 =_gpt.Glm().response(",".join([para().s2d3.format(**conf.para.s2d3),_gpt.Prompt.p3])) 
-    p3_res = doc.add_paragraph(res_p3)
+    # bold(doc, conf.header.h2s3, 3)
+    # p3 = doc.add_paragraph(para().s2d3.format(**conf.para.s2d3))
+    # # 引入ChatGLM的分析结果
+    # res_p3 =_gpt.Glm().response(",".join([para().s2d3.format(**conf.para.s2d3),_gpt.Prompt.p3])) 
+    # p3_res = doc.add_paragraph(res_p3)
  
-    bold(doc, conf.header.h2s4, 3)
-    p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))   
-    # 引入ChatGLM的分析结果
-    res_p4 =_gpt.Glm().response(",".join([para().s2d4.format(**conf.para.s2d4),_gpt.Prompt.p4])) 
-    p4_res = doc.add_paragraph(res_p4)
+    # bold(doc, conf.header.h2s4, 3)
+    # p4 = doc.add_paragraph(para().s2d4.format(**conf.para.s2d4))   
+    # # 引入ChatGLM的分析结果
+    # res_p4 =_gpt.Glm().response(",".join([para().s2d4.format(**conf.para.s2d4),_gpt.Prompt.p4])) 
+    # p4_res = doc.add_paragraph(res_p4)
     
-    bold(doc, conf.header.h2s5, 3)
-    p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
-    # 引入ChatGLM的分析结果
-    res_p5 =_gpt.Glm().response(",".join([para().s2d5.format(**conf.para.s2d5),_gpt.Prompt.p5])) 
-    p5_res = doc.add_paragraph(res_p5)    
+    # bold(doc, conf.header.h2s5, 3)
+    # p5 = doc.add_paragraph(para().s2d5.format(**conf.para.s2d5))
+    # # 引入ChatGLM的分析结果
+    # res_p5 =_gpt.Glm().response(",".join([para().s2d5.format(**conf.para.s2d5),_gpt.Prompt.p5])) 
+    # p5_res = doc.add_paragraph(res_p5)    
     
-    bold(doc, conf.header.h2s6, 3)
-    p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
-    # 引入ChatGLM的分析结果
-    res_p6 =_gpt.Glm().response(",".join([para().s2d6.format(**conf.para.s2d6),_gpt.Prompt.p6])) 
-    p6_res = doc.add_paragraph(res_p6)   
+    # bold(doc, conf.header.h2s6, 3)
+    # p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
+    # # 引入ChatGLM的分析结果
+    # res_p6 =_gpt.Glm().response(",".join([para().s2d6.format(**conf.para.s2d6),_gpt.Prompt.p6])) 
+    # p6_res = doc.add_paragraph(res_p6)   
 
-    bold(doc, conf.header.h2s7,3)
-    big_change_sheet(conf, doc)
+    # bold(doc, conf.header.h2s7,3)
+    # big_change_sheet(conf, doc)
     
-    bold(doc, conf.header.h3,3)
-    if conf.data_type == 'no_year1':
-        items_detail(conf, doc, 'month')
-    else:
-        items_detail(conf, doc, 'year1')
+    # bold(doc, conf.header.h3,3)
+    # if conf.data_type == 'no_year1':
+    #     items_detail(conf, doc, 'month')
+    # else:
+    #     items_detail(conf, doc, 'year1')
     
-    for para_ in [p1,p2_1, p2_2, p2_res, p3, p3_res ,p4, p4_res ,p5, p5_res, p6, p6_res]:
-        para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
-        para_.paragraph_format.first_line_indent = Pt(24)
+    # for para_ in [p1,p2_1, p2_2, p2_res, p3, p3_res ,p4, p4_res ,p5, p5_res, p6, p6_res]:
+    #     para_.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+    #     para_.paragraph_format.first_line_indent = Pt(24)
 
 # -----------------------------------------------------------------------
 def financial_sheet(conf_obj,doc):

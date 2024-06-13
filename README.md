@@ -29,12 +29,6 @@
 6. 激活虚拟环境，输入： `.venv\Scripts\activate`
 7. 安装依赖，输入： `pip install -r requirements.txt`
 
-> 最好别用本地的ChatGLM-6B，因为配置麻烦，速度太慢。
-
-如果非要用：[参阅THUDM/ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
-- 可在[wenda](https://github.com/l15y/wenda)下载网盘的懒人包
-
-
 ### 数据准备
 
 - 按下表企业财务报表数据完整情况填写数据
@@ -62,11 +56,6 @@
 #### 网页版
   - 运行`webapp.py`启动本地网页后台
   - 浏览器访问：http://127.0.0.1:5000
-
-#### ChatGLM版（不建议使用）
-  - 运行`start_aigc.py`
-  - 在`\output`中找到生成的`***.docx`，名字与`***.xlsx`文件一样。
-
 
 <br>
 <img src="./img/taomi.png" width="300"/>
