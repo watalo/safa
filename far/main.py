@@ -135,7 +135,9 @@ def para_analysis(doc,conf):
     bold(doc, conf.header.h2s6, 3)
     p6 = doc.add_paragraph(para().s2d6.format(**conf.para.s2d6))
     bold(doc, conf.header.h2s7,3)
-    big_change_sheet(conf, doc)
+    # no_year1 形态没有 year1 列，跳过 big_change_sheet
+    if conf.data_type != 'no_year1':
+        big_change_sheet(conf, doc)
     bold(doc, conf.header.h3,3)
     if conf.data_type == 'no_year1':
         items_detail(conf, doc, 'month')
@@ -270,18 +272,26 @@ def big_change_items(conf_obj):
     list2 = []
     big_change_items = []
     if conf_obj.data_type == 'all_years':
+        # all_years 无 month 列，用 year2 - year1
         for dict in Item:
-            if dict['year1'] == 0 and dict['month'] != 0:
+            if dict.get('year1', 0) == 0 and dict.get('year2', 0) != 0:
                 list1.append(dict)
-            elif dict['year1'] == 0 and dict['month'] == 0:
+            elif dict.get('year1', 0) == 0 and dict.get('year2', 0) == 0:
                 pass
             else:
-                if (dict['month'] - dict['year1']) / dict['year1'] < 0.3 \
-                        and (dict['month'] - dict['year1']) / dict['year1'] > -0.3:
+                y1 = dict.get('year1', 0)
+                y2 = dict.get('year2', 0)
+                if y1 == 0:
+                    pass
+                elif (y2 - y1) / y1 < 0.3 and (y2 - y1) / y1 > -0.3:
                     pass
                 else:
                     list2.append(dict)
-        list_sorted_dict = sorted(list2, key=lambda x: x['month'] - x['year1'], reverse=True)
+        list_sorted_dict = sorted(
+            list2,
+            key=lambda x: x.get('year2', 0) - x.get('year1', 0),
+            reverse=True
+        )
         # 组成当期纯变化和超过30%变化的列表
         for dict in list_sorted_dict:
             list1.append(dict)
@@ -290,18 +300,28 @@ def big_change_items(conf_obj):
             big_change_items.append(dict['items'])
         return big_change_items
     else:
+        # normal / no_year3 / no_year2：当期 = month，比照期 = year1
+        # 用 .get(key, 0) 防御 no_year1 形态下列缺失（虽然函数注释说不用，
+        # 但 para_analysis 138 行仍会调到，做防御性兜底）
         for dict in Item:
-            if dict['year1'] == 0 and dict['year2'] != 0:
+            if dict.get('year1', 0) == 0 and dict.get('month', 0) != 0:
                 list1.append(dict)
-            elif dict['year1'] == 0 and dict['year2'] == 0:
+            elif dict.get('year1', 0) == 0 and dict.get('month', 0) == 0:
                 pass
             else:
-                if (dict['year1']-dict['year2'])/dict['year2'] < 0.3 \
-                        and (dict['year1']-dict['year2'])/dict['year2'] > -0.3:
+                y1 = dict.get('year1', 0)
+                m = dict.get('month', 0)
+                if y1 == 0:
+                    pass
+                elif (m - y1) / y1 < 0.3 and (m - y1) / y1 > -0.3:
                     pass
                 else:
                     list2.append(dict)
-        list_sorted_dict = sorted(list2, key=lambda x: x['year1']-x['year2'], reverse=True)
+        list_sorted_dict = sorted(
+            list2,
+            key=lambda x: x.get('month', 0) - x.get('year1', 0),
+            reverse=True
+        )
         #组成当期纯变化和超过30%变化的列表
         for dict in list_sorted_dict:
             list1.append(dict)
