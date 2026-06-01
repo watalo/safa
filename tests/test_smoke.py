@@ -80,7 +80,7 @@ def _build_all_years_xlsx(name: str) -> str:
 
 
 def _cleanup(name: str):
-    """清掉 mock 产物：input xlsx, db json, output docx"""
+    """清掉 mock 产物：input xlsx（仅 mock 文件，不动模板）, db json, output docx"""
     for path in [INPUT_PATH, OUTPUT_PATH, DB_PATH]:
         for filename in [f'{name}.xlsx', f'{name}.json', f'{name}.docx']:
             full = os.path.join(path, filename)
@@ -145,40 +145,43 @@ class SmokeTest(unittest.TestCase):
     验证 5 套数据形态都能跑通。
 
     设计原则：
-    - `normal` 必须通过——它代表最常见场景，P0 修复（data_type 命名、financial_sheet、
-      big_change_sheet 公式）必须保证这条路径不出错。
-    - 其它 4 套若失败，单独报告（_print_regression），不 fail CI。
-      它们可能是 smoke test 自身问题（mock 数据分布），
-      也可能是本次未列入 P0 的新发现 bug——后者需要单独 issue/PR 修复。
-      （PR #2 修了其中 4 个：format string x2 / s2d4 缺 m 键 / exsit_data_list 越界；
-       仍剩 1 个新发现 bug：big_change_items + no_year1 {:,.f} 缺精度，未修。）
+    - 5 套数据形态（normal / no_year3 / no_year2 / no_year1 / all_years）必须全部通过。
+    - PR #2 修了 4 个 P0 bug（data_type 命名、financial_sheet、big_change_sheet 括号、webapp 加固）。
+    - PR #3 修了 4 个 smoke test regression（format string x2 / s2d4 缺 m 键 / exsit_data_list 越界）。
+    - 本 PR (#4) 修了 4 个剩余 bug（big_change_items 列缺失 x2 / {:,.f} 缺精度 / all_years 错用 month 列），
+      让 5 套数据形态都达到"能跑通"基线。
+    - two_years：项目未演示，跳过。
     """
 
     def test_normal(self):
-        """P0 修复的核心验证：normal 形态必须能跑通"""
+        """normal 形态必须能跑通"""
         r = _run_one('normal')
         print(f'\n  ✅ normal:    docx={r.get("docx_size", "?")}B, db_rows={r.get("db_rows", "?")}')
         self.assertTrue(r['ok'], f'normal 失败: {r.get("err")}')
 
-    def test_no_year3_regression(self):
-        """no_year3 形态：报告问题，不 fail（已修）"""
+    def test_no_year3(self):
+        """no_year3 形态必须能跑通（成立不足 3 年）"""
         r = _run_one('no_year3')
-        _print_regression(r, 'no_year3')
+        print(f'\n  ✅ no_year3:  docx={r.get("docx_size", "?")}B, db_rows={r.get("db_rows", "?")}')
+        self.assertTrue(r['ok'], f'no_year3 失败: {r.get("err")}')
 
-    def test_no_year2_regression(self):
-        """no_year2 形态：报告问题，不 fail（big_change_items 仍 fail）"""
+    def test_no_year2(self):
+        """no_year2 形态必须能跑通（成立不足 2 年）"""
         r = _run_one('no_year2')
-        _print_regression(r, 'no_year2')
+        print(f'\n  ✅ no_year2:  docx={r.get("docx_size", "?")}B, db_rows={r.get("db_rows", "?")}')
+        self.assertTrue(r['ok'], f'no_year2 失败: {r.get("err")}')
 
-    def test_no_year1_regression(self):
-        """no_year1 形态：报告问题，不 fail（{:,.f} 缺精度 仍 fail）"""
+    def test_no_year1(self):
+        """no_year1 形态必须能跑通（成立不足 1 年）"""
         r = _run_one('no_year1')
-        _print_regression(r, 'no_year1')
+        print(f'\n  ✅ no_year1:  docx={r.get("docx_size", "?")}B, db_rows={r.get("db_rows", "?")}')
+        self.assertTrue(r['ok'], f'no_year1 失败: {r.get("err")}')
 
-    def test_all_years_regression(self):
-        """all_years 形态：报告问题，不 fail（已修）"""
+    def test_all_years(self):
+        """all_years 形态必须能跑通（期末数据场景，无 month 列）"""
         r = _run_one('all_years')
-        _print_regression(r, 'all_years')
+        print(f'\n  ✅ all_years: docx={r.get("docx_size", "?")}B, db_rows={r.get("db_rows", "?")}')
+        self.assertTrue(r['ok'], f'all_years 失败: {r.get("err")}')
 
 
 if __name__ == '__main__':

@@ -408,8 +408,8 @@ class dict_:
                 com2 = '较弱，出现亏损情况'
 
         elif self.data_type == 'no_year1':
-            com1 = '{:,.f}'.format(self.db_data('营业收入','month'))
-            com2 = '{:,.f}'.format(self.db_data('净利润','month'))
+            com1 = '{:,.2f}'.format(self.db_data('营业收入','month'))
+            com2 = '{:,.2f}'.format(self.db_data('净利润','month'))
 
         elif self.data_type == 'all_years':
             # com1
