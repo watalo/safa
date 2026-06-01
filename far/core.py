@@ -209,13 +209,14 @@ class getDB(object):
                 # 当期比前值的变化
                 if len(exsit_data_list) >= 2:
                     delta = exsit_data_list[-1] - exsit_data_list[-2]
+                    # 当期比前值的变化幅度
+                    if exsit_data_list[-2] == 0:
+                        ratio = '净新增'
+                    else:
+                        ratio = delta / exsit_data_list[-2]
                 else:
-                    delta = exsit_data_list[-1]
-                # 当期比前值的变化幅度
-                if exsit_data_list[-2] == 0:
+                    delta = exsit_data_list[-1] if exsit_data_list else 0
                     ratio = '净新增'
-                else:
-                    ratio = delta / exsit_data_list[-2]
 
                 table.update(
                     {

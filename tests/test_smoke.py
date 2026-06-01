@@ -147,9 +147,11 @@ class SmokeTest(unittest.TestCase):
     设计原则：
     - `normal` 必须通过——它代表最常见场景，P0 修复（data_type 命名、financial_sheet、
       big_change_sheet 公式）必须保证这条路径不出错。
-    - 其它 4 套若失败，单独报告（_collect_regression_result），不 fail CI。
+    - 其它 4 套若失败，单独报告（_print_regression），不 fail CI。
       它们可能是 smoke test 自身问题（mock 数据分布），
       也可能是本次未列入 P0 的新发现 bug——后者需要单独 issue/PR 修复。
+      （PR #2 修了其中 4 个：format string x2 / s2d4 缺 m 键 / exsit_data_list 越界；
+       仍剩 1 个新发现 bug：big_change_items + no_year1 {:,.f} 缺精度，未修。）
     """
 
     def test_normal(self):
@@ -159,22 +161,22 @@ class SmokeTest(unittest.TestCase):
         self.assertTrue(r['ok'], f'normal 失败: {r.get("err")}')
 
     def test_no_year3_regression(self):
-        """no_year3 形态：报告问题，不 fail（待新 PR 修复）"""
+        """no_year3 形态：报告问题，不 fail（已修）"""
         r = _run_one('no_year3')
         _print_regression(r, 'no_year3')
 
     def test_no_year2_regression(self):
-        """no_year2 形态：报告问题，不 fail"""
+        """no_year2 形态：报告问题，不 fail（big_change_items 仍 fail）"""
         r = _run_one('no_year2')
         _print_regression(r, 'no_year2')
 
     def test_no_year1_regression(self):
-        """no_year1 形态：报告问题，不 fail"""
+        """no_year1 形态：报告问题，不 fail（{:,.f} 缺精度 仍 fail）"""
         r = _run_one('no_year1')
         _print_regression(r, 'no_year1')
 
     def test_all_years_regression(self):
-        """all_years 形态：报告问题，不 fail"""
+        """all_years 形态：报告问题，不 fail（已修）"""
         r = _run_one('all_years')
         _print_regression(r, 'all_years')
 
