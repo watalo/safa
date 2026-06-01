@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "safa"
+version = "0.1.0"
+description = "Semi-Automatic Financial Analysis — 填好财务数据表格,自动生成分析报告"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [{ name = "watalo" }]
+keywords = ["finance", "report", "docx", "excel"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+]
+dependencies = [
+    "Flask>=3.0",
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    "tinydb>=4.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/watalo/safa"
+Issues = "https://github.com/watalo/safa/issues"
+
+[tool.setuptools]
+py-modules = ["start", "start_aigc", "webapp"]
+
+[tool.setuptools.packages.find]
+include = ["far*"]
