@@ -41,8 +41,6 @@ class getDB(object):
     def initPath(self):
         # xlsx文件名
         self.xls_file_name = f'{self.name}.xlsx'
-        # xlsx文件根目录
-        self.root_path = os.path.join(_config.ROOT_PATH, 'safa')
         # xlsx文件路径
         self.xls_file_path = os.path.join(_config.INPUT_PATH, f'{self.name}.xlsx')
         # 读取xlsx文件

@@ -16,9 +16,9 @@ from far import _text ,_config
 '''
 1 判断数据结构的年份构成
     normal
-    no_3year
-    no_2year
-    no_1year
+    no_year3
+    no_year2
+    no_year1
     all_years
     two_years
 2 对text类中的text进行匹配
@@ -103,7 +103,7 @@ class dict_:
     def data_type(self):
         '''
         判断数据类型
-        :return: 数据结构的类型[normal,no_3year,no_2year,no_1year,all_years,two_years]
+        :return: 数据结构的类型[normal,no_year3,no_year2,no_year1,all_years,two_years]
         '''
         Q = Query()
         table = self.db.table('without_nodata')
@@ -114,13 +114,13 @@ class dict_:
             return 'normal'
         elif ('year3' not in type_list and 'year2' in type_list and
                 'year1' in type_list and 'month' in type_list):
-            return 'no_3year'
+            return 'no_year3'
         elif ('year3' not in type_list and 'year2' not in type_list and
                 'year1' in type_list and 'month' in type_list):
-            return 'no_2year'
+            return 'no_year2'
         elif ('year3' not in type_list and 'year2' not in type_list and
                 'year1' not in type_list and 'month' in type_list):
-            return 'no_1year'
+            return 'no_year1'
         elif ('year3' in type_list and 'year2' in type_list and
                 'year1' in type_list and 'month' not in type_list):
             return 'all_years'
@@ -200,7 +200,7 @@ class dict_:
             else:
                 num = self.db_data('资产负债率','averg')
                 commit = '在{:.2f}上下波动，资产负债结构相对稳定。'.format(num)
-        elif self.data_type == 'no_3year':
+        elif self.data_type == 'no_year3':
             if (self.db_data('资产负债率','year2')<self.db_data('资产负债率', 'year1')<self.db_data('资产负债率','month')):
                 commit = '逐年增加，有加大资本杠杆的趋势。'
             elif (self.db_data('资产负债率','year2')>self.db_data('资产负债率', 'year1')>self.db_data('资产负债率','month')):
@@ -210,7 +210,7 @@ class dict_:
             else:
                 num = self.db_data('资产负债率','averg')
                 commit = '在{:.2f}}上下波动，资产负债结构相对稳定。'.format(num)
-        elif self.data_type == 'no_2year':
+        elif self.data_type == 'no_year2':
             if (self.db_data('资产负债率', 'year1') < self.db_data('资产负债率', 'month')):
                 commit = '有所增加，有加大资本杠杆的趋势。'
             elif (self.db_data('资产负债率', 'year1') > self.db_data('资产负债率', 'month')):
@@ -219,7 +219,7 @@ class dict_:
                 commit = '一直为0，处于无负债状态。'
             else:
                 pass
-        elif self.data_type == 'no_1year':
+        elif self.data_type == 'no_year1':
             if self.db_data('资产负债率','month') >= 0.5:
                 commit = '超过了50%。'
             else:
@@ -262,7 +262,7 @@ class dict_:
                     commit = '以长期负债为主，非流动负债占比高于50%。近三年及最新一期'
                 else:
                     commit = '期限结构均衡，流动负债占比等于50%。'
-        elif self.data_type == 'no_3year':
+        elif self.data_type == 'no_year3':
             # 极端情况：资产负债率始终为0
             if (self.db_data('资产负债率','year2')==self.db_data('资产负债率', 'year1')
                     ==self.db_data('资产负债率','month')==0 ):
@@ -274,7 +274,7 @@ class dict_:
                     commit = '以长期负债为主，非流动负债占比高于50%。近两年及最新一期'
                 else:
                     commit = '期限结构均衡，流动负债占比等于50%。'
-        elif self.data_type == 'no_2year':
+        elif self.data_type == 'no_year2':
             # 极端情况：资产负债率始终为0
             if (self.db_data('资产负债率', 'year1') == self.db_data('资产负债率', 'month') == 0):
                 commit = '为零>>>请删除本段文字<<<'
@@ -285,7 +285,7 @@ class dict_:
                     commit = '以长期负债为主，非流动负债占比高于50%。上一年及最新一期'
                 else:
                     commit = '期限结构均衡，流动负债占比等于50%。'
-        elif self.data_type == 'no_1year':
+        elif self.data_type == 'no_year1':
             # 极端情况：资产负债率始终为0
             if self.db_data('资产负债率', 'month') == 0:
                 commit = '为零>>>请删除本段文字<<<'
@@ -364,7 +364,7 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-        elif self.data_type == 'no_3year':
+        elif self.data_type == 'no_year3':
             # com1
             if self.db_data('营业收入', 'year2') == self.db_data('营业收入', 'year1') == 0:
                 commit = '连续两年未实现销售收入。'
@@ -389,7 +389,7 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-        elif self.data_type == 'no_2year':
+        elif self.data_type == 'no_year2':
             # com1
             if self.db_data('营业收入', 'year1') > 0:
                 com1 = '已实现销售收入'
@@ -407,7 +407,7 @@ class dict_:
             else:
                 com2 = '较弱，出现亏损情况'
 
-        elif self.data_type == 'no_1year':
+        elif self.data_type == 'no_year1':
             com1 = '{:,.f}'.format(self.db_data('营业收入','month'))
             com2 = '{:,.f}'.format(self.db_data('净利润','month'))
 
@@ -474,7 +474,7 @@ class dict_:
         commit = '%s，在总资产构成中的占比分别为%s'
         text_sorted_asset = ''
         text_sorted_ratio = ''
-        if (self.data_type == 'normal' or self.data_type == 'no_3year' or self.data_type == 'no_2year' or
+        if (self.data_type == 'normal' or self.data_type == 'no_year3' or self.data_type == 'no_year2' or
             self.data_type == 'all_years' or self.data_type == 'two_years'):
             text_sorted_asset = '、'.join(self.sort_asset('year1', 'items')[:5])
             sorted_ratio = []
@@ -482,7 +482,7 @@ class dict_:
                 ratio = 100 * value / self.db_data('资产总计', 'year1')
                 sorted_ratio.append('%.2f%%' % ratio)
             text_sorted_ratio = '、'.join(sorted_ratio)
-        elif self.data_type == 'no_1year':
+        elif self.data_type == 'no_year1':
             text_sorted_asset = '、'.join(self.sort_asset('month', 'items')[:5])
             sorted_ratio = []
             for value in self.sort_asset('month', 'month')[:5]:
