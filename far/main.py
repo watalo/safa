@@ -7,7 +7,7 @@ from tinydb import TinyDB, Query
 from docx.shared import Inches
 from docx import Document
 from docx.oxml.ns import qn
-from docx.shared import Pt, Length
+from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from far import *
 from far._config import IMG_PATH
@@ -83,13 +83,13 @@ class Conf(object):
     def normal(self):
         return _text.normal()
     
-    def no_years3(self):
+    def no_year3(self):
         return _text.no_year3()
-    
-    def no_years2(self):
+
+    def no_year2(self):
         return _text.no_year2()
-    
-    def no_years1(self):
+
+    def no_year1(self):
         return _text.no_year1()
     
     def all_years(self):
@@ -199,39 +199,63 @@ def para_analysis(doc,conf):
     #     para_.paragraph_format.first_line_indent = Pt(24)
 
 # -----------------------------------------------------------------------
-def financial_sheet(conf_obj,doc):
-    Q = Query()
-    item_list = []  # 表头列表
-    for item in conf_obj.table_for_print.all():
-        item_list.append(item['items'])
-    data_list = []  # 数据列表
-    for data in conf_obj.table_for_print.search(Q.items == '项目'):
-        for i, it in enumerate(data):
-            if type(it) == str:
-                data_list.append(it)
-    data_list = data_list[:5]
-    
-# ------------------------------------------------------------------------
+# -----------------------------------------------------------------------
+def financial_sheet(conf_obj, doc):
+    """
+    把 for_print 表里的科目 / 金额渲染成 docx 表格。
+    表头用第一行（'项目'/'前3年'/...），其余行用数值格式化输出。
+    """
+    rows = conf_obj.table_for_print.all()
+    if not rows:
+        return
+
+    # 1) 推断表头：取第一行所有 value，按插入顺序
+    header_row = rows[0]
+    headers = list(header_row.values())          # e.g. ['项目', '前3年', '前2年', '前1年', '当期']
+    num_cols = len(headers)
+
+    # 2) 决定要渲染哪些列（科目 + 数值列；含 'averg'/'sum'/'ratio'/'delta'/'type' 的不要）
+    skip_keys = {'items', 'averg', 'sum', 'ratio', 'delta', 'type'}
+    # 按表头顺序确定 key 顺序：第一个 value 之后对应行 dict 的 key 顺序（除掉 skip_keys）
+    header_keys = ['items'] + [k for k in header_row.keys()
+                                if k != 'items' and k not in skip_keys]
+    # 如果 header_keys 数量对不上（极端情况），回退到所有 keys
+    if len(header_keys) != num_cols:
+        header_keys = list(header_row.keys())
+
+    # 3) 哪些科目是百分比形式（xratio 列表）
     xratio = [
         '资产负债率', '费用收入比', '流动资产占比',
         '毛利率', '净利润率', '刚兑占比', '短债占比',
         '总资产收益率(ROA)', '净资产收益率(ROE)',
-    ]  # 百分数形式的财务指标 eg:‘11.11%’
-    table = doc.add_table(rows=len(conf_obj.table_for_print.all()),
-                          cols=5,
+    ]
+
+    # 4) 创建表格：行数 = (header + data rows), 列数 = num_cols
+    data_rows = rows[1:]  # 跳过第一行（表头）
+    table = doc.add_table(rows=len(data_rows) + 1,
+                          cols=num_cols,
                           style="Light Grid")
-# ------------------------------------------------------------------------
-    for irows, item in enumerate(item_list):
-        for icols, data in enumerate(data_list):
-            num = conf_obj.table_for_print.get(Q.items == item)[data]
-            if isinstance(num, float):
-                if item in xratio:
-                    table.cell(irows, icols).text = '{:.2%}'.format(num)
+
+    # 5) 写表头
+    for ci, h in enumerate(headers):
+        cell = table.cell(0, ci)
+        cell.text = str(h) if h is not None else ''
+
+    # 6) 写数据行
+    for ri, row in enumerate(data_rows, start=1):
+        for ci, key in enumerate(header_keys):
+            value = row.get(key, 0)
+            cell = table.cell(ri, ci)
+            item_name = row.get('items', '')
+            if isinstance(value, str):
+                cell.text = value
+            elif isinstance(value, (int, float)):
+                if item_name in xratio:
+                    cell.text = '{:.2%}'.format(value)
                 else:
-                    table.cell(irows, icols).text = '{:,.2f}'.format(num)
+                    cell.text = '{:,.2f}'.format(value)
             else:
-                table.cell(irows, icols).text = str(num)
-# ------------------------------------------------------------------------
+                cell.text = str(value) if value is not None else ''
 
 def big_change_items(conf_obj):
     '''
@@ -301,7 +325,7 @@ def big_change_sheet(conf_obj,doc):
             table_change.cell(i + 1, 2).text = '{:,.2f}'.format(
                 data(conf_obj,item,'year1') - data(conf_obj,item,'year2'))  # 变化值
             if data(conf_obj,item,'year2') != 0:
-                ratio = data(conf_obj,item,'year1') - data(conf_obj, item, 'year2') / data(conf_obj, item, 'year2')
+                ratio = (data(conf_obj, item, 'year1') - data(conf_obj, item, 'year2')) / data(conf_obj, item, 'year2')
                 table_change.cell(i + 1, 3).text = '{:.2%}'.format(ratio)  # 变化率
             else:
                 if data(conf_obj, item, 'year1') > 0:
@@ -418,7 +442,7 @@ def items_detail(conf_obj, doc, date):
     for item in list_dict:  # 第一行是表头,里面有字符串,必须剔除
         # 设置科目分析的文字模版
         if data(conf_obj, item, date) != 0:
-            if conf_obj.data_type == 'no_1year':
+            if conf_obj.data_type == 'no_year1':
                 item_text = '【{}】：当期余额{:,.2f}万元,在{}中占比{:.2%}。'
             else:
                 item_text = '【{}】：当期余额{:,.2f}万元,在{}中占比{:.2%},较上年增加{:.2f}万元,{}。'
@@ -439,7 +463,7 @@ def items_detail(conf_obj, doc, date):
         else:
             text_ratio = '当年增幅为{:.2%}'.format(data(conf_obj, item, 'ratio'))
         # 模版的格式化输出
-        if conf_obj.data_type == 'no_1year':
+        if conf_obj.data_type == 'no_year1':
             para_ = doc.add_paragraph(
                 item_text.format(
                     data(conf_obj, item,'items'),
