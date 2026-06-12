@@ -2,6 +2,7 @@
     直接使用get_docx()生成docx文件
 '''
 
+import logging
 import os
 from tinydb import TinyDB, Query
 from docx.shared import Inches
@@ -9,8 +10,10 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from safa import *
+from safa import _text, _config, _para
 from safa._config import IMG_PATH
+
+log = logging.getLogger(__name__)
 
 
 
@@ -381,7 +384,7 @@ def items_detail(conf_obj, doc, date):
             else:
                 pass
         except Exception as Er:
-            pass
+            log.warning("items_detail() 跳过异常科目 %r: %s", dict.get('items'), Er)
     # 科目分析
     for item in list_dict:  # 第一行是表头,里面有字符串,必须剔除
         # 设置科目分析的文字模版

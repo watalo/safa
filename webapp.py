@@ -9,20 +9,18 @@
 '''
 
 from flask import Flask, render_template, request, send_file
+import logging
 import os
 from pathlib import Path
 from werkzeug.utils import secure_filename
-from start import *
+from start import start as get_start
 from safa import _config
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB 上传上限
 
-# 允许的清理目录（仅 xlsx 后缀；只接受 INPUT_PATH 之内）
-_ALLOWED_CLEAN_DIRS = {
-    Path(_config.INPUT_PATH).resolve(),
-    Path(_config.OUTPUT_PATH).resolve(),
-    Path(_config.DB_PATH).resolve(),
-}
+log = logging.getLogger(__name__)
+
 
 # 文件下载功能
 @app.route('/download')
@@ -42,31 +40,6 @@ def download_file2():
 # 文件上传功能
 @app.route('/upload', methods=['get','POST'])
 def upload_file():
-    for dirpath in (
-        _config.INPUT_PATH,
-        _config.OUTPUT_PATH,
-        _config.DB_PATH,
-    ):
-        base = Path(dirpath).resolve()
-        if not base.is_dir():
-            continue
-        for candidate in base.iterdir():
-            if not candidate.is_file():
-                continue
-            # 只清理 .xlsx 文件（保护 docx/json/图片等）
-            if candidate.suffix.lower() != '.xlsx':
-                continue
-            # 路径穿越校验：必须位于 base 之内
-            try:
-                if not candidate.resolve().is_relative_to(base):
-                    continue
-            except (ValueError, OSError):
-                continue
-            try:
-                candidate.unlink()
-            except OSError:
-                pass
-
     if request.method == 'POST':
         file = request.files['file']  # 获取上传的文件
         # 文件名安全化 + 强制 .xlsx 后缀 + 路径穿越校验
@@ -85,17 +58,36 @@ def upload_file():
         # 确保目标目录存在
         target.parent.mkdir(parents=True, exist_ok=True)
         file.save(str(target))
+        # 上传成功后才清理上一次的产物（db/json + output/docx）
+        # —— 不清 input 的 xlsx, 刚存的就是新的
+        _cleanup_except_input_xlsx()
         return render_template('index.html', success=True)
     return render_template('index.html')
 
-# 生成报告功能
-@app.route('/generate_report')
+def _cleanup_except_input_xlsx():
+    """清掉上一次的 db/json + output/docx（保留 input/*.xlsx）"""
+    for dirpath in (_config.OUTPUT_PATH, _config.DB_PATH):
+        base = Path(dirpath).resolve()
+        if not base.is_dir():
+            continue
+        for candidate in base.iterdir():
+            if not candidate.is_file():
+                continue
+            try:
+                if not candidate.resolve().is_relative_to(base):
+                    continue
+            except (ValueError, OSError):
+                continue
+            try:
+                candidate.unlink()
+            except OSError as e:
+                log.warning("cleanup 失败: %s (%s)", candidate, e)
+
+# 生成报告功能（POST only, 不再清空 input）
+@app.route('/generate_report', methods=['POST'])
 def generate_report():
-
-    # 进行后台程序的处理，生成新的报告文件
-    init_dir()
+    # 不再调 init_dir() —— 残留由 upload 时清
     new_filename = get_start()
-
     return send_file(new_filename, as_attachment=True)  # 返回生成的报告文件下载
 
 # 页面渲染
@@ -104,4 +96,5 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    # 默认 debug=False; host=127.0.0.1 仅本机; port=5000
     app.run(debug=False, host='127.0.0.1', port=5000)

@@ -7,6 +7,7 @@
 # @Software: PyCharm
 
 
+import logging
 import os
 from tinydb import TinyDB ,Query
 from safa import _text ,_config
@@ -14,6 +15,8 @@ from safa._analysis_s2d1 import AnalysisS2d1Mixin
 from safa._analysis_s2d2 import AnalysisS2d2Mixin
 from safa._analysis_s2d3 import AnalysisS2d3Mixin
 from safa._analysis_s2d5 import AnalysisS2d5Mixin
+
+log = logging.getLogger(__name__)
 
 
 
@@ -141,6 +144,8 @@ class dict_(AnalysisS2d5Mixin, AnalysisS2d3Mixin, AnalysisS2d2Mixin, AnalysisS2d
         try:
             para_dict[text_key] = self.table.get(self.Q.items == item)[key]
         except Exception as error:
+            log.warning("data() 取数失败: item=%r key=%r, 默认设 0 (err=%s)",
+                        item, key, error)
             para_dict[text_key] = 0
 
     def set(self):
