@@ -27,9 +27,9 @@ from openpyxl import load_workbook
 # 让 unittest 跑得到 far 包
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from far._config import INPUT_PATH, OUTPUT_PATH, DB_PATH  # noqa: E402
-from far.core import getDB  # noqa: E402
-from far.main import get_docx  # noqa: E402
+from safa._config import INPUT_PATH, OUTPUT_PATH, DB_PATH  # noqa: E402
+from safa.core import getDB  # noqa: E402
+from safa.main import get_docx  # noqa: E402
 
 
 # 数据形态定义：每种形态保留右侧 n_keep 列（前面 4-n_keep 列清零）

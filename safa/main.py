@@ -9,8 +9,8 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from far import *
-from far._config import IMG_PATH
+from safa import *
+from safa._config import IMG_PATH
 
 
 

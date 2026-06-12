@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from werkzeug.utils import secure_filename
 from start import *
-from far import _config
+from safa import _config
 
 app = Flask(__name__)
 

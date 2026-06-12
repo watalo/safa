@@ -36,7 +36,7 @@ Homepage = "https://github.com/watalo/safa"
 Issues = "https://github.com/watalo/safa/issues"
 
 [tool.setuptools]
-py-modules = ["start", "start_aigc", "webapp"]
+py-modules = ["start", "webapp"]
 
 [tool.setuptools.packages.find]
-include = ["far*"]
+include = ["safa*"]

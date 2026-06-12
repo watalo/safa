@@ -10,9 +10,9 @@
 经典方法执行文件
 '''
 import os
-from far._config import INPUT_PATH, OUTPUT_PATH, DB_PATH
-from far.core import getDB
-from far.main import get_docx
+from safa._config import INPUT_PATH, OUTPUT_PATH, DB_PATH
+from safa.core import getDB
+from safa.main import get_docx
 
 def init_dir():
     for path in [OUTPUT_PATH, DB_PATH]:

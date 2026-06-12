@@ -9,11 +9,11 @@
 
 import os
 from tinydb import TinyDB ,Query
-from far import _text ,_config
-from far._analysis_s2d1 import AnalysisS2d1Mixin
-from far._analysis_s2d2 import AnalysisS2d2Mixin
-from far._analysis_s2d3 import AnalysisS2d3Mixin
-from far._analysis_s2d5 import AnalysisS2d5Mixin
+from safa import _text ,_config
+from safa._analysis_s2d1 import AnalysisS2d1Mixin
+from safa._analysis_s2d2 import AnalysisS2d2Mixin
+from safa._analysis_s2d3 import AnalysisS2d3Mixin
+from safa._analysis_s2d5 import AnalysisS2d5Mixin
 
 
 
