@@ -4,6 +4,11 @@ far/__pycache__/
 *.py[cod]
 *$py.class
 
+# Project artifacts（产物, 不入版本控制）
+db/
+output/
+input/
+
 # C extensions
 *.so
 
